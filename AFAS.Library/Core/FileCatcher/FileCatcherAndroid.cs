@@ -57,7 +57,7 @@ namespace AFAS.Library.Core
                 var path = RootPath + RelativePath;
                 var fileNames = RootPathFileNames[RootPath];
 
-                if (Type=="RegEx")
+                if (IsRegEx)
                 {
                     Regex r = new Regex(path, RegexOptions.None);
                     var MatchNames = fileNames.Where(c => r.IsMatch(c)).ToList();  

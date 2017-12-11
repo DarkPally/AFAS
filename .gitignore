@@ -5,3 +5,6 @@ package/
 *.pdb
 *.XML
 *.nupkg
+*.targets
+*.deleteme
+*.cache

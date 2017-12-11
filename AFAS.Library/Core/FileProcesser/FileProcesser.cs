@@ -4,9 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AFAS.Library.Core.FileProcesser
+namespace AFAS.Library.Core
 {
-    class FileProcesser
+    public class FileProcesser
     {
+        public string Script { get; set; }
+
+        
     }
 }

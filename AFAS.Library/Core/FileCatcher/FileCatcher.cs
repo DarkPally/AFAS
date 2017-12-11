@@ -9,14 +9,15 @@ namespace AFAS.Library.Core
 {
     public class FileCatcher
     {
-
+        public PackageForensic Environment { get; set; }
+        public FileCatcherInfo Info { get; set; }
         //RegEx,Normal
-        public string Type { get; set; }
+        public bool IsRegEx { get { return Info.IsRegEx; } }
 
-        public string RelativePath { get; set; }
+        public string RelativePath { get { return Info.RelativePath; } }
         //强制统一以/开头以/为结尾
         //不填即默认初始化为data/data/[PackageName]/
-        public string RootPath { get; set; }
+        public string RootPath { get { return Info.RootPath; } }
 
         //PC根目录,统一带有\\结尾
         public string PCPath { get; set; }

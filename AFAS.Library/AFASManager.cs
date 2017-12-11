@@ -22,10 +22,5 @@ namespace AFAS.Library
         {
 
         }
-
-        public void InitForNewWork()
-        {
-            FileCatcher.Init();
-        }
     }
 }
