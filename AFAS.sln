@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26730.16
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AFAS.Test", "AFAS.Test\AFAS.Test.csproj", "{0C272F88-2A47-4911-9F9F-BF092604CEBB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AFAS.Library", "AFAS.Library\AFAS.Library.csproj", "{403DDA0A-5702-48F2-B95F-93B199D18104}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0C272F88-2A47-4911-9F9F-BF092604CEBB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C272F88-2A47-4911-9F9F-BF092604CEBB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C272F88-2A47-4911-9F9F-BF092604CEBB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C272F88-2A47-4911-9F9F-BF092604CEBB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{403DDA0A-5702-48F2-B95F-93B199D18104}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{403DDA0A-5702-48F2-B95F-93B199D18104}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{403DDA0A-5702-48F2-B95F-93B199D18104}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{403DDA0A-5702-48F2-B95F-93B199D18104}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BFE1C9BF-D8FB-46ED-987A-EC76CEB2875C}
+	EndGlobalSection
+EndGlobal
