@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AFAS.Library.Core
 {
-
+    /*
     public enum ForensicRuleItemType
     {
         None,
@@ -17,11 +17,28 @@ namespace AFAS.Library.Core
         DataAssociate,
         ResultMark,
     }
+    */
 
+    public class ForensicRuleItemInfo
+    {
+        public string Key { get; set; }
+        public virtual void Init()
+        {
+
+        }
+    }
+
+    /*
     public class ForensicRuleItem
     {
-        public ForensicRuleItemType ItemType { get; set; }
-        public FileCatcherInfo FileCatcherInfo { get; set; }
+        public ForensicRuleItemType Type { get; set; }
+        public ForensicRuleItemInfo ItemInfo { get; set; }
+
+        public void Init()
+        {
+            ItemInfo.Init();
+        }
 
     }
+    */
 }

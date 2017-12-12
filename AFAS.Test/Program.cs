@@ -24,7 +24,7 @@ namespace AFAS.Test
                 Console.WriteLine("Add(3) = {0}", g.add(3)); // call the function in c#
             }
             */
-            LuaTest.Main1(args);
+            XmlTest.Main1(args);
             Console.ReadKey();
         }
     }

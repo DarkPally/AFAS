@@ -20,7 +20,7 @@ namespace AFAS.Library.Core
         public string RootPath { get { return Info.RootPath; } }
 
         //PC根目录,统一带有\\结尾
-        public string PCPath { get; set; }
+        public string PCPath { get { return Environment.PCPath; } }
 
         protected static Dictionary<string, List<string>> RootPathFileNames = new Dictionary<string, List<string>>();
 

@@ -7,10 +7,8 @@ using AFAS.Library.Android;
 
 namespace AFAS.Library.Core
 {
-    public class FileCatcherInfo
+    public class FileCatcherInfo: ForensicRuleItemInfo
     {
-        public string Key { get; set; }
-
         public bool IsRegEx { get; set; }
 
         public string RelativePath { get; set; }

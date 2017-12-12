@@ -33,7 +33,7 @@ namespace AFAS.Library.Core
             else
             {
                 InitAndroidFileExtractor();
-                var res = androidFileExtracter.SearchFiles(androidDevice, RootPath,"*", Android.Type.file);
+                var res = androidFileExtracter.SearchFiles(androidDevice, RootPath,"*", Android.AndroidFileType.file);
 
                 if(res.success)
                 {

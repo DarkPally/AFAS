@@ -53,6 +53,7 @@ namespace AFAS.Test
                     var d = LuaExceptionData.GetData(e); // get stack trace
                     Console.WriteLine("StackTrace: {0}", d.FormatStackTrace(0, false));
                 }
+                
             }
         } // Main
 

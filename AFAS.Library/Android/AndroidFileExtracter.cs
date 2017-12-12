@@ -14,7 +14,7 @@ namespace AFAS.Library.Android
     /// linux下的7种文件类型
     /// 不过在data目录中应该只有部分类型会存在
     /// </summary>
-    public enum Type
+    public enum AndroidFileType
     {
         alltype = 'a',
         fne = 'w', // file not exist
@@ -33,7 +33,7 @@ namespace AFAS.Library.Android
     /// </summary>
     public class FileProperty
     {
-        public Type type;
+        public AndroidFileType type;
         public string path;
         public string size;
         public string accessTime;
@@ -96,9 +96,9 @@ namespace AFAS.Library.Android
                 property.modifyTime = rawData[i + 5].Substring(8, rawData[5].Length - 8);
                 property.accessTime = rawData[i + 4].Substring(8, rawData[4].Length - 8);
 
-                if (rawData[i + 1].Contains("directory")) property.type = Type.directory;
-                if (rawData[i + 1].Contains("regular")) property.type = Type.file;
-                if (rawData[i + 1].Contains("symbol")) property.type = Type.link;
+                if (rawData[i + 1].Contains("directory")) property.type = AndroidFileType.directory;
+                if (rawData[i + 1].Contains("regular")) property.type = AndroidFileType.file;
+                if (rawData[i + 1].Contains("symbol")) property.type = AndroidFileType.link;
 
 
                 string sizePattern = @"(?<=Size: )\d*\b";
@@ -176,7 +176,7 @@ namespace AFAS.Library.Android
             try
             {
                 FileProperty property = GetProperty(device, path);
-                if (property.type == Type.directory)
+                if (property.type == AndroidFileType.directory)
                 {
 
                     result.filesName = new List<string>();
@@ -199,7 +199,7 @@ namespace AFAS.Library.Android
 
         }
 
-        public Result SearchFiles(string device, string path, string pattern, Type fileType)
+        public Result SearchFiles(string device, string path, string pattern, AndroidFileType fileType)
         {
             Result result = new Result();
             try
@@ -241,7 +241,7 @@ namespace AFAS.Library.Android
             try
             {
                 FileProperty property = GetProperty(device, path);
-                if (property.type == Type.directory)
+                if (property.type == AndroidFileType.directory)
                 {
                     var properities = AdbHelper.RunShell(device, listScript);
                     result.filesProperty = ParaseProperties(properities);
@@ -261,11 +261,11 @@ namespace AFAS.Library.Android
 
         }
 
-        public Result SearchFilesVerbose(string device, string path, string pattern, Type fileType)
+        public Result SearchFilesVerbose(string device, string path, string pattern, AndroidFileType fileType)
         {
 
             string searchScript;
-            if (fileType == Type.alltype)
+            if (fileType == AndroidFileType.alltype)
             {
                 searchScript = System.String.Format(
                                                    "find {0} -name \\\"{1}\\\"|" +
@@ -306,13 +306,13 @@ namespace AFAS.Library.Android
             try
             {
                 FileProperty property = GetProperty(device, devicePath);
-                if (property.type == Type.fne)
+                if (property.type == AndroidFileType.fne)
                     throw new Exception("Wrong path");
 
                 if (!System.IO.Directory.Exists(pcPath))
                     System.IO.Directory.CreateDirectory(pcPath);
 
-                if (property.type == Type.directory)
+                if (property.type == AndroidFileType.directory)
                 {
                     string fullPath = pcPath + '/' + property.path.Replace('/', '_');
                     if (!System.IO.Directory.Exists(fullPath))

@@ -14,6 +14,14 @@ namespace AFAS.Library.Core
         //包名描述，中文名称
         public string Desc { get; set; }
 
-        public List<ForensicRuleItem> Items { get; set; }
+        public List<ForensicRuleItemInfo> Items { get; set; }
+
+        public void Init()
+        {
+            foreach(var it in Items)
+            {
+                it.Init();
+            }
+        }
     }
 }

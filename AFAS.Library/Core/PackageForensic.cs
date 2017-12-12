@@ -15,15 +15,14 @@ namespace AFAS.Library.Core
 
         public Dictionary<string, List<string>> CatchFilePaths = new Dictionary<string, List<string>>();
 
-        void FileCatch(ForensicRuleItem item)
+        void FileCatch(ForensicRuleItemInfo item)
         {
             FileCatcher catcher;
             if (IsPC)
             {
                 catcher = new FileCatcherPC()
                 {
-                    Info = item.FileCatcherInfo,
-                    PCPath= PCPath,
+                    Info = item as FileCatcherInfo,
                     Environment=this,
                 };
             }
@@ -31,8 +30,7 @@ namespace AFAS.Library.Core
             {
                 catcher = new FileCatcherAndroid()
                 {
-                    Info = item.FileCatcherInfo,
-                    PCPath = PCPath,
+                    Info = item as FileCatcherInfo,
                     Environment = this,
                 };
             }
@@ -42,23 +40,29 @@ namespace AFAS.Library.Core
 
         }
 
-        void FileProcess(ForensicRuleItem item)
+        void FileProcess(ForensicRuleItemInfo item)
+        {
+            var fp = new FileProcesser()
+            {
+                Environment = this,
+                Info = item as FileProcesserInfo
+            };
+
+            fp.DoWork();
+        }
+        void DataCatch(ForensicRuleItemInfo item)
         {
 
         }
-        void DataCatch(ForensicRuleItem item)
+        void DataProcess(ForensicRuleItemInfo item)
         {
 
         }
-        void DataProcess(ForensicRuleItem item)
+        void DataAssociate(ForensicRuleItemInfo item)
         {
 
         }
-        void DataAssociate(ForensicRuleItem item)
-        {
-
-        }
-        void ResultMark(ForensicRuleItem item)
+        void ResultMark(ForensicRuleItemInfo item)
         {
 
         }
@@ -67,27 +71,15 @@ namespace AFAS.Library.Core
         {
             foreach(var it in RulePackage.Items)
             {
-                switch(it.ItemType)
+                if(it is FileCatcherInfo)
                 {
-                    case ForensicRuleItemType.FileCatch:
-                        FileCatch(it);
-                        break;
-                    case ForensicRuleItemType.FileProcess:
-                        DataCatch(it);
-                        break;
-                    case ForensicRuleItemType.DataCatch:
-                        DataCatch(it);
-                        break;
-                    case ForensicRuleItemType.DataProcess:
-                        DataProcess(it);
-                        break;
-                    case ForensicRuleItemType.DataAssociate:
-                        DataAssociate(it);
-                        break;
-                    case ForensicRuleItemType.ResultMark:
-                        ResultMark(it);
-                        break;
+                    FileCatch(it);
                 }
+                else if (it is FileProcesserInfo)
+                {
+                    FileProcess(it);
+                }
+                
             }
         }
     }

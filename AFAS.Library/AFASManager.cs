@@ -17,10 +17,13 @@ namespace AFAS.Library
             Init();
         }
 
-        
+        public static LuaManager Lua { get { return instance.luaManager; } }
+
+        LuaManager luaManager;
+
         public void Init()
         {
-
+            luaManager = new LuaManager();
         }
     }
 }
