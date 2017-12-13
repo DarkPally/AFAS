@@ -7,10 +7,11 @@ using System.IO;
 using System.Data;
 using System.Data.SQLite;
 using System.Text.RegularExpressions;
+using Neo.IronLua;
 
 namespace AFAS.Library.Core
 {
-    public class DataCatcherHelper
+    public class DataCatchHelper
     {
         public static DataTable GetDbDataTable(SQLiteConnection connection, string tableName)
         {
@@ -35,6 +36,32 @@ namespace AFAS.Library.Core
             {
                 conn.Open();
                 return GetDbDataTable(conn, tableName);
+            }
+        }
+
+        public static DataTable GetXmlDataTable(string xmlFilePath, string tableName)
+        {
+            try
+            {
+                DataSet ds = new DataSet();
+                //读取XML到DataSet 
+
+                StreamReader sr = new StreamReader(xmlFilePath, Encoding.Default);
+
+                ds.ReadXml(sr);
+
+                sr.Close();
+
+                foreach (DataTable it in ds.Tables)
+                {
+                    if (it.TableName == tableName)
+                        return it;
+                }
+                return null;
+            }
+            catch (Exception)
+            {
+                return null;
             }
         }
 
@@ -69,6 +96,11 @@ namespace AFAS.Library.Core
                 res.Rows.Add(dr);
             }
             return res;
+        }
+
+        public static DataTable GetBinaryDataTable(string dbFilePath, LuaChunk chunk)
+        {
+            return null;
         }
     }
 }

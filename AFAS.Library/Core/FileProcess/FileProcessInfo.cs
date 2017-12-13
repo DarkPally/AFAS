@@ -9,7 +9,7 @@ using Newtonsoft.Json;
 
 namespace AFAS.Library.Core
 {
-    public class FileProcesserInfo : ForensicRuleItemInfo
+    public class FileProcessInfo : ForensicRuleItemInfo
     {
         public string Script { get; set; }
         

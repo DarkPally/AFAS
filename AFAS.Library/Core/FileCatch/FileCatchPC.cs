@@ -8,7 +8,7 @@ using System.Text.RegularExpressions;
 
 namespace AFAS.Library.Core
 {
-    public class FileCatcherPC:FileCatcher
+    public class FileCatchPC:FileCatch
     {
 
         //RegEx,Normal
@@ -35,12 +35,13 @@ namespace AFAS.Library.Core
             }
         }
 
-        override public List<string> DoWork()
+        override public void DoWork()
         {
-            var res = new List<string>();
 
             if (checkRootPathExist())
             {
+
+                var res = new List<string>();
                 var path = RootPath + RelativePath;
                 path = path.Substring(1).Replace('/', '\\');
                 var fileNames = RootPathFileNames[RootPath];
@@ -65,8 +66,8 @@ namespace AFAS.Library.Core
                         res.Add(PCPath + path);
                     }
                 }
+                Environment.CatchFilePaths.Add(Info.Key, res);
             }
-            return res;
         }
     }
 }

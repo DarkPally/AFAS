@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data;
 
 namespace AFAS.Library.Core
 {
@@ -13,51 +14,67 @@ namespace AFAS.Library.Core
 
         public ForensicRulePackage RulePackage { get; set; }
 
+        //FileKey
         public Dictionary<string, List<string>> CatchFilePaths = new Dictionary<string, List<string>>();
+
+        //TableKey
+        public Dictionary<string, List<DataTable>> CatchDataTables = new Dictionary<string, List<DataTable>>();
 
         void FileCatch(ForensicRuleItemInfo item)
         {
-            FileCatcher catcher;
+            FileCatch catcher;
             if (IsPC)
             {
-                catcher = new FileCatcherPC()
+                catcher = new FileCatchPC()
                 {
-                    Info = item as FileCatcherInfo,
+                    Info = item as FileCatchInfo,
                     Environment=this,
                 };
             }
             else
             {
-                catcher = new FileCatcherAndroid()
+                catcher = new FileCatchAndroid()
                 {
-                    Info = item as FileCatcherInfo,
+                    Info = item as FileCatchInfo,
                     Environment = this,
                 };
             }
 
-            var res=catcher.DoWork();
-            CatchFilePaths.Add(catcher.Info.Key, res);
+            catcher.DoWork();
+            
 
         }
-
         void FileProcess(ForensicRuleItemInfo item)
         {
-            var fp = new FileProcesser()
+            var fp = new FileProcess()
             {
                 Environment = this,
-                Info = item as FileProcesserInfo
+                Info = item as FileProcessInfo
             };
 
             fp.DoWork();
         }
         void DataCatch(ForensicRuleItemInfo item)
         {
-
+            var dc = new DataCatch()
+            {
+                Environment = this,
+                Info = item as DataCatchInfo,
+                
+            };
+            dc.DoWork();
         }
         void DataProcess(ForensicRuleItemInfo item)
         {
+            var dp = new DataProcess()
+            {
+                Environment = this,
+                Info = item as DataProcessInfo,
 
+            };
+            dp.DoWork();
         }
+
         void DataAssociate(ForensicRuleItemInfo item)
         {
 
@@ -71,11 +88,11 @@ namespace AFAS.Library.Core
         {
             foreach(var it in RulePackage.Items)
             {
-                if(it is FileCatcherInfo)
+                if(it is FileCatchInfo)
                 {
                     FileCatch(it);
                 }
-                else if (it is FileProcesserInfo)
+                else if (it is FileProcessInfo)
                 {
                     FileProcess(it);
                 }

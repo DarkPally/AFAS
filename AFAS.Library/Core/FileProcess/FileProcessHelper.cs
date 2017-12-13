@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AFAS.Library.Core
 {
-    public static class FileProcesserHelper
+    public static class FileProcessHelper
     {
         
     }

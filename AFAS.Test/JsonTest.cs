@@ -20,9 +20,9 @@ namespace AFAS.Test
                 Name = "Test",
                 Items = new List<ForensicRuleItemInfo>()
                {
-                   new FileCatcherInfo(){Key="c1",RelativePath="ddd",RootPath="aaaa"},
-                   new FileProcesserInfo(){Script="ssss"},
-                   new FileProcesserInfo(){Script="ssss"}
+                   new FileCatchInfo(){Key="c1",RelativePath="ddd",RootPath="aaaa"},
+                   new FileProcessInfo(){Script="ssss"},
+                   new FileProcessInfo(){Script="ssss"}
                },
             };
 

@@ -7,7 +7,7 @@ using AFAS.Library.Android;
 using System.Text.RegularExpressions;
 namespace AFAS.Library.Core
 {
-    public class FileCatcherAndroid:FileCatcher
+    public class FileCatchAndroid:FileCatch
     {
         
 
@@ -48,12 +48,11 @@ namespace AFAS.Library.Core
             }
         }
 
-        override public List<string> DoWork()
+        override public void DoWork()
         {
-            var res = new List<string>();
-
             if (checkRootPathExist())
             {
+                var res = new List<string>();
                 var path = RootPath + RelativePath;
                 var fileNames = RootPathFileNames[RootPath];
 
@@ -82,8 +81,9 @@ namespace AFAS.Library.Core
                         res.Add(pcPath);
                     }
                 }
+                Environment.CatchFilePaths.Add(Info.Key, res);
             }
-            return res;
+            
         }
     }
 }

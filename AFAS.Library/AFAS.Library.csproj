@@ -55,21 +55,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Core\DataCatcher\DataCatcherHelper.cs" />
-    <Compile Include="Core\DataCatcher\DataCatcherInfo.cs" />
-    <Compile Include="Core\DataCatcher\DataCatcher.cs" />
-    <Compile Include="Core\FileProcesser\FileProcesserHelper.cs" />
+    <Compile Include="Core\DataAssociate\DataAssociateInfo.cs" />
+    <Compile Include="Core\DataCatch\DataCatchHelper.cs" />
+    <Compile Include="Core\DataCatch\DataCatchInfo.cs" />
+    <Compile Include="Core\DataCatch\DataCatch.cs" />
+    <Compile Include="Core\DataProcess\DataProcessInfo.cs" />
+    <Compile Include="Core\DataProcess\DataProcess.cs" />
+    <Compile Include="Core\FileProcess\FileProcessHelper.cs" />
     <Compile Include="LuaManager.cs" />
     <Compile Include="AFASManager.cs" />
     <Compile Include="Android\AdbHelper.cs" />
     <Compile Include="Android\ProcessHelper.cs" />
-    <Compile Include="Core\FileCatcher\FileCatcherInfo.cs" />
-    <Compile Include="Core\FileCatcher\FileCatcherPC.cs" />
-    <Compile Include="Core\FileCatcher\FileCatcher.cs" />
+    <Compile Include="Core\FileCatch\FileCatchInfo.cs" />
+    <Compile Include="Core\FileCatch\FileCatchPC.cs" />
+    <Compile Include="Core\FileCatch\FileCatch.cs" />
     <Compile Include="Android\AndroidFileExtracter.cs" />
-    <Compile Include="Core\FileCatcher\FileCatcherAndroid.cs" />
-    <Compile Include="Core\FileProcesser\FileProcesserInfo.cs" />
-    <Compile Include="Core\FileProcesser\FileProcesser.cs" />
+    <Compile Include="Core\FileCatch\FileCatchAndroid.cs" />
+    <Compile Include="Core\FileProcess\FileProcessInfo.cs" />
+    <Compile Include="Core\FileProcess\FileProcess.cs" />
     <Compile Include="Core\PackageForensic.cs" />
     <Compile Include="Core\Rule\ForensicRuleItem.cs" />
     <Compile Include="Core\Rule\RuleManager.cs" />

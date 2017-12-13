@@ -7,15 +7,15 @@ using AFAS.Library.Android;
 
 namespace AFAS.Library.Core
 {
-    public class FileCatcher
+    public class FileCatch
     {
         public PackageForensic Environment { get; set; }
-        public FileCatcherInfo Info { get; set; }
+        public FileCatchInfo Info { get; set; }
         //RegEx,Normal
         public bool IsRegEx { get { return Info.IsRegEx; } }
 
         public string RelativePath { get { return Info.RelativePath; } }
-        //强制统一以/开头以/为结尾
+        //强制统一不以/开头以/为结尾
         //不填即默认初始化为data/data/[PackageName]/
         public string RootPath { get { return Info.RootPath; } }
 
@@ -34,10 +34,8 @@ namespace AFAS.Library.Core
             return false;
         }
 
-        virtual public List<string> DoWork()
+        virtual public void DoWork()
         {
-            var res = new List<string>();
-            return res;
         }
     }
 }

@@ -10,7 +10,7 @@ namespace AFAS.Library.Core
     {
         //包名，com.xx.xx
         public string Name { get; set; }
-
+        public string Version { get; set; }
         //包名描述，中文名称
         public string Desc { get; set; }
 
@@ -20,6 +20,7 @@ namespace AFAS.Library.Core
         {
             foreach(var it in Items)
             {
+                it.Package = this;
                 it.Init();
             }
         }
