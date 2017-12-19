@@ -30,6 +30,7 @@ namespace AFAS.Library.Core
                     jsonSerializerSettings.TypeNameHandling = TypeNameHandling.Auto;
 
                     var temp = JsonConvert.DeserializeObject<ForensicRulePackage>(t, jsonSerializerSettings);
+                    temp.Init();
                     lock (Packages)
                     {
                         Packages.Add(temp);

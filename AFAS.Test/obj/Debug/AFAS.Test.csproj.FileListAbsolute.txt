@@ -16,3 +16,6 @@ F:\Project\vs_project\AFAS\AFAS.Test\obj\Debug\AFAS.Test.csprojResolveAssemblyRe
 F:\Project\vs_project\AFAS\AFAS.Test\obj\Debug\AFAS.Test.csproj.CoreCompileInputs.cache
 F:\Project\vs_project\AFAS\AFAS.Test\obj\Debug\AFAS.Test.exe
 F:\Project\vs_project\AFAS\AFAS.Test\obj\Debug\AFAS.Test.pdb
+F:\Project\vs_project\AFAS\AFAS.Test\bin\Debug\System.Data.SQLite.dll
+F:\Project\vs_project\AFAS\AFAS.Test\bin\Debug\System.Data.SQLite.xml
+F:\Project\vs_project\AFAS\AFAS.Test\bin\Debug\System.Data.SQLite.dll.config

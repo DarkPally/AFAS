@@ -15,10 +15,10 @@ namespace AFAS.Library.Core
         public enum AssociateType
         {
             None,
-            NoParent,
-            HasParent,
+            ParentAndChildRen,
         }
         */
+
         //父元素所在表
         public string ParentKey { get; set; }
         //父元素所在列

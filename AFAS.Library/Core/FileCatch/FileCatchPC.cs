@@ -41,9 +41,9 @@ namespace AFAS.Library.Core
             if (checkRootPathExist())
             {
 
-                var res = new List<string>();
+                var res = new List<FileCatchResultItem>();
                 var path = RootPath + RelativePath;
-                path = path.Substring(1).Replace('/', '\\');
+                path = path.Replace('/', '\\');
                 var fileNames = RootPathFileNames[RootPath];
 
                 if (IsRegEx)
@@ -54,7 +54,11 @@ namespace AFAS.Library.Core
                     {
                         foreach (var it in MatchNames)
                         {
-                            res.Add(PCPath+path);
+                            res.Add(new FileCatchResultItem()
+                            {
+                                FilePath = PCPath + path,
+                                DataItems = new List<DataResultItem>(),
+                            });
                         }
 
                     }
@@ -63,7 +67,11 @@ namespace AFAS.Library.Core
                 {
                     if (fileNames.Contains(path))
                     {
-                        res.Add(PCPath + path);
+                        res.Add(new FileCatchResultItem()
+                        {
+                            FilePath = PCPath + path,
+                            DataItems = new List<DataResultItem>(),
+                        });
                     }
                 }
                 Environment.CatchFilePaths.Add(Info.Key, res);

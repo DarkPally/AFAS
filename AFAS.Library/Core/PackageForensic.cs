@@ -15,10 +15,11 @@ namespace AFAS.Library.Core
         public ForensicRulePackage RulePackage { get; set; }
 
         //FileKey
-        public Dictionary<string, List<string>> CatchFilePaths = new Dictionary<string, List<string>>();
-
+        public Dictionary<string, List<FileCatchResultItem>> CatchFilePaths = new Dictionary<string, List<FileCatchResultItem>>();
         //TableKey
-        public Dictionary<string, List<DataTable>> CatchDataTables = new Dictionary<string, List<DataTable>>();
+        public Dictionary<string, List<DataResultItem>> CatchDataTables = new Dictionary<string, List<DataResultItem>>();
+
+        public DataResultItem Result { get; set; }
 
         void FileCatch(ForensicRuleItemInfo item)
         {
@@ -77,16 +78,35 @@ namespace AFAS.Library.Core
 
         void DataAssociate(ForensicRuleItemInfo item)
         {
+            var da = new DataAssociate()
+            {
+                Environment = this,
+                Info = item as DataAssociateInfo,
 
+            };
+            da.DoWork();
         }
-        void ResultMark(ForensicRuleItemInfo item)
+        void DataMark(ForensicRuleItemInfo item)
         {
+            var dm = new DataMark()
+            {
+                Environment = this,
+                Info = item as DataMarkInfo,
 
+            };
+            dm.DoWork();
         }
 
-        void DoWork()
+        void Init()
         {
-            foreach(var it in RulePackage.Items)
+            if (PCPath.Last() != '\\') PCPath += '\\';
+            Result = new DataResultItem();
+        }
+        public void DoWork()
+        {
+            Init();
+
+            foreach (var it in RulePackage.Items)
             {
                 if(it is FileCatchInfo)
                 {
@@ -96,7 +116,22 @@ namespace AFAS.Library.Core
                 {
                     FileProcess(it);
                 }
-                
+                else if (it is DataCatchInfo)
+                {
+                    DataCatch(it);
+                }
+                else if (it is DataProcessInfo)
+                {
+                    DataProcess(it);
+                }
+                else if (it is DataAssociateInfo)
+                {
+                    DataAssociate(it);
+                }
+                else if (it is DataMarkInfo)
+                {
+                    DataMark(it);
+                }
             }
         }
     }

@@ -52,7 +52,7 @@ namespace AFAS.Library.Core
         {
             if (checkRootPathExist())
             {
-                var res = new List<string>();
+                var res = new List<FileCatchResultItem>();
                 var path = RootPath + RelativePath;
                 var fileNames = RootPathFileNames[RootPath];
 
@@ -67,7 +67,11 @@ namespace AFAS.Library.Core
                         {
                             var pcPath = PCPath + it.Replace('/', '\\');
                             androidFileExtracter.CopyFileFromDevice(androidDevice, it, pcPath);
-                            res.Add(pcPath);
+                            res.Add(new FileCatchResultItem()
+                            {
+                                FilePath = pcPath,
+                                DataItems = new List<DataResultItem>()
+                            });
                         }
 
                     }
@@ -78,10 +82,14 @@ namespace AFAS.Library.Core
                     {
                         var pcPath = PCPath + path.Replace('/', '\\');
                         androidFileExtracter.CopyFileFromDevice(androidDevice, path, pcPath);
-                        res.Add(pcPath);
+                        res.Add(new FileCatchResultItem()
+                        {
+                            FilePath = pcPath,
+                            DataItems = new List<DataResultItem>()
+                        });
                     }
                 }
-                Environment.CatchFilePaths.Add(Info.Key, res);
+                Environment.CatchFilePaths.Add(Info.Key,res);
             }
             
         }

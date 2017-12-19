@@ -12,7 +12,7 @@ namespace AFAS.Library.Core
         public PackageForensic Environment { get; set; }
         public FileProcessInfo Info { get; set; }
 
-        List<string> filePaths;
+        List<FileCatchResultItem> filePaths;
         bool copyTargetFiles()
         {
             try
@@ -21,12 +21,12 @@ namespace AFAS.Library.Core
                 filePaths = Environment.CatchFilePaths[Info.Key];
                 for (int i = 0; i < filePaths.Count; ++i)
                 {
-                    FileInfo file = new FileInfo(filePaths[i]);
+                    FileInfo file = new FileInfo(filePaths[i].FilePath);
                     if (file.Exists)
                     {
-                        filePaths[i] += ".proc";
+                        filePaths[i].FilePath += ".proc";
                         // true is overwrite
-                        file.CopyTo(filePaths[i], true);
+                        file.CopyTo(filePaths[i].FilePath, true);
                     }
                 }
                 return true;

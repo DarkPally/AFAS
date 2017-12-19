@@ -14,7 +14,7 @@ namespace AFAS.Library.Core
         public PackageForensic Environment { get; set; }
         public DataCatchInfo Info { get; set; }
 
-        List<string> filePaths;
+        List<FileCatchResultItem> filePaths;
 
         static DataTable fileTableTemplate;
         //const string fileTableName = "FileInfo";
@@ -104,17 +104,23 @@ namespace AFAS.Library.Core
                     break;
             }
 
-            List<DataTable> Results=new List<DataTable>();
+            var Results=new List<DataResultItem>();
 
             if (funcHandle != null)
             {
                 foreach (var it in filePaths)
                 {
-                    var table = funcHandle(it);
+                    var table = funcHandle(it.FilePath);
                     if(table!=null)
                     {
-                        table.TableName = Info.TableKey;
-                        Results.Add(table);   
+                        //table.TableName = Info.TableKey;
+                        var item = new DataResultItem()
+                        {
+                            ParentFile = it,
+                            Table = table
+                        };
+                        Results.Add(item);
+                        it.DataItems.Add(item);
                     }
                 }
             }

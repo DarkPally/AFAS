@@ -1,0 +1,31 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Neo.IronLua;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+
+namespace AFAS.Library.Core
+{
+    public class DataMarkInfo : ForensicRuleItemInfo
+    {
+        public class ColumnDescInfo
+        {
+            public string Name { get; set; }
+            public string Desc { get; set; }
+            public string Mark { get; set; }
+        }
+        public string TableDesc { get; set; }
+        public bool OnlyShowDesc { get; set; }
+
+        public List<ColumnDescInfo> ColumnDescs { get; set; }
+
+
+        public override void Init()
+        {   
+            
+        }
+    }
+}

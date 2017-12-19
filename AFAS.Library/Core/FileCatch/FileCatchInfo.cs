@@ -11,6 +11,7 @@ namespace AFAS.Library.Core
     {
         public bool IsRegEx { get; set; }
 
+        //包含文件名
         public string RelativePath { get; set; }
         //强制统一不以/开头以/为结尾
         //不填即默认初始化为data/data/[PackageName]/
@@ -18,7 +19,6 @@ namespace AFAS.Library.Core
 
         public override void Init()
         {
-            if (RelativePath.Last() != '/') RelativePath += '/';
             if (RootPath==null)
             {
                 RootPath = String.Format("data/data/{0}/", Package.Name);

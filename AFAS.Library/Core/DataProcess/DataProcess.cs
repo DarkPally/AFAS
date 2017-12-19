@@ -13,7 +13,7 @@ namespace AFAS.Library.Core
         public PackageForensic Environment { get; set; }
         public DataProcessInfo Info { get; set; }
 
-        List<DataTable> dataTables;
+        List<DataResultItem> dataTables;
         bool loadDataTables()
         {
             if (!Environment.CatchDataTables.ContainsKey(Info.Key)) return false;
@@ -29,11 +29,11 @@ namespace AFAS.Library.Core
         {
             if(loadDataTables())
             {
-                foreach (DataTable table in dataTables)
+                foreach (var table in dataTables)
                 {
-                    for(int i=0;i< table.Rows.Count;++i )
+                    for(int i=0;i< table.Table.Rows.Count;++i )
                     {
-                        var data = table.Rows[i][Info.ColumnName];
+                        var data = table.Table.Rows[i][Info.ColumnName];
                         handleDataByScript(data);
                     }
                 }
