@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Text.RegularExpressions;
 
-namespace AFAS.Library.Core
+namespace AFAS.Library
 {
     public class FileCatchPC:FileCatch
     {

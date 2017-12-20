@@ -24,7 +24,7 @@ namespace AFAS.Test
                 Console.WriteLine("Add(3) = {0}", g.add(3)); // call the function in c#
             }
             */
-            PackageTest.Main1(args);
+            JsonTest.Main1(args);
             Console.ReadKey();
         }
     }

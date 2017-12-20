@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AFAS.Library.Core
+namespace AFAS.Library
 {
     public class ForensicRulePackage
     {

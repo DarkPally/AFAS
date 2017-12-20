@@ -7,7 +7,7 @@ using Neo.IronLua;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-namespace AFAS.Library.Core
+namespace AFAS.Library
 {
     public class DataMarkInfo : ForensicRuleItemInfo
     {
@@ -18,7 +18,7 @@ namespace AFAS.Library.Core
             public string Mark { get; set; }
         }
         public string TableDesc { get; set; }
-        public bool OnlyShowDesc { get; set; }
+        public bool? OnlyShowDesc { get; set; }
 
         public List<ColumnDescInfo> ColumnDescs { get; set; }
 

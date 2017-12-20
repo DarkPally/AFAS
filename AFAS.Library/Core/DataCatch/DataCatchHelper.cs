@@ -9,7 +9,7 @@ using System.Data.SQLite;
 using System.Text.RegularExpressions;
 using Neo.IronLua;
 
-namespace AFAS.Library.Core
+namespace AFAS.Library
 {
     public class DataCatchHelper
     {

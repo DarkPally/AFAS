@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using AFAS.Library.Core;
 
 namespace AFAS.Library
 {
@@ -14,16 +13,45 @@ namespace AFAS.Library
 
         private AFASManager()
         {
-            Init();
         }
 
         public static LuaManager Lua { get { return instance.luaManager; } }
 
         LuaManager luaManager;
+        RuleManager ruleManager;
 
         public void Init()
         {
-            luaManager = new LuaManager();
+            if(luaManager==null)
+            {
+                luaManager = new LuaManager();
+            }
+            if (ruleManager == null)
+            {
+                ruleManager = new RuleManager();
+                ruleManager.LoadRulePackages();
+            }
+
+        }
+
+        public List<DataResultItem> DoForensic(string PcPath,bool isFromPC)
+        {
+            Init();
+            var res = new List<DataResultItem>();
+
+            Parallel.ForEach(ruleManager.Packages, pack =>
+            {
+                var forensic = new PackageForensic()
+                {
+                    IsPC = isFromPC,
+                    PCPath = PcPath,
+                    RulePackage = pack,
+                };
+                forensic.DoWork();
+                res.Add(forensic.Result);
+            });
+
+            return res;
         }
     }
 }

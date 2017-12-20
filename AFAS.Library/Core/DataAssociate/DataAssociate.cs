@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Data;
 
-namespace AFAS.Library.Core
+namespace AFAS.Library
 {
     public class DataAssociate
     {

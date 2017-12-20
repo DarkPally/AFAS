@@ -58,7 +58,7 @@
     <Compile Include="Core\DataAssociate\DataAssociateInfo.cs" />
     <Compile Include="Core\DataAssociate\DataAssociate.cs" />
     <Compile Include="Core\DataCatch\DataCatchHelper.cs" />
-    <Compile Include="Core\DataCatch\DataCatchResultItem.cs" />
+    <Compile Include="Core\DataCatch\DataResultItem.cs" />
     <Compile Include="Core\DataCatch\DataCatchInfo.cs" />
     <Compile Include="Core\DataCatch\DataCatch.cs" />
     <Compile Include="Core\DataMark\DataMark.cs" />

@@ -7,7 +7,7 @@ using System.IO;
 using System.Data;
 using System.Data.SQLite;
 
-namespace AFAS.Library.Core
+namespace AFAS.Library
 {
     public class DataCatch
     {
@@ -125,7 +125,7 @@ namespace AFAS.Library.Core
                 }
             }
             Environment.CatchDataTables.Add(Info.TableKey, Results);
-           
+            Environment.DataSource.Children.AddRange(Results);
         }
     }
 }

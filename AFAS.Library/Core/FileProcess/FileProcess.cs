@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 
-namespace AFAS.Library.Core
+namespace AFAS.Library
 {
     public class FileProcess
     {

@@ -7,7 +7,7 @@ using Neo.IronLua;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-namespace AFAS.Library.Core
+namespace AFAS.Library
 {
     public class DataAssociateInfo : ForensicRuleItemInfo
     {

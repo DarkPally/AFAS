@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Xml;
 using System.Data;
 using System.IO;
-using AFAS.Library.Core;
+using AFAS.Library;
 using AFAS.Library;
 
 namespace AFAS.Test
@@ -33,6 +33,7 @@ namespace AFAS.Test
             var t= new ForensicRulePackage()
             {          
                 Name = "android.zhibo8",
+                Desc="直播吧",
                 Items = new List<ForensicRuleItemInfo>()
                 {
                     new FileCatchInfo()

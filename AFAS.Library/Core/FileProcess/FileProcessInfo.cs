@@ -7,7 +7,7 @@ using AFAS.Library.Android;
 using Neo.IronLua;
 using Newtonsoft.Json;
 
-namespace AFAS.Library.Core
+namespace AFAS.Library
 {
     public class FileProcessInfo : ForensicRuleItemInfo
     {

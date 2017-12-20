@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AFAS.Library.Android;
 
-namespace AFAS.Library.Core
+namespace AFAS.Library
 {
     public class FileCatchInfo: ForensicRuleItemInfo
     {

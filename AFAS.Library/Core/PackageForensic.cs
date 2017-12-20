@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data;
 
-namespace AFAS.Library.Core
+namespace AFAS.Library
 {
     public class PackageForensic
     {
@@ -20,6 +20,7 @@ namespace AFAS.Library.Core
         public Dictionary<string, List<DataResultItem>> CatchDataTables = new Dictionary<string, List<DataResultItem>>();
 
         public DataResultItem Result { get; set; }
+        public DataResultItem DataSource { get; set; }
 
         void FileCatch(ForensicRuleItemInfo item)
         {
@@ -100,7 +101,15 @@ namespace AFAS.Library.Core
         void Init()
         {
             if (PCPath.Last() != '\\') PCPath += '\\';
-            Result = new DataResultItem();
+            DataSource = new DataResultItem()
+            {
+                Desc = "数据集合",
+            };
+            Result = new DataResultItem()
+            {
+                Desc = RulePackage.Desc,
+            };
+            Result.Children.Add(DataSource);
         }
         public void DoWork()
         {

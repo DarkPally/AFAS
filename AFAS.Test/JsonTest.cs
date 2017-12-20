@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using Newtonsoft.Json;
-using AFAS.Library.Core;
+using AFAS.Library;
 
 namespace AFAS.Test
 {
@@ -13,6 +13,19 @@ namespace AFAS.Test
     {      
 
         public static void Main1(string[] args)
+        {
+            var frp = PackageTest.GetRulePackageZhiBo8();
+
+            JsonSerializerSettings jsonSerializerSettings = new JsonSerializerSettings();
+            jsonSerializerSettings.TypeNameHandling = TypeNameHandling.Auto;
+            jsonSerializerSettings.Formatting = Formatting.Indented;
+            jsonSerializerSettings.NullValueHandling = NullValueHandling.Ignore;
+
+            var st =JsonConvert.SerializeObject(frp, jsonSerializerSettings);
+            Console.WriteLine(st);
+        } // Main
+
+        public static void Main2(string[] args)
         {
             var frp = new ForensicRulePackage()
             {
@@ -30,7 +43,7 @@ namespace AFAS.Test
             jsonSerializerSettings.TypeNameHandling = TypeNameHandling.Auto;
             jsonSerializerSettings.Formatting = Formatting.Indented;
 
-            var st =JsonConvert.SerializeObject(frp, jsonSerializerSettings);
+            var st = JsonConvert.SerializeObject(frp, jsonSerializerSettings);
             Console.WriteLine(st);
         } // Main
 

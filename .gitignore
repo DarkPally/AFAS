@@ -1,10 +1,14 @@
 
-.vs/
-package/
+.vs/*
+package/*
+*/bin/*
+*/obj/*
 *.dll
-*.pdb
+*
+.pdb
 *.XML
 *.nupkg
 *.targets
 *.deleteme
 *.cache
+*.baml

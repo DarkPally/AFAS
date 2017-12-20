@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 
-namespace AFAS.Library.Core
+namespace AFAS.Library
 {
     /*
     public enum ForensicRuleItemType
