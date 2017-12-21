@@ -13,6 +13,8 @@ namespace AFAS.Library
 {
     public class DataCatchHelper
     {
+        const string connectFormat = @"Data Source={0};Version=3;";
+
         public static DataTable GetDbDataTable(SQLiteConnection connection, string tableName)
         {
             DataTable dataTable = null;
@@ -30,13 +32,45 @@ namespace AFAS.Library
 
         public static DataTable GetDbDataTable(string dbFilePath, string tableName)
         {
-            const string connectFormat = @"Data Source={0};Version=3;";
-
             using (var conn = new SQLiteConnection(String.Format(connectFormat, dbFilePath)))
             {
                 conn.Open();
                 return GetDbDataTable(conn, tableName);
             }
+        }
+
+        static public List<string> getTableNames(SQLiteConnection conn)
+        {
+            var res = new List<string>();
+            var schemaTable = conn.GetSchema("TABLES");
+            for (int i = 0; i < schemaTable.Rows.Count; i++)
+            {
+                var name = schemaTable.Rows[i]["TABLE_NAME"].ToString();
+                if (name != "android_metadata" && name != "sqlite_sequence")
+                {
+                    res.Add(name);
+                }
+            }
+            return res;
+
+        }
+
+        public static List<DataTable> GetDbDataTableWithRegEx(string dbFilePath, string tableNameRegEx)
+        {
+            var res = new List<DataTable>();
+
+            using (var conn = new SQLiteConnection(String.Format(connectFormat, dbFilePath)))
+            {
+                conn.Open();
+                Regex regex = new Regex(tableNameRegEx);
+
+                var tableNames = getTableNames(conn).Where(c=> regex.IsMatch(c));
+                foreach(var it in tableNames)
+                {
+                    res.Add(GetDbDataTable(conn, it));
+                }
+            }
+            return res;
         }
 
         public static DataTable GetXmlDataTable(string xmlFilePath, string tableName)

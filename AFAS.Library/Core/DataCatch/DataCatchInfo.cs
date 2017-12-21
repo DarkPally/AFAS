@@ -11,18 +11,19 @@ namespace AFAS.Library
 {
     public class DataCatchInfo: ForensicRuleItemInfo
     {
-        public enum FileType
+        public enum DataType
         {
             None,
-            FileAttribute,
+            //FileAttribute,
             Binary,
             Text,
             Xml,
             Database,
+            DatabaseWithRegEx,
         }
 
         [JsonConverter(typeof(StringEnumConverter))]
-        public FileType Type { get; set; } 
+        public DataType Type { get; set; } 
         
         public string TableKey { get; set; }
 
@@ -35,12 +36,13 @@ namespace AFAS.Library
 
         public override void Init()
         {   
+            
             if(TableKey==null || TableKey=="")
             {
                 TableKey = DataPath;
             }
 
-            if(Type==FileType.Binary)
+            if(Type==DataType.Binary)
             {
                 Chunk = AFASManager.Lua.Engine.CompileChunk(
                         DataPath,

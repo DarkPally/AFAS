@@ -15,6 +15,8 @@ namespace AFAS.Library
        public FileCatchResultItem ParentFile { get; set; }
        public DataResultItem ParentData { get; set; }
 
+       public string KeyContent { get; set; }
+
        string desc;
        public string Desc
         {
@@ -22,11 +24,15 @@ namespace AFAS.Library
             {
                 if(desc==null)
                 {
-                    return MarkInfo.TableDesc;
+                    if(MarkInfo!=null)
+                    {
+                        return MarkInfo.TableDesc + " " + KeyContent;
+                    }
+                    return Table.TableName + " " + KeyContent;
                 }
                 else
                 {
-                    return desc;
+                    return desc + " " + KeyContent;
                 }
             }
             set

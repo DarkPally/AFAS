@@ -69,8 +69,9 @@ namespace AFAS.Library
                             androidFileExtracter.CopyFileFromDevice(androidDevice, it, pcPath);
                             res.Add(new FileCatchResultItem()
                             {
+                                Key = Info.Key,
                                 FilePath = pcPath,
-                                DataItems = new List<DataResultItem>()
+                                DataItems = new Dictionary<string, DataResultItem>()
                             });
                         }
 
@@ -84,8 +85,9 @@ namespace AFAS.Library
                         androidFileExtracter.CopyFileFromDevice(androidDevice, path, pcPath);
                         res.Add(new FileCatchResultItem()
                         {
+                            Key = Info.Key,
                             FilePath = pcPath,
-                            DataItems = new List<DataResultItem>()
+                            DataItems = new Dictionary<string, DataResultItem>()
                         });
                     }
                 }

@@ -14,7 +14,7 @@ namespace AFAS.Test
 
         public static void Main1(string[] args)
         {
-            var frp = PackageTest.GetRulePackageZhiBo8();
+            var frp = PackageTest.GetRulePackageYY();
 
             JsonSerializerSettings jsonSerializerSettings = new JsonSerializerSettings();
             jsonSerializerSettings.TypeNameHandling = TypeNameHandling.Auto;

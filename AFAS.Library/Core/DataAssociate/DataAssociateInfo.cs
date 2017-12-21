@@ -20,15 +20,18 @@ namespace AFAS.Library
         */
 
         //父元素所在表
-        public string ParentKey { get; set; }
+        public string ParentTableKey { get; set; }
         //父元素所在列
-        public string ParentColumn { get; set; }
+        public string ParentTableColumn { get; set; }
 
         //子元素所在表
-        public string ChildKey { get; set; }
+        public string ChildTableKey { get; set; }
 
-        //子元素关联用元素所在列，如果为空，则说明
-        public string ChildAssociateColumn { get; set; }
+        //子元素关联用元素所在列，如果为空，ChildFileTableKey
+        public string ChildTableAssociateColumn { get; set; }
+
+        //如果为空，则说明用ChildTableKey得到的第一个表
+        public string ChildFileTableAssociateColumn { get; set; }
 
         public override void Init()
         {   

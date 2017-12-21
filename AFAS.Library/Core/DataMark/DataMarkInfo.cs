@@ -19,7 +19,7 @@ namespace AFAS.Library
         }
         public string TableDesc { get; set; }
         public bool? OnlyShowDesc { get; set; }
-
+        public bool? NotShowAtRoot { get; set; }
         public List<ColumnDescInfo> ColumnDescs { get; set; }
 
 

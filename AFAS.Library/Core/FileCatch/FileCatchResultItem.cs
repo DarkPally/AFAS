@@ -9,10 +9,8 @@ namespace AFAS.Library
 {
     public class FileCatchResultItem 
     {
+        public string Key { get; set; }
         public string FilePath { get; set; }
-
-        //public string FileName { get; set; }
-
-        public List<DataResultItem> DataItems { get; set; }
+        public Dictionary<string,DataResultItem> DataItems { get; set; }
     }
 }

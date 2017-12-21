@@ -16,35 +16,40 @@ namespace AFAS.Library
 
         List<FileCatchResultItem> filePaths;
 
-        static DataTable fileTableTemplate;
-        //const string fileTableName = "FileInfo";
-        void initFileTable()
-        {
-            if(fileTableTemplate==null)
-            {
-                fileTableTemplate = new DataTable();
-                fileTableTemplate.Columns.AddRange(
-                    new DataColumn[]
-                    {
-                        new DataColumn("FileName", System.Type.GetType("System.String")),
-                        new DataColumn("RelativePath", System.Type.GetType("System.String")),
-                        new DataColumn("LastWriteTime", System.Type.GetType("System.DateTime")),
-                    });
-            }
-        }
         bool loadTargetFiles()
         {
             if (!Environment.CatchFilePaths.ContainsKey(Info.Key)) return false;
             filePaths = Environment.CatchFilePaths[Info.Key];
+            if(filePaths.Count>0 && filePaths[0].DataItems.Count==0)
+            {
+                var tRes = new List<DataResultItem>();
+
+                filePaths.ForEach(it =>
+                {
+                    var t = loadFileAttribute(it.FilePath);
+                    var item = new DataResultItem()
+                    {
+                        ParentFile = it,
+                        Table = t
+                    };
+                    it.DataItems.Add(Info.Key, item);
+                    tRes.Add(item);
+                });
+                Environment.CatchDataTables.Add(Info.Key, tRes);
+            }
             return true;
         }
 
         DataTable loadFileAttribute(string filePath)
         {
-            initFileTable();
-            DataTable dt = fileTableTemplate.Copy();
-
-            fileTableTemplate.TableName = Info.Key;
+            DataTable dt = new DataTable();
+            dt.Columns.AddRange(
+                new DataColumn[]
+                {
+                        new DataColumn("FileName", System.Type.GetType("System.String")),
+                        new DataColumn("RelativePath", System.Type.GetType("System.String")),
+                        new DataColumn("LastWriteTime", System.Type.GetType("System.DateTime")),
+                });
 
             FileInfo info = new FileInfo(filePath);
             DataRow dr = dt.NewRow();
@@ -52,6 +57,7 @@ namespace AFAS.Library
             dr["RelativePath"] = info.FullName.Substring(Environment.PCPath.Length);
             dr["LastWriteTime"] = info.LastWriteTime;
             dt.Rows.Add(dr);
+            dt.TableName = info.Name;
 
             return dt;
         }
@@ -77,6 +83,11 @@ namespace AFAS.Library
             return DataCatchHelper.GetDbDataTable(filePath, Info.DataPath);
         }
 
+        public List<DataTable> handleDatabaseWithRegEx(string filePath)
+        {
+            return DataCatchHelper.GetDbDataTableWithRegEx(filePath, Info.DataPath);
+        }
+
         public void DoWork()
         {
             if (!loadTargetFiles()) return;
@@ -85,19 +96,18 @@ namespace AFAS.Library
 
             switch (Info.Type)
             {
-                case DataCatchInfo.FileType.FileAttribute:
-                    funcHandle = loadFileAttribute;
-                    break;
-                case DataCatchInfo.FileType.Binary:
+                case DataCatchInfo.DataType.None:
+                    return;
+                case DataCatchInfo.DataType.Binary:
                     funcHandle = handleBinary;
                     break;
-                case DataCatchInfo.FileType.Text:
+                case DataCatchInfo.DataType.Text:
                     funcHandle =  handleText;
                     break;
-                case DataCatchInfo.FileType.Xml:
+                case DataCatchInfo.DataType.Xml:
                     funcHandle = handleXml;
                     break;
-                case DataCatchInfo.FileType.Database:
+                case DataCatchInfo.DataType.Database:
                     funcHandle= handleDatabase;
                     break;
                 default:
@@ -109,7 +119,7 @@ namespace AFAS.Library
             if (funcHandle != null)
             {
                 foreach (var it in filePaths)
-                {
+                {                    
                     var table = funcHandle(it.FilePath);
                     if(table!=null)
                     {
@@ -120,7 +130,27 @@ namespace AFAS.Library
                             Table = table
                         };
                         Results.Add(item);
-                        it.DataItems.Add(item);
+                        it.DataItems.Add(Info.TableKey,item);
+                    }
+                }
+            }
+            else
+            {
+                foreach (var it in filePaths)
+                {
+                    var tables = handleDatabaseWithRegEx(it.FilePath);
+                    if (tables.Count>0)
+                    {
+                        foreach(var t in tables)
+                        {
+                            var item = new DataResultItem()
+                            {
+                                ParentFile = it,
+                                Table = t
+                            };
+                            Results.Add(item);
+                            it.DataItems.Add(Info.TableKey, item);
+                        }
                     }
                 }
             }

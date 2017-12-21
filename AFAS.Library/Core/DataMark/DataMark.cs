@@ -32,6 +32,8 @@ namespace AFAS.Library
 
                     
                 }
+                if (Info.NotShowAtRoot == true) return;
+
                 var t = Tables.FirstOrDefault();
                 if (t != null && t.ParentData==null)
                 {

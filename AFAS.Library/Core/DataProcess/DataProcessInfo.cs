@@ -14,6 +14,7 @@ namespace AFAS.Library
         public enum ProcessType
         {
             None,
+            RegEx,
             Script,
             ScriptName,
         }
@@ -22,8 +23,10 @@ namespace AFAS.Library
         public ProcessType Type { get; set; }
 
         public string ColumnName { get; set; }
+        public string OutputColumnName { get; set; }
 
-        public string Script { get; set; }
+        public string Content { get; set; }
+
         [JsonIgnore]
         public LuaChunk Chunk { get; set; }
 
@@ -32,10 +35,14 @@ namespace AFAS.Library
             if(Type== ProcessType.Script)
             {
                 Chunk = AFASManager.Lua.Engine.CompileChunk(
-                        Script,
+                        Content,
                         "buffer.lua",
                         new LuaCompileOptions() { DebugEngine = LuaStackTraceDebugger.Default }
                         , new KeyValuePair<string, Type>("data", typeof(string)));
+            }
+            if(OutputColumnName==null)
+            {
+                OutputColumnName = ColumnName + "_proc";
             }
         }
     }

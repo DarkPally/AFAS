@@ -43,12 +43,13 @@ namespace AFAS.Library
 
                 var res = new List<FileCatchResultItem>();
                 var path = RootPath + RelativePath;
-                path = path.Replace('/', '\\');
+                var realPath = path.Replace("/", "\\");
+                var regexPath = path.Replace("/", "\\\\");
                 var fileNames = RootPathFileNames[RootPath];
 
                 if (IsRegEx)
                 {
-                    Regex r = new Regex(path, RegexOptions.None);
+                    Regex r = new Regex(regexPath);
                     var MatchNames = fileNames.Where(c => r.IsMatch(c)).ToList();
                     if (MatchNames.Count > 0)
                     {
@@ -56,8 +57,9 @@ namespace AFAS.Library
                         {
                             res.Add(new FileCatchResultItem()
                             {
-                                FilePath = PCPath + path,
-                                DataItems = new List<DataResultItem>(),
+                                Key=Info.Key,
+                                FilePath = PCPath + it,
+                                DataItems = new Dictionary<string, DataResultItem>(),
                             });
                         }
 
@@ -65,12 +67,13 @@ namespace AFAS.Library
                 }
                 else
                 {
-                    if (fileNames.Contains(path))
+                    if (fileNames.Contains(realPath))
                     {
                         res.Add(new FileCatchResultItem()
                         {
-                            FilePath = PCPath + path,
-                            DataItems = new List<DataResultItem>(),
+                            Key = Info.Key,
+                            FilePath = PCPath + realPath,
+                            DataItems = new Dictionary<string, DataResultItem>(),
                         });
                     }
                 }

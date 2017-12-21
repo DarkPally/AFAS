@@ -18,44 +18,82 @@ namespace AFAS.Library
         List<DataResultItem> childTables;
         bool loadDataTables()
         {
-            if (!Environment.CatchDataTables.ContainsKey(Info.ParentKey)) return false;
-            parentTables = Environment.CatchDataTables[Info.ParentKey];
+            if (!Environment.CatchDataTables.ContainsKey(Info.ParentTableKey)) return false;
+            parentTables = Environment.CatchDataTables[Info.ParentTableKey];
 
-            if (!Environment.CatchDataTables.ContainsKey(Info.ChildKey)) return false;
-            childTables = Environment.CatchDataTables[Info.ChildKey];
+            if (!Environment.CatchDataTables.ContainsKey(Info.ChildTableKey)) return false;
+            childTables = Environment.CatchDataTables[Info.ChildTableKey];
             return true;
         }
+        void handleChildAssociateColumn()
+        {
 
+            var res = new List<DataResultItem>();
+            for (int i = 0; i < parentTables.Count; ++i)
+            {
+                var keyContents = parentTables[i].Table.AsEnumerable().Select(c => Convert.ToString(c[Info.ParentTableColumn])).Distinct();
+                foreach (var it in keyContents)
+                {
+                    var list = childTables[i].Table.AsEnumerable().Where(c => c.Field<string>(Info.ChildTableAssociateColumn) == it);
+                    DataTable dtNew = childTables[i].Table.Clone();
+                    foreach (var dr in list)
+                    {
+                        dtNew.ImportRow(dr);
+                    }
+                    //dtNew.TableName = it;
+
+                    var t = new DataResultItem()
+                    {
+                        ParentData = childTables[i],
+                        ParentFile = childTables[i].ParentFile,
+                        Table = dtNew,
+                        KeyContent=it,
+                    };
+
+                    res.Add(t);
+                    parentTables[i].Children.Add(t);
+                }
+            }
+            if(Info.Key!=null)
+            Environment.CatchDataTables.Add(Info.Key, res);
+        }
+        void handleChildFileTableKey()
+        {
+
+            for (int i = 0; i < parentTables.Count; ++i)
+            {
+                var keyContents = parentTables[i].Table.AsEnumerable().Select(c => Convert.ToString(c[Info.ParentTableColumn])).Distinct();
+
+                childTables.ForEach(c =>
+                {
+                    foreach (var it in keyContents)
+                    {
+                        var fileTable = c.ParentFile.DataItems[c.ParentFile.Key];
+                        if (Convert.ToString(fileTable.Table.Rows[0][Info.ChildFileTableAssociateColumn]) == it)
+                        {
+                            c.KeyContent = it;
+                            parentTables[i].Children.Add(c);
+                        }
+                    }
+                });
+                
+            }
+        }
         public void DoWork()
         {
             if(loadDataTables())
             {
-                var res = new List<DataResultItem>();
-                for(int i=0;i< parentTables.Count;++i)
+                if(Info.ChildTableAssociateColumn!=null)
                 {
-                    var keyContents = parentTables[i].Table.AsEnumerable().Select(c => c.Field<string>(Info.ParentKey)).Distinct();
-                    foreach(var it in keyContents)
-                    {   
-                        var list = childTables[i].Table.AsEnumerable().Where(c => c.Field<string>(Info.ChildKey)==it);
-                        DataTable dtNew = childTables[i].Table.Clone();
-                        foreach(var dr in list)
-                        {
-                            dtNew.ImportRow(dr);
-                        }
-                        dtNew.TableName = it;
-                        var t = new DataResultItem()
-                        {
-                            ParentData= childTables[i],
-                            ParentFile = childTables[i].ParentFile,
-                            Table = dtNew,
-                        };
-                        res.Add(t);
-                        if (parentTables[i].Children == null) parentTables[i].Children = new List<DataResultItem>();
-                        parentTables[i].Children.Add(t);
-                    }
+                    handleChildAssociateColumn();
+                    return;
                 }
-                Environment.CatchDataTables.Add(Info.Key, res);
 
+                if (Info.ChildFileTableAssociateColumn != null)
+                {
+                    handleChildFileTableKey();
+                    return;
+                }
 
             }
             
