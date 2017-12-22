@@ -53,5 +53,21 @@ namespace AFAS.Library
 
             return res;
         }
+
+        public List<DataResultItem> DoForensicByPackage(ForensicRulePackage pack,string PcPath, bool isFromPC)
+        {
+            Init();
+            var res = new List<DataResultItem>();
+
+            var forensic = new PackageForensic()
+            {
+                IsPC = isFromPC,
+                PCPath = PcPath,
+                RulePackage = pack,
+            };
+            forensic.DoWork();
+            res.Add(forensic.Result);
+            return res;
+        }
     }
 }

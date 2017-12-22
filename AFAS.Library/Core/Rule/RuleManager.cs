@@ -14,7 +14,7 @@ namespace AFAS.Library
 
         public List<ForensicRulePackage> Packages { get; set; }
 
-        public void LoadRulePackages()
+        public void LoadRulePackages(bool includeOrgText = false)
         {
             Packages = new List<ForensicRulePackage>();
             DirectoryInfo theFolder = new DirectoryInfo(LibraryPath);
@@ -25,12 +25,14 @@ namespace AFAS.Library
                 try
                 {
                     var t = File.ReadAllText(f.FullName, Encoding.Default);
+                    var temp = RuleManager.LoadPackageFromText(t);
 
-                    JsonSerializerSettings jsonSerializerSettings = new JsonSerializerSettings();
-                    jsonSerializerSettings.TypeNameHandling = TypeNameHandling.Auto;
+                    if (includeOrgText)
+                    {
+                        temp.OrgText = t;
+                        temp.PackageFilePath = f.FullName;
+                    }
 
-                    var temp = JsonConvert.DeserializeObject<ForensicRulePackage>(t, jsonSerializerSettings);
-                    temp.Init();
                     lock (Packages)
                     {
                         Packages.Add(temp);
@@ -38,6 +40,26 @@ namespace AFAS.Library
                 }
                 catch { return; }
             });
+        }
+
+        static public ForensicRulePackage LoadPackageFromText(string text)
+        {
+            JsonSerializerSettings jsonSerializerSettings = new JsonSerializerSettings();
+            jsonSerializerSettings.TypeNameHandling = TypeNameHandling.Auto;
+
+            var temp = JsonConvert.DeserializeObject<ForensicRulePackage>(text, jsonSerializerSettings);
+            temp.Init();
+            return temp;
+
+        }
+
+        static public void SavePackage(ForensicRulePackage package)
+        {
+            var fs=File.Open(package.PackageFilePath, FileMode.Create);
+            byte[] data = System.Text.Encoding.Default.GetBytes(package.OrgText);
+            fs.Write(data, 0, data.Length);
+            fs.Flush();
+            fs.Close();
         }
     }
 }

@@ -17,6 +17,7 @@ namespace AFAS.Library
             RegEx,
             Script,
             ScriptName,
+            Json, //特殊，只有ColumName有效
         }
 
         [JsonConverter(typeof(StringEnumConverter))]

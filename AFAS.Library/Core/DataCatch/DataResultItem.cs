@@ -9,13 +9,11 @@ namespace AFAS.Library
 {
     public class DataResultItem
     {
-       
-       public DataTable Table { get; set; }
+        public string Key { get; set; }
+        public DataTable Table { get; set; }
 
        public FileCatchResultItem ParentFile { get; set; }
        public DataResultItem ParentData { get; set; }
-
-       public string KeyContent { get; set; }
 
        string desc;
        public string Desc
@@ -26,13 +24,13 @@ namespace AFAS.Library
                 {
                     if(MarkInfo!=null)
                     {
-                        return MarkInfo.TableDesc + " " + KeyContent;
+                        return MarkInfo.TableDesc;
                     }
-                    return Table.TableName + " " + KeyContent;
+                    return Table.TableName;
                 }
                 else
                 {
-                    return desc + " " + KeyContent;
+                    return desc;
                 }
             }
             set

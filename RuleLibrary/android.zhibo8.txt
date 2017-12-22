@@ -1,0 +1,25 @@
+{
+  "Name": "android.zhibo8",
+  "Desc": "直播吧",
+  "Items": [
+    {
+      "$type": "AFAS.Library.FileCatchInfo, AFAS.Library",
+      "IsRegEx": false,
+      "RelativePath": "databases/database.db",
+      "RootPath": "data/data/android.zhibo8/",
+      "Key": "File_History"
+    },
+    {
+      "$type": "AFAS.Library.DataCatchInfo, AFAS.Library",
+      "Type": "Database",
+      "TableKey": "Table_History",
+      "DataPath": "t_history_record",
+      "Key": "File_History"
+    },
+    {
+      "$type": "AFAS.Library.DataMarkInfo, AFAS.Library",
+      "TableDesc": "观看历史",
+      "Key": "Table_History"
+    }
+  ]
+}

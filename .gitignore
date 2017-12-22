@@ -4,8 +4,7 @@ package/*
 */bin/*
 */obj/*
 *.dll
-*
-.pdb
+*.pdb
 *.XML
 *.nupkg
 *.targets

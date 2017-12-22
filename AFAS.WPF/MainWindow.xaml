@@ -1,0 +1,29 @@
+﻿<dx:DXWindow x:Class="AFAS.WPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AFAS.WPF"
+        xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+        xmlns:pages="clr-namespace:AFAS.WPF.Pages"
+        dx:ThemeManager.ThemeName="Office2013LightGray"
+        mc:Ignorable="d"
+        
+        Title="MainWindow" Height="600" Width="800">
+    <Grid>
+        <dx:DXTabControl x:Name="tabControl">
+            <dx:DXTabItem Header="数字取证">
+
+                <Grid  Background="Transparent">
+                    <pages:PForensic/>
+                </Grid>
+            </dx:DXTabItem>
+            <dx:DXTabItem Header="规则编辑">
+                <Grid  Background="Transparent">
+                    <pages:PRuleEdit/>
+                </Grid>
+            </dx:DXTabItem>
+        </dx:DXTabControl>
+
+    </Grid>
+</dx:DXWindow>

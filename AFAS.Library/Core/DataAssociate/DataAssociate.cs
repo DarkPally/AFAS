@@ -25,6 +25,27 @@ namespace AFAS.Library
             childTables = Environment.CatchDataTables[Info.ChildTableKey];
             return true;
         }
+
+        DataResultItem getDescItem(DataResultItem parent, string keyContent)
+        {
+            var t = parent.Children.FirstOrDefault(c => c.Desc == keyContent);
+            if (t!=null) return t;
+
+            var list = parent.Table.AsEnumerable().Where(c=>Convert.ToString(c[Info.ParentTableColumn])==keyContent);
+            DataTable dtNew = parent.Table.Clone();
+            foreach (var dr in list)
+            {
+                dtNew.ImportRow(dr);
+            }
+
+            t = new DataResultItem()
+            {                
+                Desc = keyContent,
+                Table=dtNew
+            };
+            parent.Children.Add(t);
+            return t;
+        }
         void handleChildAssociateColumn()
         {
 
@@ -32,9 +53,12 @@ namespace AFAS.Library
             for (int i = 0; i < parentTables.Count; ++i)
             {
                 var keyContents = parentTables[i].Table.AsEnumerable().Select(c => Convert.ToString(c[Info.ParentTableColumn])).Distinct();
+                
                 foreach (var it in keyContents)
                 {
-                    var list = childTables[i].Table.AsEnumerable().Where(c => c.Field<string>(Info.ChildTableAssociateColumn) == it);
+                    var tKey = getDescItem(parentTables[i], it);
+
+                    var list = childTables[i].Table.AsEnumerable().Where(c => Convert.ToString(c[Info.ChildTableAssociateColumn]) == it);
                     DataTable dtNew = childTables[i].Table.Clone();
                     foreach (var dr in list)
                     {
@@ -47,11 +71,9 @@ namespace AFAS.Library
                         ParentData = childTables[i],
                         ParentFile = childTables[i].ParentFile,
                         Table = dtNew,
-                        KeyContent=it,
                     };
-
                     res.Add(t);
-                    parentTables[i].Children.Add(t);
+                    tKey.Children.Add(t);
                 }
             }
             if(Info.Key!=null)
@@ -63,19 +85,19 @@ namespace AFAS.Library
             for (int i = 0; i < parentTables.Count; ++i)
             {
                 var keyContents = parentTables[i].Table.AsEnumerable().Select(c => Convert.ToString(c[Info.ParentTableColumn])).Distinct();
-
-                childTables.ForEach(c =>
+                foreach (var it in keyContents)
                 {
-                    foreach (var it in keyContents)
+                    var tKey = getDescItem(parentTables[i], it);
+                    childTables.ForEach(c =>
                     {
                         var fileTable = c.ParentFile.DataItems[c.ParentFile.Key];
                         if (Convert.ToString(fileTable.Table.Rows[0][Info.ChildFileTableAssociateColumn]) == it)
                         {
-                            c.KeyContent = it;
-                            parentTables[i].Children.Add(c);
+                            tKey.Children.Add(c);
                         }
-                    }
-                });
+                    });
+                }
+               
                 
             }
         }

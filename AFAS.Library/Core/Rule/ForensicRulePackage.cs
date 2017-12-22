@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace AFAS.Library
 {
@@ -13,6 +14,11 @@ namespace AFAS.Library
         public string Version { get; set; }
         //包名描述，中文名称
         public string Desc { get; set; }
+
+        [JsonIgnore]
+        public string OrgText { get; set; }
+        [JsonIgnore]
+        public string PackageFilePath { get; set; }
 
         public List<ForensicRuleItemInfo> Items { get; set; }
 

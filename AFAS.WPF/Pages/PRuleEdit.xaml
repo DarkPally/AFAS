@@ -1,0 +1,53 @@
+﻿<UserControl x:Class="AFAS.WPF.Pages.PRuleEdit"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:AFAS.WPF.Pages"
+             xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+             mc:Ignorable="d" 
+             xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"  
+             DataContext="{Binding VMRuleEdit}"
+             d:DesignHeight="300" d:DesignWidth="300">
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="4"/>
+            <RowDefinition Height="3*"/>
+        </Grid.RowDefinitions>
+
+        <local:PForensic Grid.Row="0" DataContext="{Binding}" Margin="0,0,0,5"/>
+        <GridSplitter Grid.Row="1" Height="2" HorizontalAlignment="Stretch"/>
+        <Grid Grid.Row="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <StackPanel Margin="10" Orientation="Horizontal">
+                <TextBlock Text="规则包名:" Margin="0,0,10,0" VerticalAlignment="Center"></TextBlock>
+                <ComboBox x:Name="cb_rulePackage"  SelectedItem="{Binding SelectedPackage,Mode=OneWayToSource}"
+                    Width="200" Margin="0,0,10,0" ItemsSource="{Binding Packages}" DisplayMemberPath="Desc"></ComboBox>
+                <Button Content="加载规则" Command="{Binding LoadData}" Margin="0,0,10,0"/>
+                <Button Content="测试当前规则" Command="{Binding TestData}"
+                        CommandParameter="{Binding SelectedPackage}"
+                        Margin="0,0,10,0"/>
+                <Button Content="保存当前规则" Command="{Binding SaveData}"
+                        CommandParameter="{Binding SelectedPackage}"
+                        Margin="0,0,10,0"/>
+            </StackPanel>
+            <Grid Grid.Row="1">
+                <dx:DXTabControl DataContext="{Binding SelectedPackage}" >
+                    <dx:DXTabItem Header="规则原文">
+                        <ScrollViewer>
+                            <TextBox Text="{Binding OrgText,Mode=TwoWay}"/>
+                        </ScrollViewer>
+                    </dx:DXTabItem>
+                    <dx:DXTabItem Header="规则表">
+                    </dx:DXTabItem>
+                </dx:DXTabControl>
+
+            </Grid>
+        </Grid>
+    </Grid>
+</UserControl>

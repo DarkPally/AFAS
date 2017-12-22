@@ -126,6 +126,7 @@ namespace AFAS.Library
                         //table.TableName = Info.TableKey;
                         var item = new DataResultItem()
                         {
+                            Key= Info.TableKey,
                             ParentFile = it,
                             Table = table
                         };
@@ -145,6 +146,7 @@ namespace AFAS.Library
                         {
                             var item = new DataResultItem()
                             {
+                                Key = Info.TableKey,
                                 ParentFile = it,
                                 Table = t
                             };

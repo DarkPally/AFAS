@@ -1,0 +1,80 @@
+{
+  "Name": "com.duowan.mobile",
+  "Desc": "YY语音",
+  "Items": [
+    {
+      "$type": "AFAS.Library.FileCatchInfo, AFAS.Library",
+      "IsRegEx": true,
+      "RelativePath": "databases/(\\d+)\\.db",
+      "RootPath": "data/data/com.duowan.mobile/",
+      "Key": "File_User"
+    },
+    {
+      "$type": "AFAS.Library.FileCatchInfo, AFAS.Library",
+      "IsRegEx": false,
+      "RelativePath": "databases/core.db",
+      "RootPath": "data/data/com.duowan.mobile/",
+      "Key": "File_Core"
+    },
+    {
+      "$type": "AFAS.Library.DataCatchInfo, AFAS.Library",
+      "Type": "Database",
+      "TableKey": "Table_Users",
+      "DataPath": "User_UserInfo",
+      "Key": "File_Core"
+    },
+    {
+      "$type": "AFAS.Library.DataCatchInfo, AFAS.Library",
+      "Type": "Database",
+      "TableKey": "Table_Friends",
+      "DataPath": "im_friend_list",
+      "Key": "File_User"
+    },
+    {
+      "$type": "AFAS.Library.DataCatchInfo, AFAS.Library",
+      "Type": "DatabaseWithRegEx",
+      "TableKey": "Table_Msgs",
+      "DataPath": "im_1v1_new_msg_\\d+",
+      "Key": "File_User"
+    },
+    {
+      "$type": "AFAS.Library.DataProcessInfo, AFAS.Library",
+      "Type": "RegEx",
+      "ColumnName": "FileName",
+      "OutputColumnName": "AccountID",
+      "Content": "(?<AccountID>\\d+)\\.db",
+      "Key": "File_User"
+    },
+    {
+      "$type": "AFAS.Library.DataAssociateInfo, AFAS.Library",
+      "ParentTableKey": "Table_Users",
+      "ParentTableColumn": "userID",
+      "ChildTableKey": "Table_Friends",
+      "ChildFileTableAssociateColumn": "AccountID"
+    },
+    {
+      "$type": "AFAS.Library.DataAssociateInfo, AFAS.Library",
+      "ParentTableKey": "Table_Friends",
+      "ParentTableColumn": "id",
+      "ChildTableKey": "Table_Msgs",
+      "ChildTableAssociateColumn": "reverse2"
+    },
+    {
+      "$type": "AFAS.Library.DataMarkInfo, AFAS.Library",
+      "TableDesc": "登录用户",
+      "Key": "Table_Users"
+    },
+    {
+      "$type": "AFAS.Library.DataMarkInfo, AFAS.Library",
+      "TableDesc": "好友列表",
+      "NotShowAtRoot": true,
+      "Key": "Table_Friends"
+    },
+    {
+      "$type": "AFAS.Library.DataMarkInfo, AFAS.Library",
+      "TableDesc": "消息记录",
+      "NotShowAtRoot": true,
+      "Key": "Table_Msgs"
+    }
+  ]
+}
