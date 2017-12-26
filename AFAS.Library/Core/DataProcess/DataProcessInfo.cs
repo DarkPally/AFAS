@@ -16,7 +16,7 @@ namespace AFAS.Library
             None,
             RegEx,
             Script,
-            ScriptName,
+            ComplexScript,//全权交给Script去做
             Json, //特殊，只有ColumName有效
         }
 
@@ -38,8 +38,8 @@ namespace AFAS.Library
                 Chunk = AFASManager.Lua.Engine.CompileChunk(
                         Content,
                         "buffer.lua",
-                        new LuaCompileOptions() { DebugEngine = LuaStackTraceDebugger.Default }
-                        , new KeyValuePair<string, Type>("data", typeof(string)));
+                        new LuaCompileOptions() { DebugEngine = LuaStackTraceDebugger.Default });
+                        //, new KeyValuePair<string, Type>("data", typeof(object)));
             }
             if(OutputColumnName==null)
             {

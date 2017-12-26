@@ -31,6 +31,8 @@ namespace AFAS.Library
         //Text类型为正则
         //Binary类型为脚本
         public string DataPath { get; set; }
+
+        public string Desc { get; set; }
         [JsonIgnore]
         public LuaChunk Chunk { get; set; }
 

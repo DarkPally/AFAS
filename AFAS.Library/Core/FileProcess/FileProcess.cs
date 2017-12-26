@@ -43,7 +43,7 @@ namespace AFAS.Library
             {
                 foreach (var it in filePaths)
                 {
-                    AFASManager.Lua.Environment.DoChunk(Info.Chunk, it);
+                    Environment.LuaEnvironment.DoChunk(Info.Chunk, it);
                 }
             }
             

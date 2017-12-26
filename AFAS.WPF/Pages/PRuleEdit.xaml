@@ -40,7 +40,7 @@
                 <dx:DXTabControl DataContext="{Binding SelectedPackage}" >
                     <dx:DXTabItem Header="规则原文">
                         <ScrollViewer>
-                            <TextBox Text="{Binding OrgText,Mode=TwoWay}"/>
+                            <TextBox AcceptsReturn="True" Text="{Binding OrgText,Mode=TwoWay}"/>
                         </ScrollViewer>
                     </dx:DXTabItem>
                     <dx:DXTabItem Header="规则表">

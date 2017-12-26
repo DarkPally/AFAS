@@ -17,7 +17,12 @@ namespace AFAS.Library
             public string Desc { get; set; }
             public string Mark { get; set; }
         }
+
+        //互斥
         public string TableDesc { get; set; }
+        //互斥 优先script
+        public string TableDescScript { get; set; }
+
         public bool? OnlyShowDesc { get; set; }
         public bool? NotShowAtRoot { get; set; }
         public List<ColumnDescInfo> ColumnDescs { get; set; }

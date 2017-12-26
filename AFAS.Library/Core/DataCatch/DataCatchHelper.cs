@@ -21,7 +21,7 @@ namespace AFAS.Library
 
             DataSet ds = new DataSet();
             using (SQLiteDataAdapter da = new SQLiteDataAdapter(string.Format("select * from [{0}]", tableName)
-                , connection))
+                ,connection))
             {
                 da.Fill(ds);
             }

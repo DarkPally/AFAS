@@ -32,7 +32,7 @@ namespace AFAS.Library
                         ParentFile = it,
                         Table = t
                     };
-                    it.DataItems.Add(Info.Key, item);
+                    it.DataItems.Add(Info.Key,item);
                     tRes.Add(item);
                 });
                 Environment.CatchDataTables.Add(Info.Key, tRes);
@@ -128,8 +128,9 @@ namespace AFAS.Library
                         {
                             Key= Info.TableKey,
                             ParentFile = it,
-                            Table = table
+                            Table = table                            
                         };
+                        if (Info.Desc != null) item.Desc = Info.Desc;
                         Results.Add(item);
                         it.DataItems.Add(Info.TableKey,item);
                     }
@@ -142,6 +143,7 @@ namespace AFAS.Library
                     var tables = handleDatabaseWithRegEx(it.FilePath);
                     if (tables.Count>0)
                     {
+                        var fileRes = new List<DataResultItem>();
                         foreach(var t in tables)
                         {
                             var item = new DataResultItem()
@@ -150,9 +152,19 @@ namespace AFAS.Library
                                 ParentFile = it,
                                 Table = t
                             };
+                            if (Info.Desc != null) item.Desc = Info.Desc;
                             Results.Add(item);
-                            it.DataItems.Add(Info.TableKey, item);
+                            
                         }
+
+                        //暂时以新子节点的方式加到集合对象里
+                        it.DataItems.Add(Info.TableKey, new DataResultItem()
+                        {
+                            Key = Info.TableKey,
+                            ParentFile = it,
+                            Children = fileRes,
+                            IsMutiTable = true
+                        });
                     }
                 }
             }

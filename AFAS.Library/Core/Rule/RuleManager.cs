@@ -22,7 +22,7 @@ namespace AFAS.Library
 
             Parallel.ForEach(thefileInfo, f =>
             {
-                try
+                //try
                 {
                     var t = File.ReadAllText(f.FullName, Encoding.Default);
                     var temp = RuleManager.LoadPackageFromText(t);
@@ -38,7 +38,7 @@ namespace AFAS.Library
                         Packages.Add(temp);
                     }
                 }
-                catch { return; }
+                //catch { return; }
             });
         }
 

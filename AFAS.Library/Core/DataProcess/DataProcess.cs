@@ -24,9 +24,9 @@ namespace AFAS.Library
 
         object handleDataByScript(object data)
         {
-            return AFASManager.Lua.Environment.DoChunk(Info.Chunk, data);
+            Environment.LuaEnvironment.data = data;
+            return Environment.LuaEnvironment.dochunk(Info.Chunk)[0];
         }
-
 
         object handleDataByRegEx(object data)
         {
@@ -37,6 +37,11 @@ namespace AFAS.Library
             if (match == null) return null;
 
             return match.Groups[Info.OutputColumnName];
+        }
+
+        void handleComplexScript()
+        {
+
         }
 
         public void DoWork()
@@ -55,6 +60,9 @@ namespace AFAS.Library
                         break;
                     case DataProcessInfo.ProcessType.RegEx:
                         funcHandle = handleDataByRegEx;
+                        break;
+                    case DataProcessInfo.ProcessType.ComplexScript:
+                        handleComplexScript();
                         break;
                 }
 

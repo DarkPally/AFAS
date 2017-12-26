@@ -39,7 +39,9 @@ namespace AFAS.Library
             }
         }
 
-       List<DataResultItem> children;
+        public bool IsMutiTable { get; set; } = false;
+
+        List<DataResultItem> children;
        public List<DataResultItem> Children
         {
             get

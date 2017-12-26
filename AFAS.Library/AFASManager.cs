@@ -13,6 +13,7 @@ namespace AFAS.Library
 
         private AFASManager()
         {
+            InitLua();
         }
 
         public static LuaManager Lua { get { return instance.luaManager; } }
@@ -20,12 +21,15 @@ namespace AFAS.Library
         LuaManager luaManager;
         RuleManager ruleManager;
 
-        public void Init()
+        public void InitLua()
         {
-            if(luaManager==null)
+            if (luaManager == null)
             {
                 luaManager = new LuaManager();
             }
+        }
+        public void Init()
+        {
             if (ruleManager == null)
             {
                 ruleManager = new RuleManager();

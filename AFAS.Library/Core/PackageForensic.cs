@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data;
+using Neo.IronLua;
 
 namespace AFAS.Library
 {
@@ -14,6 +15,7 @@ namespace AFAS.Library
 
         public ForensicRulePackage RulePackage { get; set; }
 
+        public dynamic LuaEnvironment { get; } = AFASManager.Lua.CreateEnvironment();
         //FileKey
         public Dictionary<string, List<FileCatchResultItem>> CatchFilePaths = new Dictionary<string, List<FileCatchResultItem>>();
         //TableKey

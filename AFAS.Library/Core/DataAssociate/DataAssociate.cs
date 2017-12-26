@@ -46,6 +46,7 @@ namespace AFAS.Library
             parent.Children.Add(t);
             return t;
         }
+
         void handleChildAssociateColumn()
         {
 
@@ -58,27 +59,35 @@ namespace AFAS.Library
                 {
                     var tKey = getDescItem(parentTables[i], it);
 
-                    var list = childTables[i].Table.AsEnumerable().Where(c => Convert.ToString(c[Info.ChildTableAssociateColumn]) == it);
-                    DataTable dtNew = childTables[i].Table.Clone();
-                    foreach (var dr in list)
+                    for(int j=0;j< childTables.Count;++j)
                     {
-                        dtNew.ImportRow(dr);
-                    }
-                    //dtNew.TableName = it;
+                        if (Info.Type == DataAssociateInfo.AssociateType.InSameFile &&
+                            childTables[j].ParentFile != parentTables[i].ParentFile) continue;
 
-                    var t = new DataResultItem()
-                    {
-                        ParentData = childTables[i],
-                        ParentFile = childTables[i].ParentFile,
-                        Table = dtNew,
-                    };
-                    res.Add(t);
-                    tKey.Children.Add(t);
+                        var list = childTables[j].Table.AsEnumerable().Where(c => Convert.ToString(c[Info.AssociateColumn]) == it);
+                        if (list.Count() == 0) continue;
+
+                        DataTable dtNew = childTables[j].Table.Clone();
+                        foreach (var dr in list)
+                        {
+                            dtNew.ImportRow(dr);
+                        }
+                        var t = new DataResultItem()
+                        {
+                            ParentData = childTables[i],
+                            ParentFile = childTables[i].ParentFile,
+                            Table = dtNew,
+                        };
+                        res.Add(t);
+                        tKey.Children.Add(t);
+                    }
+                   
                 }
             }
             if(Info.Key!=null)
             Environment.CatchDataTables.Add(Info.Key, res);
         }
+
         void handleChildFileTableKey()
         {
 
@@ -91,7 +100,7 @@ namespace AFAS.Library
                     childTables.ForEach(c =>
                     {
                         var fileTable = c.ParentFile.DataItems[c.ParentFile.Key];
-                        if (Convert.ToString(fileTable.Table.Rows[0][Info.ChildFileTableAssociateColumn]) == it)
+                        if (Convert.ToString(fileTable.Table.Rows[0][Info.AssociateColumn]) == it)
                         {
                             tKey.Children.Add(c);
                         }
@@ -101,24 +110,26 @@ namespace AFAS.Library
                 
             }
         }
+
         public void DoWork()
         {
             if(loadDataTables())
             {
-                if(Info.ChildTableAssociateColumn!=null)
+                switch (Info.Type)
                 {
-                    handleChildAssociateColumn();
-                    return;
-                }
-
-                if (Info.ChildFileTableAssociateColumn != null)
-                {
-                    handleChildFileTableKey();
-                    return;
+                    case DataAssociateInfo.AssociateType.None:
+                        return;
+                    case DataAssociateInfo.AssociateType.InSameFile:
+                    case DataAssociateInfo.AssociateType.AcrossFile:
+                        handleChildAssociateColumn();
+                        break;
+                    case DataAssociateInfo.AssociateType.ChildFileColumn:
+                        handleChildFileTableKey();
+                        break;
                 }
 
             }
-            
+
         }
     }
 }
