@@ -32,6 +32,9 @@ namespace AFAS.Library
         //Binary类型为脚本
         public string DataPath { get; set; }
 
+        //对DataTable结果进行筛选
+        public string Select { get; set; }
+
         public string Desc { get; set; }
         [JsonIgnore]
         public LuaChunk Chunk { get; set; }

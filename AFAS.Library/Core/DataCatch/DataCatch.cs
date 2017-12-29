@@ -121,6 +121,16 @@ namespace AFAS.Library
                 foreach (var it in filePaths)
                 {                    
                     var table = funcHandle(it.FilePath);
+                    if(Info.Select != null)
+                    {
+                        var drArr = table.Select(Info.Select);
+                        DataTable dtNew = table.Clone();
+                        for (int i = 0; i < drArr.Length; i++)
+                        {
+                            dtNew.ImportRow(drArr[i]);
+                        }
+                        table = dtNew;
+                    }
                     if(table!=null)
                     {
                         //table.TableName = Info.TableKey;
@@ -128,7 +138,7 @@ namespace AFAS.Library
                         {
                             Key= Info.TableKey,
                             ParentFile = it,
-                            Table = table                            
+                            Table =  table                            
                         };
                         if (Info.Desc != null) item.Desc = Info.Desc;
                         Results.Add(item);
@@ -146,15 +156,25 @@ namespace AFAS.Library
                         var fileRes = new List<DataResultItem>();
                         foreach(var t in tables)
                         {
+                            var table = t;
+                            if (Info.Select != null)
+                            {
+                                var drArr = table.Select(Info.Select);
+                                DataTable dtNew = table.Clone();
+                                for (int i = 0; i < drArr.Length; i++)
+                                {
+                                    dtNew.ImportRow(drArr[i]);
+                                }
+                                table = dtNew;
+                            }
                             var item = new DataResultItem()
                             {
                                 Key = Info.TableKey,
                                 ParentFile = it,
-                                Table = t
+                                Table = table
                             };
                             if (Info.Desc != null) item.Desc = Info.Desc;
                             Results.Add(item);
-                            
                         }
 
                         //暂时以新子节点的方式加到集合对象里

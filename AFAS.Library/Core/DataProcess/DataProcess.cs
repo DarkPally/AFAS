@@ -24,7 +24,6 @@ namespace AFAS.Library
 
         object handleDataByScript(object data)
         {
-            Environment.LuaEnvironment.data = data;
             return Environment.LuaEnvironment.dochunk(Info.Chunk)[0];
         }
 
@@ -38,12 +37,6 @@ namespace AFAS.Library
 
             return match.Groups[Info.OutputColumnName];
         }
-
-        void handleComplexScript()
-        {
-
-        }
-
         public void DoWork()
         {
             if(loadDataTables())
@@ -61,9 +54,6 @@ namespace AFAS.Library
                     case DataProcessInfo.ProcessType.RegEx:
                         funcHandle = handleDataByRegEx;
                         break;
-                    case DataProcessInfo.ProcessType.ComplexScript:
-                        handleComplexScript();
-                        break;
                 }
 
                 foreach (var table in dataTables)
@@ -71,6 +61,15 @@ namespace AFAS.Library
                     for(int i=0;i< table.Table.Rows.Count;++i )
                     {
                         var data = table.Table.Rows[i][Info.ColumnName];
+
+                        if(Info.Type==DataProcessInfo.ProcessType.Script)
+                        {
+                            Environment.LuaEnvironment.data = data;
+                            Environment.LuaEnvironment.dataTable = table.Table;
+                            Environment.LuaEnvironment.parentFile = table.ParentFile;
+                            Environment.LuaEnvironment.dataTableRow = table.Table.Rows[i];
+                        }
+                        
                         var t=funcHandle(data);
                         table.Table.Rows[i][Info.OutputColumnName] = t;
                     }

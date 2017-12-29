@@ -1,0 +1,58 @@
+{
+  "Name": "com.tencent.mobileqq",
+  "Desc": "ÊÖ»úQQ",
+  "Items": [
+    {
+      "$type": "AFAS.Library.FileCatchInfo, AFAS.Library",
+      "IsRegEx": true,
+      "RelativePath": "databases/(\\d+)\\.db",
+      "Key": "File_QQUserDb"
+    },
+{
+      "$type": "AFAS.Library.DataCatchInfo, AFAS.Library",
+      "Type": "Database",
+      "TableKey": "Table_KeyGenParam",
+      "DataPath": "PublicAccountInfo",
+      "Select":"uin='2241957680'",
+      "Key": "File_QQUserDb"
+    },
+{
+      "$type": "AFAS.Library.DataProcessInfo, AFAS.Library",
+      "Type": "Script",
+      "ColumnName": "displayNumber",
+      "OutputColumnName": "key",
+      "Content": "
+local orgText=\"qqquanchengzhuli\";
+local key=\"\";
+for i=0,14 do
+      key=key..string.char(string.byte(orgText[i])~string.byte(data[i]));
+end;
+
+return key;
+
+",
+      "Key": "Table_KeyGenParam"
+    },
+     {
+      "$type": "AFAS.Library.DataCatchInfo, AFAS.Library",
+      "Type": "DatabaseWithRegEx",
+      "TableKey": "Table_Msgs",
+      "DataPath": "mr_friend_(.*)_New",
+      "Key": "File_QQUserDb"
+    },
+    {
+      "$type": "AFAS.Library.DataProcessInfo, AFAS.Library",
+      "Type": "Script",
+      "ColumnName": "msgData",
+      "OutputColumnName": "msgData_Text",
+      "Content": "
+local key=clr.AFAS.Library.LuaHelper.GetFirstColumnDataFromParentFile(parentFile,\"Table_KeyGenParam\",\"key\");
+for i=0,data.Length-1 do
+      local keyCode=string.byte(key[(i % 15)]);
+      data[i]=data[i]~keyCode;
+end;
+return clr.System.Text.Encoding.UTF8.GetString(data);",
+      "Key": "Table_Msgs"
+    },
+  ]
+}

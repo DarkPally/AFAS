@@ -12,14 +12,10 @@
     {
       "$type": "AFAS.Library.DataCatchInfo, AFAS.Library",
       "Type": "Database",
+      "Desc": "观看历史",
       "TableKey": "Table_History",
       "DataPath": "t_history_record",
       "Key": "File_History"
     },
-    {
-      "$type": "AFAS.Library.DataMarkInfo, AFAS.Library",
-      "TableDesc": "观看历史",
-      "Key": "Table_History"
-    }
   ]
 }

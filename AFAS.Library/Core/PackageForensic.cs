@@ -112,6 +112,8 @@ namespace AFAS.Library
                 Desc = RulePackage.Desc,
             };
             Result.Children.Add(DataSource);
+
+            LuaEnvironment.forensicPackage = this;
         }
         public void DoWork()
         {

@@ -16,7 +16,6 @@ namespace AFAS.Library
             None,
             RegEx,
             Script,
-            ComplexScript,//全权交给Script去做
             Json, //特殊，只有ColumName有效
         }
 

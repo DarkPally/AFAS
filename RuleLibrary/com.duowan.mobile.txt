@@ -50,14 +50,16 @@
       "ParentTableKey": "Table_Users",
       "ParentTableColumn": "userID",
       "ChildTableKey": "Table_Friends",
-      "ChildFileTableAssociateColumn": "AccountID"
+      "Type":"ChildFileColumn",
+      "AssociateColumn": "AccountID"
     },
     {
       "$type": "AFAS.Library.DataAssociateInfo, AFAS.Library",
       "ParentTableKey": "Table_Friends",
       "ParentTableColumn": "id",
       "ChildTableKey": "Table_Msgs",
-      "ChildTableAssociateColumn": "reverse2"
+      "Type":"InSameFile",
+      "AssociateColumn": "reverse2"
     },
     {
       "$type": "AFAS.Library.DataMarkInfo, AFAS.Library",
