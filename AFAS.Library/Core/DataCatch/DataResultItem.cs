@@ -4,15 +4,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data;
+using Newtonsoft.Json;
 
 namespace AFAS.Library
 {
     public class DataResultItem
     {
-        public string Key { get; set; }
-        public DataTable Table { get; set; }
+       public string Key { get; set; }
+       public DataTable Table { get; set; }
 
+       [JsonIgnore]
        public FileCatchResultItem ParentFile { get; set; }
+
+       [JsonIgnore]
        public DataResultItem ParentData { get; set; }
 
        string desc;
@@ -39,9 +43,9 @@ namespace AFAS.Library
             }
         }
 
-        public bool IsMutiTable { get; set; } = false;
+       public bool IsMutiTable { get; set; } = false;
 
-        List<DataResultItem> children;
+       List<DataResultItem> children;
        public List<DataResultItem> Children
         {
             get

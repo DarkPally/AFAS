@@ -82,5 +82,47 @@ namespace AFAS.ViewModel
 
             });
         }
+
+        public DelegateCommand ResultExport
+        {
+            get
+            {
+                return resultExport ?? (resultExport = new DelegateCommand(ExecuteResultExport));
+            }
+        }
+
+        DelegateCommand resultExport;
+
+        public void ExecuteResultExport()
+        {
+            var dialog = new System.Windows.Forms.SaveFileDialog();
+            dialog.InitialDirectory = System.Environment.CurrentDirectory + "\\SaveData\\";
+            dialog.FileName =  DateTime.Now.ToString("yy-MM-dd HH:mm") + ".txt";
+            if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                AFASManager.Instance.SaveForensicResult(DataSource as List<DataResultItem>,dialog.FileName); 
+            }
+           
+        }
+
+        public DelegateCommand ResultImport
+        {
+            get
+            {
+                return resultImport ?? (resultImport = new DelegateCommand(ExecuteResultImport));
+            }
+        }
+
+        DelegateCommand resultImport;
+
+        public void ExecuteResultImport()
+        {
+            var dialog = new System.Windows.Forms.OpenFileDialog();
+            dialog.InitialDirectory = System.Environment.CurrentDirectory + "\\SaveData\\";
+            if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                DataSource=AFASManager.Instance.LoadForensicResult(dialog.FileName);
+            }
+        }
     }
 }

@@ -35,6 +35,12 @@
              </TextBlock>
         </Grid>
         <Grid Grid.Row="1">
+            <Grid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Name="MenuItem1" Header="导出数据..." Command="{Binding ResultExport}"/>
+                    <MenuItem Name="MenuItem2" Header="导入数据..." Command="{Binding ResultImport}"/>
+                </ContextMenu>
+            </Grid.ContextMenu>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" MinWidth="150"/>
                 <ColumnDefinition Width="4*"/>
