@@ -109,6 +109,7 @@ namespace AFAS.Library
                         };
                         if (Info.Desc != null) item.Desc = Info.Desc;
                         Results.Add(item);
+                        if(Info.CatchToFileDataTree)
                         item.ParentFile.Children.Add(item);
                     }
                     ++i;
@@ -152,7 +153,8 @@ namespace AFAS.Library
                             itemParemt.Children.Add(item);
                         }
                         Results.Add(itemParemt);
-                        itemParemt.ParentFile.Children.Add(itemParemt);
+                        if (Info.CatchToFileDataTree)
+                            itemParemt.ParentFile.Children.Add(itemParemt);
                     }
                     ++i;
                 }

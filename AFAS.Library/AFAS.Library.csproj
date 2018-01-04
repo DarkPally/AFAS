@@ -58,14 +58,13 @@
     <Compile Include="Core\DataAssociate\DataAssociateInfo.cs" />
     <Compile Include="Core\DataAssociate\DataAssociate.cs" />
     <Compile Include="Core\DataCatch\DataCatchHelper.cs" />
-    <Compile Include="Core\DataCatch\DataResultItem.cs" />
+    <Compile Include="Core\DataResultItem.cs" />
     <Compile Include="Core\DataCatch\DataCatchInfo.cs" />
     <Compile Include="Core\DataCatch\DataCatch.cs" />
     <Compile Include="Core\DataMark\DataMark.cs" />
     <Compile Include="Core\DataMark\DataMarkInfo.cs" />
     <Compile Include="Core\DataProcess\DataProcessInfo.cs" />
     <Compile Include="Core\DataProcess\DataProcess.cs" />
-    <Compile Include="Core\FileCatch\FileCatchResultItem.cs" />
     <Compile Include="Core\FileProcess\FileProcessHelper.cs" />
     <Compile Include="Core\Lua\LuaHelper.cs" />
     <Compile Include="Core\Lua\LuaManager.cs" />

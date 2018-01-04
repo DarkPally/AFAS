@@ -62,7 +62,9 @@ namespace AFAS.Library
             dt.Rows.Add(dr);
             dt.TableName = Info.Key;
 
-            return new DataResultItem() { Key = Info.Key, Table = dt };
+            var res = new DataResultItem() { Key = Info.Key, Table = dt };
+            res.ParentFile = res;
+            return res;
         }
         protected DataResultItem loadFileAttribute(List<string> filePaths,List<string> filePathMatches)
         {
@@ -91,12 +93,16 @@ namespace AFAS.Library
                 dr["PCPath"] = filePaths[i];
                 dt.Rows.Add(dr);
                 var tTable=dt.Clone();
+                tTable.TableName = filePathMatches[i];
                 tTable.ImportRow(dr);
-                res.Children.Add(new DataResultItem() {
+                var t = new DataResultItem()
+                {
                     Key = Info.Key,
                     ParentData = res,
                     Table = tTable,
-                });
+                };
+                t.ParentFile = t;
+                res.Children.Add(t);
             }
             return res;
         }

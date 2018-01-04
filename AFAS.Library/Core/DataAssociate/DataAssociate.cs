@@ -64,7 +64,6 @@ namespace AFAS.Library
 
         void handleChildAssociateColumn()
         {
-
             var res = new List<DataResultItem>();
             for (int i = 0; i < parentTables.Count; ++i)
             {

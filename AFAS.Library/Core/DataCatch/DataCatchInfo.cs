@@ -36,6 +36,9 @@ namespace AFAS.Library
         public string Select { get; set; }
 
         public string Desc { get; set; }
+
+        //是否把抓到的数据放到文件表下
+        public bool CatchToFileDataTree { get; set; } = false;
         [JsonIgnore]
         public LuaChunk Chunk { get; set; }
 
