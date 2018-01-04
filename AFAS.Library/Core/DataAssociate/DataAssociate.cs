@@ -16,14 +16,29 @@ namespace AFAS.Library
         List<DataResultItem> parentTables;
 
         List<DataResultItem> childTables;
+
+        bool loadDataTables(string key,ref List<DataResultItem> tables)
+        {
+            if (!Environment.CatchDataTables.ContainsKey(key)) return false;
+            var t = Environment.CatchDataTables[key];
+            tables = new List<DataResultItem>();
+            foreach (var it in t)
+            {
+                if (it.IsMutiTableParent)
+                {
+                    tables.AddRange(it.Children);
+                }
+                else
+                {
+                    tables.Add(it);
+                }
+            }
+            return true;
+        }
         bool loadDataTables()
         {
-            if (!Environment.CatchDataTables.ContainsKey(Info.ParentTableKey)) return false;
-            parentTables = Environment.CatchDataTables[Info.ParentTableKey];
-
-            if (!Environment.CatchDataTables.ContainsKey(Info.ChildTableKey)) return false;
-            childTables = Environment.CatchDataTables[Info.ChildTableKey];
-            return true;
+            return loadDataTables(Info.ParentTableKey, ref parentTables) &&
+                loadDataTables(Info.ChildTableKey,ref childTables);
         }
 
         DataResultItem getDescItem(DataResultItem parent, string keyContent)
@@ -99,7 +114,7 @@ namespace AFAS.Library
                     var tKey = getDescItem(parentTables[i], it);
                     childTables.ForEach(c =>
                     {
-                        var fileTable = c.ParentFile.DataItems[c.ParentFile.Key];
+                        var fileTable = c.ParentFile;
                         if (Convert.ToString(fileTable.Table.Rows[0][Info.AssociateColumn]) == it)
                         {
                             tKey.Children.Add(c);

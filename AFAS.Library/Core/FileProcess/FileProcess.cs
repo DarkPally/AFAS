@@ -12,21 +12,27 @@ namespace AFAS.Library
         public PackageForensic Environment { get; set; }
         public FileProcessInfo Info { get; set; }
 
-        List<FileCatchResultItem> filePaths;
+        DataResultItem filePathItem;
+        List<string> filePaths;
+
         bool copyTargetFiles()
         {
             try
             {
-                if (!Environment.CatchFilePaths.ContainsKey(Info.Key)) return false;
-                filePaths = Environment.CatchFilePaths[Info.Key];
-                for (int i = 0; i < filePaths.Count; ++i)
+                if (!Environment.CatchDataTables.ContainsKey(Info.Key)) return false;
+                filePathItem = Environment.CatchDataTables[Info.Key][0];
+                filePaths = new List<string>();
+                for (int i = 0; i < filePathItem.Table.Rows.Count; ++i)
                 {
-                    FileInfo file = new FileInfo(filePaths[i].FilePath);
+                    var path = Convert.ToString(filePathItem.Table.Rows[i]["PCPath"]);
+                    FileInfo file = new FileInfo(path);
                     if (file.Exists)
                     {
-                        filePaths[i].FilePath += ".proc";
+                        path += ".proc";
+                        filePathItem.Table.Rows[i]["PCPath"] = path ;
                         // true is overwrite
-                        file.CopyTo(filePaths[i].FilePath, true);
+                        file.CopyTo(path, true);
+                        filePaths.Add(path);
                     }
                 }
                 return true;

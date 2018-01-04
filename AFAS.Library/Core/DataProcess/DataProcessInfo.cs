@@ -16,6 +16,7 @@ namespace AFAS.Library
             None,
             RegEx,
             Script,
+            ScriptName,
             Json, //特殊，只有ColumName有效
         }
 
@@ -38,9 +39,13 @@ namespace AFAS.Library
                         Content,
                         "buffer.lua",
                         new LuaCompileOptions() { DebugEngine = LuaStackTraceDebugger.Default });
-                        //, new KeyValuePair<string, Type>("data", typeof(object)));
             }
-            if(OutputColumnName==null)
+            if (Type == ProcessType.ScriptName)
+            {
+                Chunk = Package.Scripts.First(c=>c.Name==Content).Chunk;
+            }
+
+            if (OutputColumnName==null)
             {
                 OutputColumnName = ColumnName + "_proc";
             }

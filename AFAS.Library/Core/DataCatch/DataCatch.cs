@@ -14,52 +14,18 @@ namespace AFAS.Library
         public PackageForensic Environment { get; set; }
         public DataCatchInfo Info { get; set; }
 
-        List<FileCatchResultItem> filePaths;
-
+        DataResultItem fileResultItem;
+        List<string> filePaths;
         bool loadTargetFiles()
         {
-            if (!Environment.CatchFilePaths.ContainsKey(Info.Key)) return false;
-            filePaths = Environment.CatchFilePaths[Info.Key];
-            if(filePaths.Count>0 && filePaths[0].DataItems.Count==0)
+            if (!Environment.CatchDataTables.ContainsKey(Info.Key)) return false;
+            fileResultItem = Environment.CatchDataTables[Info.Key][0];
+            filePaths = new List<string>();
+            for (int i=0;i< fileResultItem.Table.Rows.Count;++i)
             {
-                var tRes = new List<DataResultItem>();
-
-                filePaths.ForEach(it =>
-                {
-                    var t = loadFileAttribute(it.FilePath);
-                    var item = new DataResultItem()
-                    {
-                        ParentFile = it,
-                        Table = t
-                    };
-                    it.DataItems.Add(Info.Key,item);
-                    tRes.Add(item);
-                });
-                Environment.CatchDataTables.Add(Info.Key, tRes);
+                filePaths.Add(Convert.ToString( fileResultItem.Table.Rows[i]["PCPath"]));
             }
             return true;
-        }
-
-        DataTable loadFileAttribute(string filePath)
-        {
-            DataTable dt = new DataTable();
-            dt.Columns.AddRange(
-                new DataColumn[]
-                {
-                        new DataColumn("FileName", System.Type.GetType("System.String")),
-                        new DataColumn("RelativePath", System.Type.GetType("System.String")),
-                        new DataColumn("LastWriteTime", System.Type.GetType("System.DateTime")),
-                });
-
-            FileInfo info = new FileInfo(filePath);
-            DataRow dr = dt.NewRow();
-            dr["FileName"] = info.Name;
-            dr["RelativePath"] = info.FullName.Substring(Environment.PCPath.Length);
-            dr["LastWriteTime"] = info.LastWriteTime;
-            dt.Rows.Add(dr);
-            dt.TableName = info.Name;
-
-            return dt;
         }
 
         DataTable handleBinary(string filePath)
@@ -118,16 +84,17 @@ namespace AFAS.Library
 
             if (funcHandle != null)
             {
+                int i = 0;
                 foreach (var it in filePaths)
                 {                    
-                    var table = funcHandle(it.FilePath);
+                    var table = funcHandle(it);
                     if(Info.Select != null)
                     {
                         var drArr = table.Select(Info.Select);
                         DataTable dtNew = table.Clone();
-                        for (int i = 0; i < drArr.Length; i++)
+                        for (int j = 0; j < drArr.Length; j++)
                         {
-                            dtNew.ImportRow(drArr[i]);
+                            dtNew.ImportRow(drArr[j]);
                         }
                         table = dtNew;
                     }
@@ -137,55 +104,57 @@ namespace AFAS.Library
                         var item = new DataResultItem()
                         {
                             Key= Info.TableKey,
-                            ParentFile = it,
+                            ParentFile = fileResultItem.IsMutiTableParent? fileResultItem.Children[i]:fileResultItem,
                             Table =  table                            
                         };
                         if (Info.Desc != null) item.Desc = Info.Desc;
                         Results.Add(item);
-                        it.DataItems.Add(Info.TableKey,item);
+                        item.ParentFile.Children.Add(item);
                     }
+                    ++i;
                 }
             }
             else
             {
+                int i = 0;
                 foreach (var it in filePaths)
                 {
-                    var tables = handleDatabaseWithRegEx(it.FilePath);
+                    var tables = handleDatabaseWithRegEx(it);
                     if (tables.Count>0)
                     {
-                        var fileRes = new List<DataResultItem>();
-                        foreach(var t in tables)
+                        var itemParemt = new DataResultItem()
+                        {
+                            Key = Info.TableKey,
+                            IsMutiTableParent=true,
+                            ParentFile = fileResultItem.IsMutiTableParent ? fileResultItem.Children[i] : fileResultItem,
+                        };
+
+                        if (Info.Desc != null) itemParemt.Desc = Info.Desc;
+                        foreach (var t in tables)
                         {
                             var table = t;
                             if (Info.Select != null)
                             {
                                 var drArr = table.Select(Info.Select);
                                 DataTable dtNew = table.Clone();
-                                for (int i = 0; i < drArr.Length; i++)
+                                for (int j = 0; j < drArr.Length; j++)
                                 {
-                                    dtNew.ImportRow(drArr[i]);
+                                    dtNew.ImportRow(drArr[j]);
                                 }
                                 table = dtNew;
                             }
                             var item = new DataResultItem()
                             {
                                 Key = Info.TableKey,
-                                ParentFile = it,
+                                ParentFile = itemParemt.ParentFile,
                                 Table = table
                             };
-                            if (Info.Desc != null) item.Desc = Info.Desc;
-                            Results.Add(item);
+                            itemParemt.Children.Add(item);
                         }
-
-                        //暂时以新子节点的方式加到集合对象里
-                        it.DataItems.Add(Info.TableKey, new DataResultItem()
-                        {
-                            Key = Info.TableKey,
-                            ParentFile = it,
-                            Children = fileRes,
-                            IsMutiTable = true
-                        });
+                        Results.Add(itemParemt);
+                        itemParemt.ParentFile.Children.Add(itemParemt);
                     }
+                    ++i;
                 }
             }
             Environment.CatchDataTables.Add(Info.TableKey, Results);

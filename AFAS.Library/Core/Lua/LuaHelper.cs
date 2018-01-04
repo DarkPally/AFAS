@@ -25,9 +25,9 @@ namespace AFAS.Library
             return package.CatchDataTables[TableKey].First().Table.Rows[0][ColumnName];
         }
 
-        public static object GetFirstColumnDataFromParentFile(FileCatchResultItem file, string TableKey, string ColumnName)
+        public static object GetFirstColumnDataFromParentFile(DataResultItem fileItem, string TableKey, string ColumnName)
         {
-            return file.DataItems[TableKey].Table.Rows[0][ColumnName];
+            return fileItem.Children.First(c=>c.Key==TableKey).Table.Rows[0][ColumnName];
         }
 
         public static void CreateColumn(DataTable table, string ColumnName)

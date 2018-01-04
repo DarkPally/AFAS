@@ -7,10 +7,13 @@ using AFAS.Library.Android;
 using System.Data;
 namespace AFAS.Library
 {
+    /*
     public class FileCatchResultItem 
     {
         public string Key { get; set; }
         public string FilePath { get; set; }
+        public string FilePathMatch { get; set; }
         public Dictionary<string,DataResultItem> DataItems { get; set; }
     }
+    */
 }

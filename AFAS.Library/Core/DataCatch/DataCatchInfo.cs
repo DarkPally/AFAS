@@ -52,8 +52,7 @@ namespace AFAS.Library
                 Chunk = AFASManager.Lua.Engine.CompileChunk(
                         DataPath,
                         "buffer.lua",
-                        new LuaCompileOptions() { DebugEngine = LuaStackTraceDebugger.Default }
-                        , new KeyValuePair<string, Type>("filePath", typeof(string)));
+                        new LuaCompileOptions() { DebugEngine = LuaStackTraceDebugger.Default });
                 
             }
         }

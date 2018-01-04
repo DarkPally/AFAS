@@ -14,7 +14,7 @@ namespace AFAS.Library
        public DataTable Table { get; set; }
 
        [JsonIgnore]
-       public FileCatchResultItem ParentFile { get; set; }
+       public DataResultItem ParentFile { get; set; }
 
        [JsonIgnore]
        public DataResultItem ParentData { get; set; }
@@ -30,7 +30,10 @@ namespace AFAS.Library
                     {
                         return MarkInfo.TableDesc;
                     }
+                    if(Table!=null)
                     return Table.TableName;
+
+                    return Key;
                 }
                 else
                 {
@@ -42,8 +45,8 @@ namespace AFAS.Library
                 desc = value;
             }
         }
-
-       public bool IsMutiTable { get; set; } = false;
+       //复合表，即本身有Table，且子对象也有一样Key的Table，是分开的
+       public bool IsMutiTableParent { get; set; } = false;
 
        List<DataResultItem> children;
        public List<DataResultItem> Children

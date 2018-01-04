@@ -17,7 +17,7 @@ namespace AFAS.Library
 
         public dynamic LuaEnvironment { get; } = AFASManager.Lua.CreateEnvironment();
         //FileKey
-        public Dictionary<string, List<FileCatchResultItem>> CatchFilePaths = new Dictionary<string, List<FileCatchResultItem>>();
+        //public Dictionary<string, List<FileCatchResultItem>> CatchFilePaths = new Dictionary<string, List<FileCatchResultItem>>();
         //TableKey
         public Dictionary<string, List<DataResultItem>> CatchDataTables = new Dictionary<string, List<DataResultItem>>();
 

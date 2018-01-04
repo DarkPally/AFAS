@@ -41,7 +41,7 @@ namespace AFAS.Library
             if (checkRootPathExist())
             {
 
-                var res = new List<FileCatchResultItem>();
+                var res = new List<DataResultItem>();
                 var path = RootPath + RelativePath;
                 var realPath = path.Replace("/", "\\");
                 var regexPath = path.Replace("/", "\\\\");
@@ -53,15 +53,17 @@ namespace AFAS.Library
                     var MatchNames = fileNames.Where(c => r.IsMatch(c)).ToList();
                     if (MatchNames.Count > 0)
                     {
+                        var pcPaths = new List<string>();
+                        var PathMacthes = new List<string>();
+
                         foreach (var it in MatchNames)
                         {
-                            res.Add(new FileCatchResultItem()
-                            {
-                                Key=Info.Key,
-                                FilePath = PCPath + it,
-                                DataItems = new Dictionary<string, DataResultItem>(),
-                            });
+                            var tg = r.Match(it).Groups;
+                            var pcPath = PCPath + it;
+                            pcPaths.Add(pcPath);
+                            PathMacthes.Add(tg[tg.Count - 1].Value);
                         }
+                        res.Add(loadFileAttribute(pcPaths, PathMacthes));
 
                     }
                 }
@@ -69,15 +71,11 @@ namespace AFAS.Library
                 {
                     if (fileNames.Contains(realPath))
                     {
-                        res.Add(new FileCatchResultItem()
-                        {
-                            Key = Info.Key,
-                            FilePath = PCPath + realPath,
-                            DataItems = new Dictionary<string, DataResultItem>(),
-                        });
+                        res.Add(loadFileAttribute(PCPath + realPath));
                     }
                 }
-                Environment.CatchFilePaths.Add(Info.Key, res);
+                Environment.CatchDataTables.Add(Info.Key, res);
+                Environment.DataSource.Children.AddRange(res);
             }
         }
     }

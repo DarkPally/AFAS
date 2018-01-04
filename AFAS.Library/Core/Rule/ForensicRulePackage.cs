@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using Neo.IronLua;
 
 namespace AFAS.Library
 {
@@ -15,6 +16,17 @@ namespace AFAS.Library
         //包名描述，中文名称
         public string Desc { get; set; }
 
+        public class ScriptItem
+        {
+            public string Name { get; set; }
+            public string Content { get; set; }
+
+            [JsonIgnore]
+            public LuaChunk Chunk { get; set; }
+        }
+
+        public List<ScriptItem> Scripts { get; set; }
+
         [JsonIgnore]
         public string OrgText { get; set; }
         [JsonIgnore]
@@ -24,7 +36,18 @@ namespace AFAS.Library
 
         public void Init()
         {
-            foreach(var it in Items)
+            if(Scripts!=null)
+            {
+                foreach (var it in Scripts)
+                {
+                    it.Chunk = AFASManager.Lua.Engine.CompileChunk(
+                            it.Content,
+                            "buffer.lua",
+                            new LuaCompileOptions() { DebugEngine = LuaStackTraceDebugger.Default });
+                }
+            }
+            
+            foreach (var it in Items)
             {
                 it.Package = this;
                 it.Init();

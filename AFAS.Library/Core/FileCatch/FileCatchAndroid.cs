@@ -52,7 +52,7 @@ namespace AFAS.Library
         {
             if (checkRootPathExist())
             {
-                var res = new List<FileCatchResultItem>();
+                var res = new List<DataResultItem>();
                 var path = RootPath + RelativePath;
                 var fileNames = RootPathFileNames[RootPath];
 
@@ -63,17 +63,18 @@ namespace AFAS.Library
                     if(MatchNames.Count>0)
                     {
                         InitAndroidFileExtractor();
-                        foreach(var it in MatchNames)
+                        var pcPaths = new List<string>();
+                        var PathMacthes = new List<string>();
+
+                        foreach (var it in MatchNames)
                         {
+                            var tg = r.Match(it).Groups; 
                             var pcPath = PCPath + it.Replace('/', '\\');
                             androidFileExtracter.CopyFileFromDevice(androidDevice, it, pcPath);
-                            res.Add(new FileCatchResultItem()
-                            {
-                                Key = Info.Key,
-                                FilePath = pcPath,
-                                DataItems = new Dictionary<string, DataResultItem>()
-                            });
+                            pcPaths.Add(pcPath);
+                            PathMacthes.Add(tg[tg.Count - 1].Value);
                         }
+                        res.Add(loadFileAttribute(pcPaths, PathMacthes));
 
                     }
                 }
@@ -83,15 +84,11 @@ namespace AFAS.Library
                     {
                         var pcPath = PCPath + path.Replace('/', '\\');
                         androidFileExtracter.CopyFileFromDevice(androidDevice, path, pcPath);
-                        res.Add(new FileCatchResultItem()
-                        {
-                            Key = Info.Key,
-                            FilePath = pcPath,
-                            DataItems = new Dictionary<string, DataResultItem>()
-                        });
+                        res.Add(loadFileAttribute(pcPath));
                     }
                 }
-                Environment.CatchFilePaths.Add(Info.Key,res);
+                Environment.CatchDataTables.Add(Info.Key,res);
+                Environment.DataSource.Children.AddRange(res);
             }
             
         }

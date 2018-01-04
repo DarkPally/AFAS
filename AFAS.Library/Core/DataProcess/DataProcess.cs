@@ -18,7 +18,19 @@ namespace AFAS.Library
         bool loadDataTables()
         {
             if (!Environment.CatchDataTables.ContainsKey(Info.Key)) return false;
-            dataTables = Environment.CatchDataTables[Info.Key];
+            var t = Environment.CatchDataTables[Info.Key];
+            dataTables = new List<DataResultItem>();
+            foreach (var it in t )
+            {
+                if(it.IsMutiTableParent)
+                {
+                    dataTables.AddRange(it.Children);
+                }
+                else
+                {
+                    dataTables.Add(it);
+                }
+            }
             return true;
         }
 
@@ -49,6 +61,7 @@ namespace AFAS.Library
                     case DataProcessInfo.ProcessType.None:
                         return;
                     case DataProcessInfo.ProcessType.Script:
+                    case DataProcessInfo.ProcessType.ScriptName:
                         funcHandle = handleDataByScript;
                         break;
                     case DataProcessInfo.ProcessType.RegEx:
@@ -61,8 +74,8 @@ namespace AFAS.Library
                     for(int i=0;i< table.Table.Rows.Count;++i )
                     {
                         var data = table.Table.Rows[i][Info.ColumnName];
-
-                        if(Info.Type==DataProcessInfo.ProcessType.Script)
+                        
+                        if(Info.Type==DataProcessInfo.ProcessType.Script || Info.Type == DataProcessInfo.ProcessType.ScriptName)
                         {
                             Environment.LuaEnvironment.data = data;
                             Environment.LuaEnvironment.dataTable = table.Table;
