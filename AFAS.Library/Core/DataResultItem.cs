@@ -61,12 +61,13 @@ namespace AFAS.Library
             }
         }
 
+       public bool IsMarkInfoFromParent = false;
        DataMarkInfo markInfo;
        public DataMarkInfo MarkInfo
         {
             get
             {
-                if (markInfo == null)
+                if (IsMarkInfoFromParent)
                 {
                     if (ParentData != null) return ParentData.markInfo;
                 }

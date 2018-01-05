@@ -16,8 +16,25 @@ namespace AFAS.Library
         List<DataResultItem> Tables;
         bool loadDataTables()
         {
-            if (!Environment.CatchDataTables.ContainsKey(Info.Key)) return false;
+            if (!Environment.CatchDataTables.ContainsKey(Info.Key)) return false;            
             Tables = Environment.CatchDataTables[Info.Key];
+            if (Tables.Count == 0) return false;
+            if (!Tables[0].IsMutiTableParent || Info.TableDescType == 0) return true;
+
+            var t = new List<DataResultItem>();
+            foreach (var it in Tables)
+            {
+                t.AddRange(it.Children.Where(c => c.Key == Info.Key));
+            }
+            if (Info.TableDescType==1)
+            {
+                Tables = t;
+            }
+            else
+            {
+                Tables.AddRange(t);
+            }
+
             return true;
         }
 
@@ -29,8 +46,11 @@ namespace AFAS.Library
                 {
                     //Tables[i].Desc = Info.TableDesc == null ? Tables[i].Table.TableName : Info.TableDesc;
                     Tables[i].MarkInfo = Info;
-
-                    
+                    if(Info.TableDescScriptChunk != null)
+                    {
+                        Environment.LuaEnvironment.dataTable = Tables[i];
+                        Tables[i].Desc=Environment.LuaEnvironment.dochunk(Info.TableDescScriptChunk)[0];
+                    }
                 }
                 if (Info.NotShowAtRoot == true) return;
 

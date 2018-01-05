@@ -54,11 +54,13 @@ namespace AFAS.Library
             }
 
             t = new DataResultItem()
-            {                
+            { 
+                Key=parent.Key,
                 Desc = keyContent,
                 Table=dtNew
             };
             parent.Children.Add(t);
+            parent.IsMutiTableParent = true;
             return t;
         }
 
@@ -88,6 +90,7 @@ namespace AFAS.Library
                         }
                         var t = new DataResultItem()
                         {
+                            IsMarkInfoFromParent=true,
                             ParentData = childTables[i],
                             ParentFile = childTables[i].ParentFile,
                             Table = dtNew,
