@@ -19,10 +19,10 @@ namespace AFAS.Library
         //FileKey
         //public Dictionary<string, List<FileCatchResultItem>> CatchFilePaths = new Dictionary<string, List<FileCatchResultItem>>();
         //TableKey
-        public Dictionary<string, List<DataResultItem>> CatchDataTables = new Dictionary<string, List<DataResultItem>>();
+        public Dictionary<string, List<ForensicResultItem>> CatchDataTables = new Dictionary<string, List<ForensicResultItem>>();
 
-        public DataResultItem Result { get; set; }
-        public DataResultItem DataSource { get; set; }
+        public ForensicResultItem Result { get; set; }
+        public ForensicResultItem DataSource { get; set; }
 
         void FileCatch(ForensicRuleItemInfo item)
         {
@@ -103,11 +103,11 @@ namespace AFAS.Library
         void Init()
         {
             if (PCPath.Last() != '\\') PCPath += '\\';
-            DataSource = new DataResultItem()
+            DataSource = new ForensicResultItem()
             {
                 Desc = "数据集合",
             };
-            Result = new DataResultItem()
+            Result = new ForensicResultItem()
             {
                 Desc = RulePackage.Desc,
             };

@@ -36,17 +36,17 @@ namespace AFAS.ViewModel
             State = "解析中...";
             Task.Factory.StartNew(() =>
             {
-                try
+                //try
                 {
                     if (Path.Last() != '\\') Path += '\\';
                     DataSource= AFASManager.Instance.DoForensic(Path, true);
 
                     State = "解析完成！";
                 }
-                catch(Exception e)
+                //catch(Exception e)
                 {
-                    State = "解析出现异常";
-                    Error = e.Message;
+                  //  State = "解析出现异常";
+                  //  Error = e.Message;
                 }
 
             });
@@ -97,10 +97,10 @@ namespace AFAS.ViewModel
         {
             var dialog = new System.Windows.Forms.SaveFileDialog();
             dialog.InitialDirectory = System.Environment.CurrentDirectory + "\\SaveData\\";
-            dialog.FileName =  DateTime.Now.ToString("yy-MM-dd HH:mm") + ".txt";
+            dialog.FileName =  DateTime.Now.ToString("yyMMdd_HHmm") + ".txt";
             if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                AFASManager.Instance.SaveForensicResult(DataSource as List<DataResultItem>,dialog.FileName); 
+                ForensicResult.SaveForensicResult(DataSource as ForensicResult, dialog.FileName); 
             }
            
         }
@@ -121,7 +121,7 @@ namespace AFAS.ViewModel
             dialog.InitialDirectory = System.Environment.CurrentDirectory + "\\SaveData\\";
             if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                DataSource=AFASManager.Instance.LoadForensicResult(dialog.FileName);
+                DataSource= ForensicResult.LoadForensicResult(dialog.FileName);
             }
         }
     }

@@ -10,12 +10,12 @@ namespace AFAS.Library
 {
     public class LuaHelper
     {
-        public static DataResultItem GetFirstItemCatched(PackageForensic package,string TableKey )
+        public static ForensicResultItem GetFirstItemCatched(PackageForensic package,string TableKey )
         {
             return package.CatchDataTables[TableKey].First();
         }
 
-        public static object GetFirstColumnDataFromItem(DataResultItem item, string ColumnName)
+        public static object GetFirstColumnDataFromItem(ForensicResultItem item, string ColumnName)
         {
             return item.Table.Rows[0][ColumnName];
         }
@@ -25,7 +25,7 @@ namespace AFAS.Library
             return package.CatchDataTables[TableKey].First().Table.Rows[0][ColumnName];
         }
 
-        public static object GetFirstColumnDataFromParentFile(DataResultItem fileItem, string TableKey, string ColumnName)
+        public static object GetFirstColumnDataFromParentFile(ForensicResultItem fileItem, string TableKey, string ColumnName)
         {
             return fileItem.Children.First(c=>c.Key==TableKey).Table.Rows[0][ColumnName];
         }

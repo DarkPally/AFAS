@@ -14,7 +14,7 @@ namespace AFAS.Library
         public PackageForensic Environment { get; set; }
         public DataCatchInfo Info { get; set; }
 
-        DataResultItem fileResultItem;
+        ForensicResultItem fileResultItem;
         List<string> filePaths;
         bool loadTargetFiles()
         {
@@ -80,7 +80,7 @@ namespace AFAS.Library
                     break;
             }
 
-            var Results=new List<DataResultItem>();
+            var Results=new List<ForensicResultItem>();
 
             if (funcHandle != null)
             {
@@ -101,7 +101,7 @@ namespace AFAS.Library
                     if(table!=null)
                     {
                         //table.TableName = Info.TableKey;
-                        var item = new DataResultItem()
+                        var item = new ForensicResultItem()
                         {
                             Key= Info.TableKey,
                             ParentFile = fileResultItem.IsMutiTableParent? fileResultItem.Children[i]:fileResultItem,
@@ -123,7 +123,7 @@ namespace AFAS.Library
                     var tables = handleDatabaseWithRegEx(it);
                     if (tables.Count>0)
                     {
-                        var itemParemt = new DataResultItem()
+                        var itemParemt = new ForensicResultItem()
                         {
                             Key = Info.TableKey,
                             IsMutiTableParent=true,
@@ -144,7 +144,7 @@ namespace AFAS.Library
                                 }
                                 table = dtNew;
                             }
-                            var item = new DataResultItem()
+                            var item = new ForensicResultItem()
                             {
                                 Key = Info.TableKey,
                                 ParentFile = itemParemt.ParentFile,

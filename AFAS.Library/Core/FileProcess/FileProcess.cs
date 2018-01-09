@@ -12,7 +12,7 @@ namespace AFAS.Library
         public PackageForensic Environment { get; set; }
         public FileProcessInfo Info { get; set; }
 
-        DataResultItem filePathItem;
+        ForensicResultItem filePathItem;
         List<string> filePaths;
 
         bool copyTargetFiles()

@@ -41,7 +41,7 @@ namespace AFAS.Library
             if (checkRootPathExist())
             {
 
-                var res = new List<DataResultItem>();
+                var res = new List<ForensicResultItem>();
                 var path = RootPath + RelativePath;
                 var realPath = path.Replace("/", "\\");
                 var regexPath = path.Replace("/", "\\\\");

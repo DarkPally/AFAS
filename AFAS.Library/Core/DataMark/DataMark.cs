@@ -13,7 +13,7 @@ namespace AFAS.Library
         public PackageForensic Environment { get; set; }
         public DataMarkInfo Info { get; set; }
 
-        List<DataResultItem> Tables;
+        List<ForensicResultItem> Tables;
         bool loadDataTables()
         {
             if (!Environment.CatchDataTables.ContainsKey(Info.Key)) return false;            
@@ -21,7 +21,7 @@ namespace AFAS.Library
             if (Tables.Count == 0) return false;
             if (!Tables[0].IsMutiTableParent || Info.TableDescType == 0) return true;
 
-            var t = new List<DataResultItem>();
+            var t = new List<ForensicResultItem>();
             foreach (var it in Tables)
             {
                 t.AddRange(it.Children.Where(c => c.Key == Info.Key));
@@ -44,13 +44,13 @@ namespace AFAS.Library
             {
                 for(int i=0;i< Tables.Count;++i)
                 {
-                    //Tables[i].Desc = Info.TableDesc == null ? Tables[i].Table.TableName : Info.TableDesc;
                     Tables[i].MarkInfo = Info;
                     if(Info.TableDescScriptChunk != null)
                     {
                         Environment.LuaEnvironment.dataTable = Tables[i];
                         Tables[i].Desc=Environment.LuaEnvironment.dochunk(Info.TableDescScriptChunk)[0];
                     }
+                    
                 }
                 if (Info.NotShowAtRoot == true) return;
 
@@ -63,7 +63,7 @@ namespace AFAS.Library
                     }
                     else
                     {
-                        var tItem = new DataResultItem()
+                        var tItem = new ForensicResultItem()
                         {
                             Children = Tables,
                             MarkInfo=Info

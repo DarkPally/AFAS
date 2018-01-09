@@ -13,15 +13,15 @@ namespace AFAS.Library
         public PackageForensic Environment { get; set; }
         public DataAssociateInfo Info { get; set; }
 
-        List<DataResultItem> parentTables;
+        List<ForensicResultItem> parentTables;
 
-        List<DataResultItem> childTables;
+        List<ForensicResultItem> childTables;
 
-        bool loadDataTables(string key,ref List<DataResultItem> tables)
+        bool loadDataTables(string key,ref List<ForensicResultItem> tables)
         {
             if (!Environment.CatchDataTables.ContainsKey(key)) return false;
             var t = Environment.CatchDataTables[key];
-            tables = new List<DataResultItem>();
+            tables = new List<ForensicResultItem>();
             foreach (var it in t)
             {
                 if (it.IsMutiTableParent)
@@ -41,7 +41,7 @@ namespace AFAS.Library
                 loadDataTables(Info.ChildTableKey,ref childTables);
         }
 
-        DataResultItem getDescItem(DataResultItem parent, string keyContent)
+        ForensicResultItem getDescItem(ForensicResultItem parent, string keyContent)
         {
             var t = parent.Children.FirstOrDefault(c => c.Desc == keyContent);
             if (t!=null) return t;
@@ -53,7 +53,7 @@ namespace AFAS.Library
                 dtNew.ImportRow(dr);
             }
 
-            t = new DataResultItem()
+            t = new ForensicResultItem()
             { 
                 Key=parent.Key,
                 Desc = keyContent,
@@ -66,7 +66,7 @@ namespace AFAS.Library
 
         void handleChildAssociateColumn()
         {
-            var res = new List<DataResultItem>();
+            var res = new List<ForensicResultItem>();
             for (int i = 0; i < parentTables.Count; ++i)
             {
                 var keyContents = parentTables[i].Table.AsEnumerable().Select(c => Convert.ToString(c[Info.ParentTableColumn])).Distinct();
@@ -88,7 +88,7 @@ namespace AFAS.Library
                         {
                             dtNew.ImportRow(dr);
                         }
-                        var t = new DataResultItem()
+                        var t = new ForensicResultItem()
                         {
                             IsMarkInfoFromParent=true,
                             ParentData = childTables[i],

@@ -41,7 +41,7 @@ namespace AFAS.Library
         {
         }
 
-        protected DataResultItem loadFileAttribute(string filePath)
+        protected ForensicResultItem loadFileAttribute(string filePath)
         {
             DataTable dt = new DataTable();
             dt.Columns.AddRange(
@@ -62,11 +62,11 @@ namespace AFAS.Library
             dt.Rows.Add(dr);
             dt.TableName = Info.Key;
 
-            var res = new DataResultItem() { Key = Info.Key, Table = dt };
+            var res = new ForensicResultItem() { Key = Info.Key, Table = dt };
             res.ParentFile = res;
             return res;
         }
-        protected DataResultItem loadFileAttribute(List<string> filePaths,List<string> filePathMatches)
+        protected ForensicResultItem loadFileAttribute(List<string> filePaths,List<string> filePathMatches)
         {
             DataTable dt = new DataTable();
             dt.Columns.AddRange(
@@ -79,7 +79,7 @@ namespace AFAS.Library
                         new DataColumn("FileNameMatch", System.Type.GetType("System.String")),
                 });
             dt.TableName = Info.Key;
-            var res = new DataResultItem() { Key = Info.Key, Table = dt,
+            var res = new ForensicResultItem() { Key = Info.Key, Table = dt,
                 IsMutiTableParent = true
             };
             for (int i=0;i< filePaths.Count;++i)
@@ -95,7 +95,7 @@ namespace AFAS.Library
                 var tTable=dt.Clone();
                 tTable.TableName = filePathMatches[i];
                 tTable.ImportRow(dr);
-                var t = new DataResultItem()
+                var t = new ForensicResultItem()
                 {
                     Key = Info.Key,
                     ParentData = res,

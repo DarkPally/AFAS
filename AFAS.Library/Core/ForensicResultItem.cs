@@ -8,16 +8,16 @@ using Newtonsoft.Json;
 
 namespace AFAS.Library
 {
-    public class DataResultItem
+    public class ForensicResultItem
     {
        public string Key { get; set; }
        public DataTable Table { get; set; }
 
        [JsonIgnore]
-       public DataResultItem ParentFile { get; set; }
+       public ForensicResultItem ParentFile { get; set; }
 
        [JsonIgnore]
-       public DataResultItem ParentData { get; set; }
+       public ForensicResultItem ParentData { get; set; }
 
        string desc;
        public string Desc
@@ -48,12 +48,12 @@ namespace AFAS.Library
        //复合表，即本身有Table，且子对象也有一样Key的Table，是分开的
        public bool IsMutiTableParent { get; set; } = false;
 
-       List<DataResultItem> children;
-       public List<DataResultItem> Children
+       List<ForensicResultItem> children;
+       public List<ForensicResultItem> Children
         {
             get
             {
-                return  children ?? (children = new List<DataResultItem>());
+                return  children ?? (children = new List<ForensicResultItem>());
             }
             set
             {
@@ -78,5 +78,6 @@ namespace AFAS.Library
                 markInfo = value;
             }
         }
+
     }
 }

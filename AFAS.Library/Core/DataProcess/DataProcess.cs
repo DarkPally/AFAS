@@ -14,12 +14,12 @@ namespace AFAS.Library
         public PackageForensic Environment { get; set; }
         public DataProcessInfo Info { get; set; }
 
-        List<DataResultItem> dataTables;
+        List<ForensicResultItem> dataTables;
         bool loadDataTables()
         {
             if (!Environment.CatchDataTables.ContainsKey(Info.Key)) return false;
             var t = Environment.CatchDataTables[Info.Key];
-            dataTables = new List<DataResultItem>();
+            dataTables = new List<ForensicResultItem>();
             foreach (var it in t )
             {
                 if(it.IsMutiTableParent)
