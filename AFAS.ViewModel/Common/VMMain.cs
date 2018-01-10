@@ -17,5 +17,7 @@ namespace AFAS.ViewModel
 
         public VMForensic VMForensic { get; } = new VMForensic();
         public VMRuleEdit VMRuleEdit { get; } = new VMRuleEdit();
+        public VMAnalysis VMAnalysis { get; } = new VMAnalysis();
+        
     }
 }

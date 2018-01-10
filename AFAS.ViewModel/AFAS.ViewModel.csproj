@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Analysis\VMAnalysis.cs" />
     <Compile Include="Common\VMBase.cs" />
     <Compile Include="Common\VMMain.cs" />
     <Compile Include="Forensic\VMForensic.cs" />
@@ -51,6 +52,7 @@
     <Compile Include="RuleEdit\VMRuleEdit.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

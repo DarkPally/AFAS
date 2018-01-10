@@ -23,6 +23,11 @@
                     <pages:PRuleEdit/>
                 </Grid>
             </dx:DXTabItem>
+            <dx:DXTabItem Header="取证分析">
+                <Grid  Background="Transparent">
+                    <pages:PAnalysis/>
+                </Grid>
+            </dx:DXTabItem>
         </dx:DXTabControl>
 
     </Grid>
