@@ -23,9 +23,9 @@
                     <pages:PRuleEdit/>
                 </Grid>
             </dx:DXTabItem>
-            <dx:DXTabItem Header="取证分析">
+            <dx:DXTabItem Header="关键词分析">
                 <Grid  Background="Transparent">
-                    <pages:PAnalysis/>
+                    <pages:PTagAnalysis/>
                 </Grid>
             </dx:DXTabItem>
         </dx:DXTabControl>

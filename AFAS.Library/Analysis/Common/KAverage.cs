@@ -6,10 +6,29 @@ using System.Threading.Tasks;
 
 namespace KAverage
 {
+    /*
+    public class PointModelCompareByX : IEqualityComparer<PointModel>
+    {
+        public bool Equals(PointModel x, PointModel y)
+        {
+            if (x == null || y == null)
+                return false;
+            if (x.IsEqual(y))
+                return true;
+            else
+                return false;
+        }
+
+        public int GetHashCode(PointModel obj)
+        {
+            return obj.GetHashCode();
+        }
+    }
+    */
     /*样本点的模型*/
     public class PointModel
     {
-        public List<double> X { get; set; }
+        public double[] X { get; set; }
         public ClassModel Class { get; set; }
         /*获取两点间的欧式距离*/
         public double GetDistance(PointModel y)
@@ -21,7 +40,7 @@ namespace KAverage
         public double GetDistanceSquare(PointModel y)
         {
             double sum=0;
-            for(int i=0;i< X.Count;++i)
+            for(int i=0;i< X.Count(); ++i)
             {
                 sum+=(X[i] - y.X[i]) * (X[i] - y.X[i]);
             }
@@ -30,7 +49,7 @@ namespace KAverage
 
         public PointModel AddPoint(PointModel y)
         {
-            for (int i = 0; i < X.Count; ++i)
+            for (int i = 0; i < X.Count(); ++i)
             {
                X[i]+= y.X[i];
             }
@@ -38,7 +57,7 @@ namespace KAverage
         }
         public PointModel Multiply(double m)
         {
-            for (int i = 0; i < X.Count; ++i)
+            for (int i = 0; i < X.Count(); ++i)
             {
                 X[i] *= m;
             }
@@ -47,7 +66,7 @@ namespace KAverage
 
         public bool IsEqual(PointModel y)
         {
-            for (int i = 0; i < X.Count; ++i)
+            for (int i = 0; i < X.Count(); ++i)
             {
                 if (X[i] != y.X[i]) return false;
             }
@@ -87,7 +106,7 @@ namespace KAverage
         {
             var tempPoint = new PointModel()
             {
-                X = new List<double>(Samples[0].X.Count),
+                X = new double[Samples[0].X.Count()],
             };
             foreach(var i in Samples)
             {
@@ -103,15 +122,13 @@ namespace KAverage
 
         }
     }
-
     /*引擎模型，即全部的运算环境*/
     public class EngineModel
     {
-        public uint PointDimension { get; set; }
         /*全部样本*/
         public List<PointModel> Samples { get; set; }
         /*期望的聚类数量*/
-        public uint ClassCount { get; set; }
+        public int ClassCount { get; set; }
         /*聚类的集合*/
         public List<ClassModel> Classes { get; set; }
 
@@ -120,9 +137,13 @@ namespace KAverage
             Parallel.ForEach(Samples, point =>
             {
                 var temp = new Dictionary<ClassModel, double>();
+                
                 Parallel.ForEach(Classes, (item) =>
                 {
-                    temp[item] = item.GetDistanceSquareToCenter(point);
+                    lock(temp)
+                    {
+                        temp.Add(item, item.GetDistanceSquareToCenter(point));
+                    }
                 });
                 var minClass = temp.OrderBy(x => x.Value).First().Key;
 
@@ -132,7 +153,10 @@ namespace KAverage
                     {
                         point.Class.Samples.Remove(point);
                     }
-                    minClass.Samples.Add(point);
+                    lock(minClass.Samples)
+                    {
+                        minClass.Samples.Add(point);
+                    }
                     point.Class = minClass;
                 }
             });
@@ -167,7 +191,8 @@ namespace KAverage
             {
                 throw new Exception("K值为0，无法计算");
             }
-            if(ClassCount>Samples.Count)
+            //var tS = Samples.Distinct(new PointModelCompareByX()).Take(ClassCount).ToList() ;
+            if (ClassCount> Samples.Count)
             {
                 throw new Exception("K值大于样本数量，无法计算");
             }

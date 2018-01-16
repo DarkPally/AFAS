@@ -79,5 +79,64 @@ namespace AFAS.Library
             }
         }
 
+
+
+        [JsonIgnore]
+        public ForensicResultItem ParentItemNode { get; set; }
+        [JsonIgnore]
+        bool hasParentNode = false;
+
+        public void LoadParentNode()
+        {
+            if (hasParentNode) return;
+            if(Children!=null)
+            {
+                foreach (var it in Children)
+                {
+                    it.ParentItemNode = this;
+                    it.LoadParentNode();
+                }
+            }
+            hasParentNode = true;
+
+
+        }
+
+        public List<ForensicResultItem> GetItemList()
+        {
+            List<ForensicResultItem> list = new List<ForensicResultItem>()
+            {
+                this,
+            };
+            if (Children != null)
+            {
+                foreach (var it in Children)
+                {
+                    list.AddRange(it.GetItemList());
+                }
+            }
+            return list;
+        }
+
+        public List<object> GetColumnDataByMark(string mark)
+        {
+            var res = new List<object>();
+            if (MarkInfo != null
+                && MarkInfo.ColumnDescs != null)
+            {
+                foreach (var it in MarkInfo.ColumnDescs)
+                {
+                    if (it.Mark == mark)
+                    {
+                        foreach (DataRow dr in Table.Rows)
+                        {
+                            res.Add(dr[it.Desc]);
+                        }
+                    }
+                }
+            }
+            return res;
+        }
+
     }
 }

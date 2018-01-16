@@ -40,5 +40,10 @@ namespace AFAS.WPF.Pages
                 tb_fileAddress.Text = dialog.SelectedPath;
             }
         }
+
+        private void treeView_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+            SelectedItemHelper.Content = e.NewValue;
+        }
     }
 }

@@ -87,5 +87,23 @@ namespace AFAS.Library
 
             return JsonConvert.DeserializeObject<ForensicResult>(t, jsonSerializerSettings);
         }
+
+
+        public List<ForensicResultItem> GetItemList()
+        {
+            var res = new List<ForensicResultItem>();
+            foreach(var it in Items)
+            {
+                it.LoadParentNode();
+                res.AddRange(it.GetItemList());
+            }
+            return res;
+        }
+
+        public List<ForensicResultItem> GetItemWithMark(string mark)
+        {
+            return GetItemList().Where(c => c.MarkInfo != null && c.MarkInfo.ColumnDescs != null
+            && c.MarkInfo.ColumnDescs.Exists(m => m.Mark == mark)).ToList();
+        }
     }
 }

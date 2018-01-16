@@ -95,7 +95,7 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Pages\PAnalysis.xaml">
+    <Page Include="Pages\PTagAnalysis.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -109,8 +109,8 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Pages\PAnalysis.xaml.cs">
-      <DependentUpon>PAnalysis.xaml</DependentUpon>
+    <Compile Include="Pages\PTagAnalysis.xaml.cs">
+      <DependentUpon>PTagAnalysis.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\PRuleEdit.xaml.cs">
       <DependentUpon>PRuleEdit.xaml</DependentUpon>

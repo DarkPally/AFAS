@@ -124,5 +124,19 @@ namespace AFAS.ViewModel
                 DataSource= ForensicResult.LoadForensicResult(dialog.FileName);
             }
         }
+
+        ForensicResultItem selectedItem;
+        public ForensicResultItem SelectedItem
+        {
+            get { return selectedItem; }
+            set
+            {
+                if (selectedItem != value)
+                {
+                    selectedItem = value;
+                    RaisePropertyChanged("State");
+                }
+            }
+        }
     }
 }

@@ -18,24 +18,11 @@ namespace AFAS.WPF.Pages
     /// <summary>
     /// PForensic.xaml 的交互逻辑
     /// </summary>
-    public partial class PAnalysis : UserControl
+    public partial class PTagAnalysis : UserControl
     {
-        public PAnalysis()
+        public PTagAnalysis()
         {
             InitializeComponent();
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            var dialog = new System.Windows.Forms.OpenFileDialog();
-            if (tb_fileAddress.Text != "")
-            {
-                dialog.InitialDirectory = tb_fileAddress.Text;
-            }
-            if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                tb_fileAddress.Text = dialog.FileName;
-            }
         }
     }
 }

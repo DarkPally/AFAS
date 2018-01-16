@@ -44,7 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Analysis\VMAnalysis.cs" />
+    <Compile Include="Analysis\VMTagAnalysis.cs" />
     <Compile Include="Common\VMBase.cs" />
     <Compile Include="Common\VMMain.cs" />
     <Compile Include="Forensic\VMForensic.cs" />

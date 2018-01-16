@@ -45,7 +45,9 @@
                 <ColumnDefinition Width="Auto" MinWidth="150"/>
                 <ColumnDefinition Width="4*"/>
             </Grid.ColumnDefinitions>
-            <TreeView x:Name="treeView" ItemsSource="{Binding DataSource.Items}">
+            <ContentControl x:Name="SelectedItemHelper" Content="{Binding SelectedItem, Mode=OneWayToSource}" Visibility="Collapsed"/>
+
+            <TreeView x:Name="treeView" ItemsSource="{Binding DataSource.Items}" SelectedItemChanged="treeView_SelectedItemChanged">
                 <TreeView.ItemTemplate>
                     <HierarchicalDataTemplate ItemsSource="{Binding Children}">
                         <TextBlock Text="{Binding Desc}"/>
