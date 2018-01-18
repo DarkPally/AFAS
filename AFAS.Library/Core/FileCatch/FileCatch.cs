@@ -20,24 +20,47 @@ namespace AFAS.Library
         public string RelativePath { get { return Info.RelativePath; } }
         //强制统一不以/开头以/为结尾
         //不填即默认初始化为data/data/[PackageName]/
-        public string RootPath { get { return Info.RootPath; } }
+        //public string RootPath { get { return Info.RootPath; } }
 
         //PC根目录,统一带有\\结尾
         public string PCPath { get { return Environment.PCPath; } }
-
+        
         protected static Dictionary<string, List<string>> RootPathFileNames = new Dictionary<string, List<string>>();
+
+        protected static Dictionary<string, List<string>> PrepareRootPaths = new Dictionary<string, List<string>>();
+
+        protected static List<string> PCRootFiles=new List<string>();
 
         static public void Init()
         {
             RootPathFileNames.Clear();
+            PrepareRootPaths.Clear();
+            PCRootFiles.Clear();
         }
 
-        virtual protected bool checkRootPathExist()
+        public void DoWork()
         {
-            return false;
+            switch (Info.RootPathType)
+            {
+                case RootPathType.Deafault:
+                    doWorkRootDefault();
+                    break;
+                case RootPathType.Regex:
+                    doWorkRootRegex();
+                    break;
+                case RootPathType.PathPrepare:
+                    doWorkRootPrepare();
+                    break;
+            }
         }
 
-        virtual public void DoWork()
+        virtual protected void doWorkRootDefault()
+        {
+        }
+        virtual protected void doWorkRootRegex()
+        {
+        }
+        virtual protected void doWorkRootPrepare()
         {
         }
 

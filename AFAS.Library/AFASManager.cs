@@ -38,10 +38,16 @@ namespace AFAS.Library
             }
 
         }
-
+        string lastPcPath;
         public ForensicResult DoForensic(string PcPath,bool isFromPC)
         {
             Init();
+            if(lastPcPath!= PcPath)
+            {
+                lastPcPath = PcPath;
+                FileCatch.Init();
+            }
+
             var res = new List<ForensicResultItem>();
 
             Parallel.ForEach(ruleManager.Packages, pack =>
@@ -64,6 +70,12 @@ namespace AFAS.Library
         public ForensicResult DoForensicByPackage(ForensicRulePackage pack,string PcPath, bool isFromPC)
         {
             Init();
+            if (lastPcPath != PcPath)
+            {
+                lastPcPath = PcPath;
+                FileCatch.Init();
+            }
+
             var res = new List<ForensicResultItem>();
 
             var forensic = new PackageForensic()

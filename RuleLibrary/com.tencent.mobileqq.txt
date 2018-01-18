@@ -1,6 +1,46 @@
 {
   "Name": "com.tencent.mobileqq",
   "Desc": "手机QQ",
+  "Scripts":[
+{
+         "Name":"UnixTimeStamp",
+         "Content":"
+local startTime =  clr.System.DateTime(1970, 1, 1);
+startTime =clr.System.TimeZone.CurrentTimeZone.ToLocalTime(startTime);
+return startTime:AddSeconds(data);",
+},
+   {
+         "Name":"QQDecrypt",
+         "Content":"
+if(data.Length<1) then return; end;
+local key=clr.AFAS.Library.LuaHelper.GetFirstColumnDataFromParentFile(parentFile,\"Table_KeyGenParam\",\"key\");
+for i=0,data.Length-1 do 
+      local keyCode=string.byte(key[(i % 15)]);
+      data[i]=data[i]~keyCode;
+end;
+return clr.System.Text.Encoding.UTF8.GetString(data);",
+},
+{
+ "Name":"QQDecryptForText",
+         "Content":"
+if(data.Length<1) then  return; end;
+local dataByte=clr.System.Text.Encoding.UTF8.GetBytes(data);
+
+local key=clr.AFAS.Library.LuaHelper.GetFirstColumnDataFromParentFile(parentFile,\"Table_KeyGenParam\",\"key\");
+local flag=0;
+for i=0,dataByte.Length-1 do 
+      local startIndex=i;   
+      if(dataByte[startIndex]>0x7f) then i=i+1; end;
+      if(dataByte[startIndex]>0xbf) then i=i+1; end;
+      if(dataByte[startIndex]>0xdf) then i=i+1; end;
+      if(i<dataByte.Length) then
+      local keyCode=string.byte(key[(i % 15)]);
+      dataByte[i]=dataByte[i] ~keyCode; 
+      end;
+end;
+return clr.System.Text.Encoding.UTF8.GetString(dataByte);",
+   },
+],
   "Items": [
     {
       "$type": "AFAS.Library.FileCatchInfo, AFAS.Library",
@@ -14,7 +54,8 @@
       "TableKey": "Table_KeyGenParam",
       "DataPath": "PublicAccountInfo",
       "Select":"uin='2241957680'",
-      "Key": "File_QQUserDb"
+      "Key": "File_QQUserDb",
+      "CatchToFileDataTree": true
     },
 {
       "$type": "AFAS.Library.DataProcessInfo, AFAS.Library",
@@ -40,19 +81,105 @@ return key;
       "DataPath": "mr_friend_(.*)_New",
       "Key": "File_QQUserDb"
     },
-    {
+ {
+      "$type": "AFAS.Library.DataCatchInfo, AFAS.Library",
+      "Type": "Database",
+      "TableKey": "Table_Friends",
+      "DataPath": "Friends",
+      "Key": "File_QQUserDb",
+      "CatchToFileDataTree": true
+    },
+{
       "$type": "AFAS.Library.DataProcessInfo, AFAS.Library",
-      "Type": "Script",
-      "ColumnName": "msgData",
-      "OutputColumnName": "msgData_Text",
-      "Content": "
-local key=clr.AFAS.Library.LuaHelper.GetFirstColumnDataFromParentFile(parentFile,\"Table_KeyGenParam\",\"key\");
-for i=0,data.Length-1 do
-      local keyCode=string.byte(key[(i % 15)]);
-      data[i]=data[i]~keyCode;
-end;
-return clr.System.Text.Encoding.UTF8.GetString(data);",
+      "Type": "ScriptName",
+      "ColumnName": "uin",
+      "Content": "QQDecryptForText",
+      "Key": "Table_Friends"
+    },
+{
+      "$type": "AFAS.Library.DataProcessInfo, AFAS.Library",
+      "Type": "ScriptName",
+      "ColumnName": "name",
+      "Content": "QQDecryptForText",
+      "Key": "Table_Friends"
+    },
+{
+      "$type": "AFAS.Library.DataProcessInfo, AFAS.Library",
+      "Type": "ScriptName",
+      "ColumnName": "remark",
+      "Content": "QQDecryptForText",
+      "Key": "Table_Friends"
+    },
+ {
+      "$type": "AFAS.Library.DataProcessInfo, AFAS.Library",
+      "Type": "ScriptName",
+      "ColumnName": "frienduin",
+      "Content": "QQDecryptForText",
       "Key": "Table_Msgs"
+    },
+ {
+      "$type": "AFAS.Library.DataProcessInfo, AFAS.Library",
+      "Type": "ScriptName",
+      "ColumnName": "senderuin",
+      "Content": "QQDecryptForText",
+      "Key": "Table_Msgs"
+    },
+ {
+      "$type": "AFAS.Library.DataProcessInfo, AFAS.Library",
+      "Type": "ScriptName",
+      "ColumnName": "selfuin",
+      "Content": "QQDecryptForText",
+      "Key": "Table_Msgs"
+    },
+ {
+      "$type": "AFAS.Library.DataProcessInfo, AFAS.Library",
+      "Type": "ScriptName",
+      "ColumnName": "msgData",
+      "Content": "QQDecrypt",
+      "Key": "Table_Msgs"
+    },
+ {
+      "$type": "AFAS.Library.DataProcessInfo, AFAS.Library",
+      "Type": "ScriptName",
+      "ColumnName": "time",
+      "Content": "UnixTimeStamp",
+      "Key": "Table_Msgs"
+    },
+    {
+      "$type": "AFAS.Library.DataAssociateInfo, AFAS.Library",
+      "ParentTableKey": "Table_Friends",
+      "ParentTableColumn": "uin_proc",
+      "ChildTableKey": "Table_Msgs",
+      "Type":"InSameFile",
+      "AssociateColumn": "frienduin_proc"
+    },
+{
+      "$type": "AFAS.Library.DataMarkInfo, AFAS.Library",
+      "TableDesc": "登录账号",
+      "Key": "File_QQUserDb"
+    },
+{
+      "$type": "AFAS.Library.DataMarkInfo, AFAS.Library",
+      "TableDescType": 1,
+      "TableDescScript": "return dataTable.Desc..\"[\"..clr.AFAS.Library.LuaHelper.GetFirstColumnDataFromItem(dataTable,\"name_proc\")..\"]\"..\"[\"..clr.AFAS.Library.LuaHelper.GetFirstColumnDataFromItem(dataTable,\"remark_proc\")..\"]\"",
+      "Key": "Table_Friends",
+      "NotShowAtRoot":true,
+    },
+{
+      "$type": "AFAS.Library.DataMarkInfo, AFAS.Library",
+      "TableDesc": "消息记录",
+      "Key": "Table_Msgs",
+      "TableDescType": 2,
+      "NotShowAtRoot":true,
+      "ColumnDescs":[
+        {"Name":"_id"},
+        {"Name":"msgData_proc","Desc":"消息内容","Mark":"UserText"},
+        {"Name":"frienduin_proc","Desc":"好友账号"},
+        {"Name":"senderuin_proc","Desc":"发送者"},
+        {"Name":"selfuin_proc","Desc":"当前用户"},
+        {"Name":"time_proc","Desc":"发送时间","Mark":"Time"},
+       ],
+      "OnlyShowDesc":true,
     },
   ]
 }

@@ -27,6 +27,13 @@ namespace AFAS.Library
 
         public List<ScriptItem> Scripts { get; set; }
 
+        public class RootPathPrepareItem
+        {
+            public string Name { get; set; }
+            public List<string> PathRegexes { get; set; }
+        }
+        public List<RootPathPrepareItem> RootPathPrepares { get; set; }
+
         [JsonIgnore]
         public string OrgText { get; set; }
         [JsonIgnore]

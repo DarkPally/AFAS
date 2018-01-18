@@ -66,6 +66,13 @@
       "TableDesc": "登录用户",
       "Key": "Table_Users"
     },
+   {
+      "$type": "AFAS.Library.DataMarkInfo, AFAS.Library",
+      "TableDescScript": "return dataTable.Desc ..\"[\"..clr.AFAS.Library.LuaHelper.GetFirstColumnDataFromItem(dataTable,\"nickName\")..\"]\"",
+      "TableDescType":1,
+      "Key": "Table_Users",
+"NotShowAtRoot": true,
+    },
     {
       "$type": "AFAS.Library.DataMarkInfo, AFAS.Library",
       "TableDesc": "好友列表",

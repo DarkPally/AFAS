@@ -24,20 +24,20 @@ namespace AFAS.Library
             }
         }
 
-        override protected bool checkRootPathExist()
+        bool checkRootPathExist()
         {
-            if(RootPathFileNames.ContainsKey(RootPath))
+            if(RootPathFileNames.ContainsKey(Info.RootPath))
             {
-                return RootPathFileNames[RootPath].Count>0;
+                return RootPathFileNames[Info.RootPath].Count>0;
             }
             else
             {
                 InitAndroidFileExtractor();
-                var res = androidFileExtracter.SearchFiles(androidDevice, RootPath,"*", Android.AndroidFileType.file);
+                var res = androidFileExtracter.SearchFiles(androidDevice, Info.RootPath, "*", Android.AndroidFileType.file);
 
                 if(res.success)
                 {
-                    RootPathFileNames.Add(RootPath, res.filesName);
+                    RootPathFileNames.Add(Info.RootPath, res.filesName);
                     return res.filesName.Count > 0;
                 }
                 else
@@ -48,47 +48,52 @@ namespace AFAS.Library
             }
         }
 
-        override public void DoWork()
+        void doFileCatchFromRootPath(string rootPath)
+        {
+            var res = new List<ForensicResultItem>();
+            var path = rootPath + RelativePath;
+            var fileNames = RootPathFileNames[rootPath];
+
+            if (IsRegEx)
+            {
+                Regex r = new Regex(path, RegexOptions.None);
+                var MatchNames = fileNames.Where(c => r.IsMatch(c)).ToList();
+                if (MatchNames.Count > 0)
+                {
+                    InitAndroidFileExtractor();
+                    var pcPaths = new List<string>();
+                    var PathMacthes = new List<string>();
+
+                    foreach (var it in MatchNames)
+                    {
+                        var tg = r.Match(it).Groups;
+                        var pcPath = PCPath + it.Replace('/', '\\');
+                        androidFileExtracter.CopyFileFromDevice(androidDevice, it, pcPath);
+                        pcPaths.Add(pcPath);
+                        PathMacthes.Add(tg[tg.Count - 1].Value);
+                    }
+                    res.Add(loadFileAttribute(pcPaths, PathMacthes));
+
+                }
+            }
+            else
+            {
+                if (fileNames.Contains(path))
+                {
+                    var pcPath = PCPath + path.Replace('/', '\\');
+                    androidFileExtracter.CopyFileFromDevice(androidDevice, path, pcPath);
+                    res.Add(loadFileAttribute(pcPath));
+                }
+            }
+            Environment.CatchDataTables.Add(Info.Key, res);
+            Environment.DataSource.Children.AddRange(res);
+        }
+
+        override protected void doWorkRootDefault()
         {
             if (checkRootPathExist())
             {
-                var res = new List<ForensicResultItem>();
-                var path = RootPath + RelativePath;
-                var fileNames = RootPathFileNames[RootPath];
-
-                if (IsRegEx)
-                {
-                    Regex r = new Regex(path, RegexOptions.None);
-                    var MatchNames = fileNames.Where(c => r.IsMatch(c)).ToList();  
-                    if(MatchNames.Count>0)
-                    {
-                        InitAndroidFileExtractor();
-                        var pcPaths = new List<string>();
-                        var PathMacthes = new List<string>();
-
-                        foreach (var it in MatchNames)
-                        {
-                            var tg = r.Match(it).Groups; 
-                            var pcPath = PCPath + it.Replace('/', '\\');
-                            androidFileExtracter.CopyFileFromDevice(androidDevice, it, pcPath);
-                            pcPaths.Add(pcPath);
-                            PathMacthes.Add(tg[tg.Count - 1].Value);
-                        }
-                        res.Add(loadFileAttribute(pcPaths, PathMacthes));
-
-                    }
-                }
-                else
-                {
-                    if(fileNames.Contains(path))
-                    {
-                        var pcPath = PCPath + path.Replace('/', '\\');
-                        androidFileExtracter.CopyFileFromDevice(androidDevice, path, pcPath);
-                        res.Add(loadFileAttribute(pcPath));
-                    }
-                }
-                Environment.CatchDataTables.Add(Info.Key,res);
-                Environment.DataSource.Children.AddRange(res);
+                doFileCatchFromRootPath(Info.RootPath);
             }
             
         }
