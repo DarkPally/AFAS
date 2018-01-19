@@ -89,12 +89,16 @@ namespace AFAS.Library
             }
             else
             {
-                if (PCRootFiles.Count == 0)
+                lock(PCRootFiles)
                 {
-                    DirectoryInfo theFolder = new DirectoryInfo(PCPath);
-                    FileInfo[] thefileInfo = theFolder.GetFiles("*.*", SearchOption.AllDirectories);
-                    PCRootFiles = thefileInfo.Select(c => c.FullName.Substring(PCPath.Length)).ToList();
+                    if (PCRootFiles.Count == 0)
+                    {
+                        DirectoryInfo theFolder = new DirectoryInfo(PCPath);
+                        FileInfo[] thefileInfo = theFolder.GetFiles("*.*", SearchOption.AllDirectories);
+                        PCRootFiles.AddRange(thefileInfo.Select(c => c.FullName.Substring(PCPath.Length)));
+                    }
                 }
+                
 
                 var regexPath = (string.Format("(?<CatchedRootPath>.*?){0}",
                        Info.RootPathPrepareRegexes[0].Replace('/', '\\'))).Replace("\\", "\\\\");

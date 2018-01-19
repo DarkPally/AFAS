@@ -16,8 +16,8 @@ namespace AFAS.Library
         public ForensicRulePackage RulePackage { get; set; }
 
         public dynamic LuaEnvironment { get; } = AFASManager.Lua.CreateEnvironment();
-        //FileKey
-        //public Dictionary<string, List<FileCatchResultItem>> CatchFilePaths = new Dictionary<string, List<FileCatchResultItem>>();
+
+        public Dictionary<string, List<string>> PrepareRootPaths = new Dictionary<string, List<string>>();
         //TableKey
         public Dictionary<string, List<ForensicResultItem>> CatchDataTables = new Dictionary<string, List<ForensicResultItem>>();
 
@@ -43,9 +43,7 @@ namespace AFAS.Library
                     Environment = this,
                 };
             }
-
             catcher.DoWork();
-            
 
         }
         void FileProcess(ForensicRuleItemInfo item)

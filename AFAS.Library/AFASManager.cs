@@ -39,13 +39,17 @@ namespace AFAS.Library
 
         }
         string lastPcPath;
+        public List<string> PCRootFiles { get; set; } = new List<string>();
+        public Dictionary<string, List<string>> RootPathFileNames = new Dictionary<string, List<string>>();
+
         public ForensicResult DoForensic(string PcPath,bool isFromPC)
         {
             Init();
             if(lastPcPath!= PcPath)
             {
                 lastPcPath = PcPath;
-                FileCatch.Init();
+                PCRootFiles.Clear();
+                RootPathFileNames.Clear();
             }
 
             var res = new List<ForensicResultItem>();
@@ -73,7 +77,8 @@ namespace AFAS.Library
             if (lastPcPath != PcPath)
             {
                 lastPcPath = PcPath;
-                FileCatch.Init();
+                PCRootFiles.Clear();
+                RootPathFileNames.Clear();
             }
 
             var res = new List<ForensicResultItem>();

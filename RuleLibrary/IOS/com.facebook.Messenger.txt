@@ -1,0 +1,35 @@
+{
+  "Name": "com.facebook.Messenger(IOS)",
+  "Desc": "Facebook Messenger(IOS)",
+  "RootPathPrepares":[
+   {
+       "Name":"root",
+       "PathRegexes":[
+          "_store_(.*)/messenger_contacts.v1/fbomnistore.db$",
+       ]
+   }
+   ],
+  "Items": [
+    {
+      "$type": "AFAS.Library.FileCatchInfo, AFAS.Library",
+      "IsRegEx": true,
+      "RelativePath": "_store_(.*)/messenger_contacts.v1/fbomnistore.db$",
+      "RootPathType":"PathPrepare",
+      "RootPath": "root",
+      "Key": "File_Contacts"
+    },
+    {
+      "$type": "AFAS.Library.DataCatchInfo, AFAS.Library",
+      "Type": "DatabaseWithRegEx",
+      "TableKey": "Table_Contacts",
+      "DataPath": "collection_index#messenger_contacts_ios:(.*)",
+      "Key": "File_Contacts"
+    },
+ {
+      "$type": "AFAS.Library.DataMarkInfo, AFAS.Library",
+      "TableDesc": "联系人信息",
+      "TableDescType":1,
+      "Key": "Table_Contacts",
+    },
+  ]
+}
