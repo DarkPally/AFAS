@@ -94,8 +94,8 @@ namespace AFAS.ViewModel
                 }
                 catch(Exception e)
                 {
-                    State = "解析出现异常";
-                    Error = e.Message;
+                   // State = "解析出现异常";
+                    //Error = e.Message;
                 }
 
             });

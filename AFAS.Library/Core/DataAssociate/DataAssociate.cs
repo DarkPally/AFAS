@@ -19,7 +19,8 @@ namespace AFAS.Library
 
         bool loadDataTables(string key,ref List<ForensicResultItem> tables)
         {
-            if (!Environment.CatchDataTables.ContainsKey(key)) return false;
+            if (!Environment.CatchDataTables.ContainsKey(key) ||
+                    Environment.CatchDataTables[key].Count==0) return false;
             var t = Environment.CatchDataTables[key];
             tables = new List<ForensicResultItem>();
             foreach (var it in t)

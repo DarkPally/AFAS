@@ -46,6 +46,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\AndroidApplicationForensics\lib\DevExpress.Printing.v15.2.Core.dll</HintPath>
     </Reference>
+    <Reference Include="DevExpress.Xpf.Charts.v15.2, Version=15.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\DevExpress.Xpf.Charts.v15.2.dll</HintPath>
+    </Reference>
     <Reference Include="DevExpress.Xpf.Core.v15.2, Version=15.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\AndroidApplicationForensics\lib\DevExpress.Xpf.Core.v15.2.dll</HintPath>
@@ -107,6 +111,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\PTimeAnalysis.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Pages\PTagAnalysis.xaml.cs">
@@ -117,6 +125,9 @@
     </Compile>
     <Compile Include="Pages\PForensic.xaml.cs">
       <DependentUpon>PForensic.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\PTimeAnalysis.xaml.cs">
+      <DependentUpon>PTimeAnalysis.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

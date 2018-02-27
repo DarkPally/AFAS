@@ -19,8 +19,10 @@ namespace AFAS.Library
         {
             try
             {
-                if (!Environment.CatchDataTables.ContainsKey(Info.Key)) return false;
+                if (!Environment.CatchDataTables.ContainsKey(Info.Key) ||
+                    Environment.CatchDataTables[Info.Key].Count==0) return false;
                 filePathItem = Environment.CatchDataTables[Info.Key][0];
+                
                 filePaths = new List<string>();
                 for (int i = 0; i < filePathItem.Table.Rows.Count; ++i)
                 {

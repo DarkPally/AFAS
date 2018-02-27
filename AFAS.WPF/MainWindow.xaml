@@ -28,6 +28,11 @@
                     <pages:PTagAnalysis/>
                 </Grid>
             </dx:DXTabItem>
+            <dx:DXTabItem Header="时间分析">
+                <Grid  Background="Transparent">
+                    <pages:PTimeAnalysis/>
+                </Grid>
+            </dx:DXTabItem>
         </dx:DXTabControl>
 
     </Grid>

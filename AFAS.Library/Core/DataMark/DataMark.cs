@@ -16,7 +16,8 @@ namespace AFAS.Library
         List<ForensicResultItem> Tables;
         bool loadDataTables()
         {
-            if (!Environment.CatchDataTables.ContainsKey(Info.Key)) return false;            
+            if (!Environment.CatchDataTables.ContainsKey(Info.Key) ||
+                    Environment.CatchDataTables[Info.Key].Count == 0) return false;
             Tables = Environment.CatchDataTables[Info.Key];
             if (Tables.Count == 0) return false;
             if (!Tables[0].IsMutiTableParent || Info.TableDescType == 0) return true;

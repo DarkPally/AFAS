@@ -14,11 +14,12 @@ namespace AFAS.ViewModel
         private VMMain()
         {
             VMTagAnalysis.VMForensic = VMForensic;
+            VMTimeAnalysis.VMForensic = VMForensic;
         }
 
         public VMForensic VMForensic { get; } = new VMForensic();
         public VMRuleEdit VMRuleEdit { get; } = new VMRuleEdit();
         public VMTagAnalysis VMTagAnalysis { get; } = new VMTagAnalysis();
-        
+        public VMTimeAnalysis VMTimeAnalysis { get; } = new VMTimeAnalysis();
     }
 }

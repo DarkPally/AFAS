@@ -15,17 +15,45 @@ namespace AFAS.Library
     {
         const string connectFormat = @"Data Source={0};Version=3;";
 
+
         public static DataTable GetDbDataTable(SQLiteConnection connection, string tableName)
         {
-            DataTable dataTable = null;
+            DataTable dataTable = new DataTable();
 
-            DataSet ds = new DataSet();
+            //DataSet ds = new DataSet();
+            /*
             using (SQLiteDataAdapter da = new SQLiteDataAdapter(string.Format("select * from [{0}]", tableName)
-                ,connection))
+                , connection))
             {
-                da.Fill(ds);
+                da.Fill(dataTable);
             }
-            dataTable = ds.Tables[0];
+            */
+
+            using (SQLiteCommand cmd = new SQLiteCommand(string.Format("select * from [{0}]", tableName), connection))
+            {
+                using (SQLiteDataReader rdr = cmd.ExecuteReader())
+                {
+                    
+                    dataTable.Load(rdr,LoadOption.PreserveChanges,(s,e)=>
+                    {
+                        e.Continue = true;
+                        DataRow row = dataTable.NewRow();
+                        for(int i =0;i<e.Values.Count();++i)
+                        {
+                            try
+                            {
+                                row[i] = rdr[i];
+                            }
+                            catch
+                            {
+                                //var t = rdr.GetFieldValue<string>(i);
+                            }
+                        }
+                        dataTable.Rows.Add(row);
+                    });
+                }
+            }
+            //dataTable = ds.Tables[0];
             dataTable.TableName = tableName;
             return dataTable;
         }

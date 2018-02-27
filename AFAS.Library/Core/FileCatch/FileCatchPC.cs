@@ -24,11 +24,17 @@ namespace AFAS.Library
                 {
                     DirectoryInfo theFolder = new DirectoryInfo(pcRoot);
                     FileInfo[] thefileInfo = theFolder.GetFiles("*.*", SearchOption.AllDirectories);
-                    RootPathFileNames.Add(rootPath, thefileInfo.Select(c => c.FullName.Substring(PCPath.Length)).ToList());
+                    lock(RootPathFileNames)
+                    {
+                        RootPathFileNames.Add(rootPath, thefileInfo.Select(c => c.FullName.Substring(PCPath.Length)).ToList());
+                    }
                 }
                 catch
                 {
-                    RootPathFileNames.Add(rootPath, new List<string>());
+                    lock (RootPathFileNames)
+                    {
+                        RootPathFileNames.Add(rootPath, new List<string>());
+                    }
                 }
                 return RootPathFileNames[rootPath].Count > 0;
             }
