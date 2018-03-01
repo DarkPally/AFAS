@@ -1,0 +1,40 @@
+﻿<dx:ThemedWindow
+    x:Class="ForensicAnlysisTool.Dialogs.DCreateNewProject"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+    Title="新建项目..." Height="240" Width="380"
+    >
+
+    <Grid Margin="12" VerticalAlignment="Center" HorizontalAlignment="Center">
+        <StackPanel Orientation="Vertical">
+            <StackPanel Orientation="Horizontal" Margin="10,5,10,5" >
+                <TextBlock Text="项目名称" VerticalAlignment="Center"/>
+                <TextBox Text="取证项目1" VerticalAlignment="Center" Margin="20,0,0,0" Width="240"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="10,5,10,5" >
+                <TextBlock Text="取证方式" VerticalAlignment="Center"/>
+                <ComboBox Margin="20,0,0,0" Width="240" ItemsSource="{Binding SourceTypes}"
+                          SelectedValue="{Binding SelectedSourceType,Mode=TwoWay}">
+                    
+                </ComboBox>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Margin="10,5,10,5" >
+                <TextBlock Text="工作目录" VerticalAlignment="Center"/>
+                <TextBox  Grid.Column="1" x:Name="tb_fileAddress"  Margin="20,0,0,0" Width="170"
+                         VerticalAlignment="Center" Text="{Binding Path,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+
+                <Button  Margin="10,0,0,0" Width="60" Content="浏览..." Click="Button_Click"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="10,25,10,5" >
+
+                <Button Content="确定" Width="120" Margin="0,0,68,0" 
+                        Command="{Binding DoWork}"
+                        Click="Button_Click_1"/>
+
+                <Button Content="取消"  Width="120" Click="Button_Click_2"/>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</dx:ThemedWindow>

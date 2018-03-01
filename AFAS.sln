@@ -11,6 +11,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AFAS.ViewModel", "AFAS.View
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AFAS.WPF", "AFAS.WPF\AFAS.WPF.csproj", "{A8DBCE92-CAD3-44FC-BF21-FFF8E58D3941}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ForensicAnlysisTool", "ForensicAnlysisTool\ForensicAnlysisTool.csproj", "{D68CE7B7-CB7E-4FE3-B030-E0AE8582000A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RuleEditTool", "RuleEditTool\RuleEditTool.csproj", "{A2B7D0A2-6730-4F4C-B8EF-14090E840B72}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +37,14 @@ Global
 		{A8DBCE92-CAD3-44FC-BF21-FFF8E58D3941}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A8DBCE92-CAD3-44FC-BF21-FFF8E58D3941}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A8DBCE92-CAD3-44FC-BF21-FFF8E58D3941}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D68CE7B7-CB7E-4FE3-B030-E0AE8582000A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D68CE7B7-CB7E-4FE3-B030-E0AE8582000A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D68CE7B7-CB7E-4FE3-B030-E0AE8582000A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D68CE7B7-CB7E-4FE3-B030-E0AE8582000A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A2B7D0A2-6730-4F4C-B8EF-14090E840B72}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A2B7D0A2-6730-4F4C-B8EF-14090E840B72}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A2B7D0A2-6730-4F4C-B8EF-14090E840B72}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A2B7D0A2-6730-4F4C-B8EF-14090E840B72}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -12,6 +12,9 @@
         Title="MainWindow" Height="600" Width="800">
     <Grid>
         <dx:DXTabControl x:Name="tabControl">
+            <dx:DXTabControl.View>
+                <dx:TabControlStretchView HeaderLocation="Left" HideButtonShowMode="NoWhere"/>
+            </dx:DXTabControl.View>
             <dx:DXTabItem Header="数字取证">
 
                 <Grid  Background="Transparent">

@@ -13,31 +13,26 @@ namespace AFAS.Library
 
         bool checkRootPathExist(string rootPath)
         {
-            if (RootPathFileNames.ContainsKey(rootPath))
+            lock (RootPathFileNames)
             {
-                return RootPathFileNames[rootPath].Count > 0;
-            }
-            else
-            {
+                if (RootPathFileNames.ContainsKey(rootPath))
+                {
+                    return RootPathFileNames[rootPath].Count > 0;
+                }
                 var pcRoot = PCPath + rootPath.Replace('/', '\\');
                 try
                 {
                     DirectoryInfo theFolder = new DirectoryInfo(pcRoot);
                     FileInfo[] thefileInfo = theFolder.GetFiles("*.*", SearchOption.AllDirectories);
-                    lock(RootPathFileNames)
-                    {
-                        RootPathFileNames.Add(rootPath, thefileInfo.Select(c => c.FullName.Substring(PCPath.Length)).ToList());
-                    }
+                    RootPathFileNames.Add(rootPath, thefileInfo.Select(c => c.FullName.Substring(PCPath.Length)).ToList());
                 }
                 catch
                 {
-                    lock (RootPathFileNames)
-                    {
-                        RootPathFileNames.Add(rootPath, new List<string>());
-                    }
+                    RootPathFileNames.Add(rootPath, new List<string>());
                 }
                 return RootPathFileNames[rootPath].Count > 0;
             }
+           
         }
 
         void doFileCatchFromRootPath(string rootPath)

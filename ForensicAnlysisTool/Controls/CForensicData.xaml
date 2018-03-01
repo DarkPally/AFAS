@@ -1,0 +1,40 @@
+﻿<UserControl x:Class="ForensicAnlysisTool.Controls.CForensicData"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ForensicAnlysisTool.Controls"
+             xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+             mc:Ignorable="d" 
+             DataContext="{Binding VMForensicResult}"
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid Grid.Row="1">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" MinWidth="150"/>
+            <ColumnDefinition Width="4*"/>
+        </Grid.ColumnDefinitions>
+        <ContentControl x:Name="SelectedItemHelper" Content="{Binding SelectedItem, Mode=OneWayToSource}" Visibility="Collapsed"/>
+
+        <TreeView x:Name="treeView" ItemsSource="{Binding DataDisplay.Items}" SelectedItemChanged="treeView_SelectedItemChanged">
+            <TreeView.ItemTemplate>
+                <HierarchicalDataTemplate ItemsSource="{Binding Children}">
+                    <TextBlock Text="{Binding Desc}"/>
+                </HierarchicalDataTemplate>
+            </TreeView.ItemTemplate>
+        </TreeView>
+        <dxg:GridControl x:Name="dataGrid" Grid.Column="1" AutoGenerateColumns="AddNew" EnableSmartColumnsGeneration="True"
+                             ItemsSource="{Binding ElementName=treeView,Path=SelectedItem.Table}">
+            <dxg:GridControl.View >
+
+                <dxg:TableView AllowPerPixelScrolling="True" ShowTotalSummary="True">
+                    <dxg:TableView.RuntimeLocalizationStrings>
+                        <dxg:GridRuntimeStringCollection>
+                            <dxg:RuntimeStringIdInfo Id="GridGroupPanelText" Value="拖动列头到此处可实现分组"/>
+                            <dxg:RuntimeStringIdInfo Id="ColumnChooserCaption" Value="Hidden Columns"/>
+                        </dxg:GridRuntimeStringCollection>
+                    </dxg:TableView.RuntimeLocalizationStrings>
+                </dxg:TableView>
+            </dxg:GridControl.View>
+        </dxg:GridControl>
+    </Grid>
+</UserControl>
