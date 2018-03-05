@@ -35,10 +35,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.Xpf.Charts.v17.2, Version=17.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>D:\DevExpress\Bin\Framework\DevExpress.Xpf.Charts.v17.2.dll</HintPath>
-    </Reference>
     <Reference Include="DevExpress.Xpf.Core.v17.2" />
     <Reference Include="DevExpress.Data.v17.2" />
     <Reference Include="DevExpress.Printing.v17.2.Core" />
@@ -56,7 +52,7 @@
       <HintPath>D:\DevExpress\Bin\Framework\DevExpress.Xpf.Grid.v17.2.Core.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.Xpf.Layout.v17.2.Core, Version=17.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.Xpf.Themes.Office2016White.v17.2" />
+    <Reference Include="DevExpress.Xpf.Themes.VS2017Light.v17.2, Version=17.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Windows.Forms" />
@@ -77,27 +73,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="ViewModels\VMForensic.cs" />
-    <Compile Include="ViewModels\VMForensicResult.cs" />
-    <Compile Include="ViewModels\VMMain.cs" />
-    <Compile Include="ViewModels\VMTagAnalysis.cs" />
-    <Compile Include="ViewModels\VMTimeAnalysis.cs" />
-    <Page Include="Controls\CForensicData.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\CTagAnalysis.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\CTimeAnalysis.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Dialogs\DCreateNewProject.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -105,18 +80,6 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Controls\CForensicData.xaml.cs">
-      <DependentUpon>CForensicData.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\CTagAnalysis.xaml.cs">
-      <DependentUpon>CTagAnalysis.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\CTimeAnalysis.xaml.cs">
-      <DependentUpon>CTimeAnalysis.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Dialogs\DCreateNewProject.xaml.cs">
-      <DependentUpon>DCreateNewProject.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -149,9 +112,9 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AFAS.Library\AFAS.Library.csproj">
-      <Project>{403dda0a-5702-48f2-b95f-93b199d18104}</Project>
-      <Name>AFAS.Library</Name>
+    <ProjectReference Include="..\Tools.Common\Tools.Common.csproj">
+      <Project>{d87addac-8345-4182-8d98-49646f2aaaf2}</Project>
+      <Name>Tools.Common</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

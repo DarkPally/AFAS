@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using DevExpress.Mvvm;
 using AFAS.Library;
 
-namespace ForensicAnlysisTool.ViewModel
+namespace Tools.Common.ViewModel
 {
     public class VMTagAnalysis : ViewModelBase
     {

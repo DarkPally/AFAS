@@ -12,6 +12,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using DevExpress.Xpf.Core;
+using Tools.Common.Dialogs;
+using Tools.Common.ViewModel;
+
 
 namespace RuleEditTool
 {
@@ -23,6 +26,32 @@ namespace RuleEditTool
         public MainWindow()
         {
             InitializeComponent();
+        }
+        private void BarButtonItem_ItemClick(object sender, DevExpress.Xpf.Bars.ItemClickEventArgs e)
+        {
+            var d = new DCreateNewProject();
+            d.Owner = this;
+            d.DataContext = VMMain.Instance.VMForensic;
+            d.Show();
+        }
+
+        private void BarButtonItem_ItemClick_timeAnalysis(object sender, DevExpress.Xpf.Bars.ItemClickEventArgs e)
+        {
+            p_timeAnalysis.AutoHideExpandState = DevExpress.Xpf.Docking.Base.AutoHideExpandState.Visible;
+        }
+
+        public class TT
+        {
+            public string Name { get; set; }
+        }
+        private void BarButtonItem_ItemClick_CreateNewRule(object sender, DevExpress.Xpf.Bars.ItemClickEventArgs e)
+        {
+
+            DocumentGroup_main.ItemsSource = new List<TT>()
+            {
+                new TT(){ Name="aaaa"},
+                new TT(){ Name="bbbb"},
+            };
         }
     }
 }

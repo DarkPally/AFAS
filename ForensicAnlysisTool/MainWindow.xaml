@@ -5,8 +5,8 @@
         xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"
         xmlns:dxc="http://schemas.devexpress.com/winfx/2008/xaml/core"
         xmlns:dxdo="http://schemas.devexpress.com/winfx/2008/xaml/docking"
-        xmlns:ctrls="clr-namespace:ForensicAnlysisTool.Controls"
-        Title="MainWindow" WindowState="Maximized">
+         xmlns:ctrls="clr-namespace:Tools.Common.Controls;assembly=Tools.Common"
+        Title="MainWindow" WindowState="Maximized" Icon="{dxc:DXImage Image=FunctionsCube_32x32.png}">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -17,12 +17,12 @@
             <dxb:MainMenuControl>
                 <dxb:BarSubItem Content="文件">
                     <dxb:BarButtonItem Content="新建分析项目..." ItemClick="BarButtonItem_ItemClick"/>
-                    <dxb:BarButtonItem Content="重新分析当前项目"/>
+                    <dxb:BarButtonItem Content="重新分析当前项目" Command="{Binding VMForensicResult.RestoreDataDisplay}"/>
                     <dxb:BarButtonItem Content="加载分析项目" Command="{Binding VMForensicResult.ResultImport}"/>
                     <dxb:BarButtonItem Content="保存当前项目"  Command="{Binding VMForensicResult.ResultExport}"/>
                 </dxb:BarSubItem>
                 <dxb:BarSubItem Content="数据分析">
-                    <dxb:BarButtonItem Content="时间分析" Command="{Binding VMTimeAnalysis.DoWork}"/>
+                    <dxb:BarButtonItem Content="时间分析" Command="{Binding VMTimeAnalysis.DoWork}" ItemClick="BarButtonItem_ItemClick_timeAnalysis"/>
                     <dxb:BarButtonItem Content="按时间筛选数据" Command="{Binding VMTimeAnalysis.SelectDataByTime}"/>
                 </dxb:BarSubItem>
                 <dxb:BarSubItem Content="设置">
@@ -34,19 +34,23 @@
             </dxb:MainMenuControl>
         </dxb:BarContainerControl>
         <Grid Grid.Row="1">
-            <dxdo:DockLayoutManager Margin="12" Name="DockLayoutManager1">
-                <dxdo:LayoutGroup Orientation="Horizontal">
-                    <dxdo:LayoutGroup Orientation="Vertical">
-                        <dxdo:LayoutPanel  Caption="取证结果" >
-                            <ctrls:CForensicData/>
-                        </dxdo:LayoutPanel>
-                        <dxdo:LayoutPanel  Caption="时间分析" ItemHeight="250">
+            <dxdo:DockLayoutManager Margin="12" Name="DockLayoutManager1" AutoHideExpandMode="MouseDown">
+                <dxdo:DockLayoutManager.AutoHideGroups>
+                    <dxdo:AutoHideGroup DockType="Bottom" >
+                        <dxdo:LayoutPanel x:Name="p_timeAnalysis"  Caption="时间分析" ItemHeight="250">
                             <ctrls:CTimeAnalysis/>
                         </dxdo:LayoutPanel>
-                    </dxdo:LayoutGroup>
+                    </dxdo:AutoHideGroup>
+                    <dxdo:AutoHideGroup DockType="Right">
 
-                    <dxdo:LayoutPanel x:Name="paneToolbox" Caption="关键词分析" ItemWidth="250">
-                        <ctrls:CTagAnalysis/>
+                        <dxdo:LayoutPanel x:Name="paneToolbox1" Caption="关键词分析" ItemWidth="250">
+                            <ctrls:CTagAnalysis/>
+                        </dxdo:LayoutPanel>
+                    </dxdo:AutoHideGroup>
+                </dxdo:DockLayoutManager.AutoHideGroups>
+                <dxdo:LayoutGroup Orientation="Horizontal">
+                    <dxdo:LayoutPanel  Caption="取证结果" >
+                        <ctrls:CForensicData/>
                     </dxdo:LayoutPanel>
                 </dxdo:LayoutGroup>
 

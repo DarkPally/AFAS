@@ -12,9 +12,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using DevExpress.Xpf.Core;
-using ForensicAnlysisTool.Dialogs;
-
-using ForensicAnlysisTool.ViewModel;
+using Tools.Common.Dialogs;
+using Tools.Common.ViewModel;
 
 namespace ForensicAnlysisTool
 {
@@ -35,6 +34,11 @@ namespace ForensicAnlysisTool
             d.Owner = this;
             d.DataContext = VMMain.Instance.VMForensic;
             d.Show();
+        }
+
+        private void BarButtonItem_ItemClick_timeAnalysis(object sender, DevExpress.Xpf.Bars.ItemClickEventArgs e)
+        {
+            p_timeAnalysis.AutoHideExpandState = DevExpress.Xpf.Docking.Base.AutoHideExpandState.Visible;
         }
     }
 }

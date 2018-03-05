@@ -2,7 +2,7 @@
 using DevExpress.Mvvm;
 using AFAS.Library;
 
-namespace ForensicAnlysisTool.ViewModel
+namespace Tools.Common.ViewModel
 {
     public class VMForensicResult : ViewModelBase
     {
