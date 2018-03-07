@@ -1,6 +1,4 @@
-# AFAS
-
-# È¡Ö¤¹æÔò±à¼­Æ÷ËµÃ÷ÎÄµµ (180306)
+# È¡Ö¤¹æÔò±à¼­Æ÷ËµÃ÷ÎÄµµ
 
 ## ¸ÅÊöÓë¹¤¾ßÊ¹ÓÃÁ÷³Ì
 
@@ -35,8 +33,8 @@ Name | ¹æÔò°üµÄÕý¹æÃû³Æ£¬Ó¦×¼È·ÌîÐ´°üÃû¡£Îª×öÇø·ÖIOSµÄ¹æÔòºó¸ú(IOS)
 Version | °æ±¾ÐÅÏ¢£¬Ä¿Ç°Ã»ÓÃ£¬ÓÃÓÚºóÐø×ö°æ±¾Çø·Ö
 Desc | ¹æÔò°üµÄÃèÊöÃû³Æ£¬ÏÔÊ¾ÔÚÑ¡ÔñÁÐ±íºÍÈ¡Ö¤½á¹ûÖÐµÄÃû³Æ
 Items | ¹æÔòÌõÄ¿µÄ¼¯ºÏ£¬ÕâÊÇÒ»¸öjsonÊý×éÀàÐÍ£¬ÀïÃæ°´Ðò¼ÇÔØÁËÒ»ÏµÁÐ¾ßÌåµÄ¹æÔò£¬Ïê¼û **¹æÔò½ÚµãËµÃ÷** ÌõÄ¿
-Scripts | ½Å±¾¼¯ºÏ£¬Í¬ÑùÊÇjsonÊý×é¡£¿¼ÂÇµ½ÓÐÐ©½Å±¾Òª¾­³£¸´ÓÃ£¬Òò´Ë¿É°ÑÐèÒª¸´ÓÃµÄ½Å±¾·ÅÔÚ´Ë´¦¹ÜÀí£¬Ïê¼û **½Å±¾Ê¹ÓÃËµÃ÷** ÌõÄ¿
-RootPathPrepares | ÓÃÌØÕ÷ÎÄ¼þÆ¥Åä·¨»ñÈ¡¸ùÂ·¾¶µÄ¼¯ºÏ£¬Ö±½ÓÓÃÂ·¾¶/ÕýÔòÂ·¾¶·¨¿ÉÎÞÊÓ´ËÊôÐÔ£¬Ïê¼û **ÎÄ¼þ²¶»ñ¹æÔòËµÃ÷** ÌõÄ¿
+Scripts | ½Å±¾¼¯ºÏ£¬Í¬ÑùÊÇjsonÊý×é¡£¿¼ÂÇµ½ÓÐÐ©½Å±¾Òª¾­³£¸´ÓÃ£¬Òò´Ë¿É°ÑÐèÒª¸´ÓÃµÄ½Å±¾·ÅÔÚ´Ë´¦¹ÜÀí£¬Ïê¼û **Êý¾Ý´¦Àí¹æÔò** ÌõÄ¿
+RootPathPrepares | ÓÃÌØÕ÷ÎÄ¼þÆ¥Åä·¨»ñÈ¡¸ùÂ·¾¶µÄ¼¯ºÏ£¬Ö±½ÓÓÃÂ·¾¶/ÕýÔòÂ·¾¶·¨¿ÉÎÞÊÓ´ËÊôÐÔ£¬Ïê¼û **ÎÄ¼þ²¶»ñ¹æÔò** ÌõÄ¿
 
 ### ¹æÔò½ÚµãËµÃ÷
 
@@ -84,6 +82,7 @@ PathRegexesÏÂ´æ·ÅÒ»¸ö»ò¶à¸öÕýÔò£¬Ö»ÒªÄ³Ä¿Â¼ÏÂµÄËùÓÐÕýÔò¶¼ÄÜÆ¥Åä£¬¾ÍÈÏÎªÊÇÒ»¸öÓÐÐ
 #### Êý¾Ý²¶»ñ¹æÔò
 
 ÔÚÎÄ¼þÒÑ¾­²¶»ñ¡¢´¦Àíºó£¬±¾¹æÔòµÄ×÷ÓÃÊÇÖ¸µ¼¹¤¾ßÈçºÎ´ÓÎÄ¼þÌáÈ¡Êý¾Ý£¬ÊôÐÔÁÐ±íÈçÏÂ£º
+
 ÊôÐÔÃû³Æ | ×÷ÓÃËµÃ÷
 ------------ | -------------
 Key | ÊäÈëË÷Òý£¬Ò»°ãÎªÎÄ¼þ²¶»ñ¹æÔòÖÐµÄKeyÖµ£¬×÷ÎªÔ´ÎÄ¼þµÄË÷Òý
@@ -95,6 +94,77 @@ CatchToFileDataTree| boolÖµ£¬Ä¬ÈÏÎªfalse,trueÊ±½«°Ñ±¾±í½á¹û×÷ÎªÎÄ¼þ±íµÄ×Ó±í£¬ÊôÓ
 
 #### Êý¾Ý´¦Àí¹æÔò
 
+²¶»ñµ½µÄÔ­Ê¼Êý¾Ý¿ÉÄÜÓÐÈßÓàÐÅÏ¢£¬»òÕß¾­¹ý¼ÓÃÜ£¬Òò´Ë¿ÉÔÚ´Ë¹æÔòÖÐÖ¸µ¼¹¤¾ß¶ÔÊý¾Ý½øÐÐ´¦Àí¡£ÊôÐÔÁÐ±íÈçÏÂ£º
+
+ÊôÐÔÃû³Æ | ×÷ÓÃËµÃ÷
+------------ | -------------
+Key | ÊäÈëË÷Òý£¬¼´ÎªÔ´Êý¾Ý±íµÄË÷Òý£¬Ò²¿ÉÒÔÊÇÎÄ¼þ±í
+ColumnName | ´ý´¦ÀíµÄÁÐÃû£¬¼´Ò»Ìõ¹æÔòÖ»ÄÜ´¦ÀíÒ»ÁÐ
+OutputColumnName| ´¦ÀíºóµÄÁÐÃû£¬²»¿ÉÓëÔ­±íÄÚµÄÃû³Æ³åÍ»¡£²»Ìî¼´Ä¬ÈÏÎª [ColumnName]+"_proc"
+Content | ´¦Àí·½·¨µÄÄÚÈÝ£¬ÓÉTypeÖ¸¶¨
+Type| ´¦Àí·½·¨£¬"RegEx": Ê¹ÓÃContentÄÚµÄÕýÔò½øÐÐ²Ã¼ô<br>"Script": Ê¹ÓÃContent½Å±¾½øÐÐ´¦Àí<br>"ScriptName": Content´æ·ÅµÄÊÇ½Å±¾Ë÷Òý
+
+
+¸ù½ÚµãÏÂµÄScriptsÄÚ¿É°üº¬Ò»¸ö»ò¶à¸öÔªËØ£¬Èç£º
+```json
+"Scripts":[
+{
+         "Name":"UnixTimeStamp",
+         "Content":"
+                local startTime =  clr.System.DateTime(1970, 1, 1);
+                startTime =clr.System.TimeZone.CurrentTimeZone.ToLocalTime(startTime);
+                return startTime:AddSeconds(data);",
+}
+]
+```
+ContentÏÂ´æ·ÅLua½Å±¾£¬NameÎª¸Ã½Å±¾µÄË÷Òý¡£
+
+½Å±¾»·¾³ÄÚÖÃÁËÒ»Ð©¶¯Ì¬»·¾³±äÁ¿£¬ÓÃÓÚ»ñÈ¡µ±Ç°µÄÔËÐÐ×´Ì¬£º
+
+±äÁ¿Ãû³Æ| ËµÃ÷
+------------ | -------------
+data | µ±Ç°´ý´¦ÀíµÄÔ­Ê¼Êý¾Ý
+dataTableRow | µ±Ç°ÕýÔÚ´¦ÀíµÄÊý¾ÝËùÊôµÄÐÐ
+dataTable | µ±Ç°ÕýÔÚ´¦ÀíµÄÊý¾Ý±í
+parentFile | µ±Ç°ÕýÔÚ´¦ÀíµÄÊý¾Ý±íµÄËùÊôÎÄ¼þ±í
+forensicPackage | µ±Ç°µÄÈ¡Ö¤»·¾³
+
+Lua½Å±¾µÄ±àÐ´·½·¨¼¸ºõ¿ÉµÈ¼ÛÓÚC#´úÂë£¬ÏêÇé¿É²Î¿¼:<br>https://www.darkstar.cn/archives/1586<br>
+https://github.com/neolithos/neolua
+
+
 #### Êý¾Ý¹ØÁª¹æÔò
 
+ËùÎ½Êý¾Ý¹ØÁª£¬ÊÇÖ¸½¨Á¢Êý¾Ý±íÓëÊý¾Ý±íÖ®¼äµÄ¸¸×Ó¹ØÏµ¡£
+
+ÀýÈç£¬ÏÖÓÐºÃÓÑÁÐ±í¼¯ºÏFriends£¬ºÍºÃÓÑÏûÏ¢ÁÐ±í¼¯ºÏMsgs£¬ÄÇÃ´¿ÉÒÔÓÃ±¾¹æÔòÊµÏÖÒÔÏÂ²Ù×÷£º
+1. °ÑFriends±í×÷Îª¸¸±í£¬°´ÐÐ²ð½â¹¹³É¶àÕÅÐÂ±íFriend_X¡£Ã¿¸öFriend_X±í´ú±íµ¥¶ÀµÄÒ»¸öºÃÓÑµÄÐÅÏ¢£¬²¢ÇÒ³ÉÎªFriendsµÄ×Ó±í£»
+2. ÒÀ¾ÝFriend_XÖÐµÄFriend ID½«ºÃÓÑXµÄ¼ÇÂ¼µ¥¶À´ÓMsgsÉ¸Ñ¡³öÀ´£¬×÷ÎªÒ»ÕÅÐÂ±í,²¢×÷ÎªFriend_XµÄ×Ó±í¡£
+
+µ±È»Ò²¿ÉÒÔ·´¹ýÀ´£¬°ÑMsgs×÷Îª¸¸±í£¬°ÑÍ¬ÊôÓÚÒ»¸öfriendµÄmsgÉ¸Ñ¡³öÀ´ºó£¬°Ñfriend×÷Îª×Ó±í¡£
+
+ÀûÓÃÏÂÃæµÄÊôÐÔ¼´¿ÉÖ¸µ¼¹¤¾ß½øÐÐ¹ØÁª²Ù×÷£º
+
+ÊôÐÔÃû³Æ| ×÷ÓÃ
+------------ | -------------
+Key | É¸Ñ¡ºóµÄ±íµÄ¼¯ºÏ£¬Ä¿Ç°²»³£ÓÃ£¬¿É¿Õ
+ParentTableKey | ¸¸±íµÄ±íË÷ÒýÃû³Æ
+ParentTableColumn | ¸¸±íÖÐ£¬ÐèÒªÆ¥ÅäµÄÔªËØµÄÁÐÃû
+ChildTableKey | ×Ó±íµÄË÷ÒýÃû³Æ
+AssociateColumn | ×Ó±íÖÐÐèÒªÆ¥ÅäµÄÔªËØµÄÁÐÃû
+Type | Æ¥ÅäÄ£Ê½£¬Ä¿Ç°ÓÐÈýÖÖ£º<br>"InSameFile" : ÔÚÍ¬ÎÄ¼þÄÚµÄ±íÖÐÆ¥Åä£¬¼´½öµ±¸¸×ÓÁ½¸ö±í¶¼ÔÚÍ¬Ò»¸öÊý¾Ý¿âÎÄ¼þÖÐ£¬²Å½øÐÐ¹ØÁª<br>"AcrossFile¡° :¿çÎÄ¼þÆ¥Åä£¬¼´¸¸×ÓÁ½±í²»ÊÜÎÄ¼þµÄÏÞÖÆ<br>ChildFileColumn :¿çÎÄ¼þÆ¥Åä£¬ÇÒ×Ó¶ÔÏóÐèÒªÆ¥ÅäµÄÔªËØÔÚÎÄ¼þÐÅÏ¢±íÖÐ£¬²»ÔÚ×Ô¼ºµÄ±íÖÐ
+
 #### ½á¹û±ê¼Ç¹æÔò
+
+Ò»°ãÀ´Ëµ£¬ËùÓÐÖØÒªµÄ½á¹û¶¼ÒªÍ¨¹ý´Ë¹æÔò½øÐÐ±ê¼Ç¡£·ñÔò£¬Êý¾Ý½«±»ÊÓÎªÖÐ¼äÊý¾Ý±£´æÔÚ¡°Êý¾Ý¼¯ºÏ¡±½ÚµãÏÂ£¬¶ø²»ÊÇ×îÖÕµÄÊä³öÊý¾Ý¡£´ËÍâ£¬Êä³ö½á¹û¿ÉÒÔÔÚ±¾¹æÔòÏÂÐÞ¸ÄÃèÊö£¨±íÃû¡¢ÁÐÃû£©£¬»ò¶ÔÁÐÔö¼ÓÆäËûÓÐÒâÒåµÄ×Ô¶¨Òå±êÇ©£¬Ö÷ÒªÊôÐÔÁÐ±íÈçÏÂ£º
+
+
+ÊôÐÔÃû³Æ| ×÷ÓÃ
+------------ | -------------
+Key | ÐèÒª±ê¼ÇµÄ±íË÷Òý
+TableDesc | ±íµÄÃèÊöÐÔÃû³Æ
+TableDescType | £¨Ä¿Ç°¿ÉºöÂÔ£©ÃèÊöµÄ¶ÔÏó£¬0½ö¸ù½Úµã£¬1½ö×Ó½Úµã£¬2È«²¿
+TableDescScript | ÃèÊöµÄ½Å±¾£¬ÓÃÓÚ¶¯Ì¬Ö¸¶¨±íµÄÃû³Æ£¬ÓÅÏÈ¼¶¸ßÓÚTableDesc
+NotShowAtRoot | boolÀàÐÍ£¬Èç¹ûÎªtrue£¬ÄÇÃ´±¾½Úµã½«²»ÔÚ½á¹ûÖÐµ¥¶ÀÁÐ³ö£¨Ò»°ãËüÊôÓÚÆäËû½ÚµãµÄ×Ó½Úµã£¬²»ÓÃµ¥¶ÀÁà³öÀ´ÔÙÏÔÊ¾Ò»±é£©
+ColumnDescs | jsonÊý×éÀàÐÍ£¬Ã¿¸öÔªËØº¬ÓÐName¡¢Desc¡¢MarkÈý¸öÔªËØ£¬ÓÃÓÚ±ê¼ÇÁÐÃû
+OnlyShowDesc | boolÀàÐÍ£¬Èç¹ûÎªtrue£¬ÄÇÃ´½«Ö»ÏÔÊ¾ÁÐÃûÖÐ´øÓÐDescµÄÏî£¬ÆäËûÏî²»ÏÔÊ¾
