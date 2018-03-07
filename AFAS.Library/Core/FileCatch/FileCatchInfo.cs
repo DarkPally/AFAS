@@ -11,7 +11,7 @@ namespace AFAS.Library
 {
     public enum RootPathType
     {
-        Deafault,
+        Default,
         Regex,
         PathPrepare,
     };
@@ -26,14 +26,14 @@ namespace AFAS.Library
         public string RootPath { get; set; }
 
         [JsonConverter(typeof(StringEnumConverter))]
-        public RootPathType RootPathType { get; set; } = RootPathType.Deafault;
+        public RootPathType RootPathType { get; set; } = RootPathType.Default;
 
         [JsonIgnore]
         public List<string> RootPathPrepareRegexes { get; set; }
 
         public override void Init()
         {
-            if(RootPathType== RootPathType.Deafault)
+            if(RootPathType== RootPathType.Default)
             {
                 if (RootPath == null)
                 {

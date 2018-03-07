@@ -35,7 +35,7 @@ namespace AFAS.Library
         {
             switch (Info.RootPathType)
             {
-                case RootPathType.Deafault:
+                case RootPathType.Default:
                     doWorkRootDefault();
                     break;
                 case RootPathType.Regex:
