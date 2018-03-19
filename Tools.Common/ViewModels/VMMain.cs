@@ -20,7 +20,8 @@ namespace Tools.Common.ViewModel
         public VMForensic VMForensic { get; } = new VMForensic();
         public VMTagAnalysis VMTagAnalysis { get; } = new VMTagAnalysis();
         public VMTimeAnalysis VMTimeAnalysis { get; } = new VMTimeAnalysis();
-
+        public VMRuleManager VMRuleManager { get; } = new VMRuleManager();
+        
         string state = "准备就绪";
         public string State
         {

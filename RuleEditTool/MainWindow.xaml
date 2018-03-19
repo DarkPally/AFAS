@@ -20,6 +20,7 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     <dxb:BarButtonItem Content="新建规则..." ItemClick="BarButtonItem_ItemClick_CreateNewRule"/>
                     <dxb:BarButtonItem Content="读取规则..."/>
                     <dxb:BarButtonItem Content="保存当前规则"/>
+                    <dxb:BarButtonItem Content="重新加载本地规则" Command="{Binding VMRuleManager.InitRuleLibrary}"/>
                 </dxb:BarSubItem>
                 <dxb:BarSubItem Content="数据分析">
                     <dxb:BarButtonItem Content="时间分析" Command="{Binding VMTimeAnalysis.DoWork}" ItemClick="BarButtonItem_ItemClick_timeAnalysis"/>
@@ -40,15 +41,14 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         </dxb:BarContainerControl>
         <Grid Grid.Row="1">
             <dxdo:DockLayoutManager Margin="12" Name="DockLayoutManager1" AutoHideExpandMode="MouseDown">
-                <dxdo:DockLayoutManager.ClosedPanels>
-                    <dxdo:DocumentPanel Caption="Document">
-                        <Grid/>
-                    </dxdo:DocumentPanel>
-                </dxdo:DockLayoutManager.ClosedPanels>
+               
                 <dxdo:DockLayoutManager.AutoHideGroups>
                     <dxdo:AutoHideGroup DockType="Bottom">
                         <dxdo:LayoutPanel x:Name="p_timeAnalysis"  Caption="时间分析" ItemHeight="250" >
                             <ctrls:CTimeAnalysis/>
+                        </dxdo:LayoutPanel>
+                        <dxdo:LayoutPanel  Caption="取证结果" >
+                            <ctrls:CForensicData/>
                         </dxdo:LayoutPanel>
                     </dxdo:AutoHideGroup>
                     <dxdo:AutoHideGroup DockType="Right">
@@ -57,27 +57,26 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                             <ctrls:CTagAnalysis/>
                         </dxdo:LayoutPanel>
                     </dxdo:AutoHideGroup>
-                    <dxdo:AutoHideGroup DockType="Left">
-                        <dxdo:LayoutPanel  Caption="取证结果" >
-                            <ctrls:CForensicData/>
-                        </dxdo:LayoutPanel>
-                    </dxdo:AutoHideGroup>
                 </dxdo:DockLayoutManager.AutoHideGroups>
                 <dxdo:LayoutGroup Orientation="Horizontal">
-                    <dxdo:DocumentGroup x:Name="DocumentGroup_main" >
+                    <dxdo:LayoutPanel Caption="规则管理器" ItemWidth="280">
+                        <ctrls:CRuleManager/>
+                    </dxdo:LayoutPanel>
+                    <dxdo:DocumentGroup x:Name="DocumentGroup_main" ItemsSource="{Binding VMRuleManager.CurrentEditPackages,Mode=TwoWay}"
+                                        ClosePageButtonShowMode="InAllTabPagesAndTabControlHeader" CloseCommand="">
                         <dxdo:DocumentGroup.ItemContentTemplate>
                             <DataTemplate>
-                                <RichTextBox/>
+                                 <TextBox AcceptsReturn="True" Text="{Binding OrgText,Mode=TwoWay}"/>
                             </DataTemplate>
                         </dxdo:DocumentGroup.ItemContentTemplate>
                         <dxdo:DocumentGroup.ItemStyle>
                             <Style TargetType="dxdo:DocumentPanel">
-                                <Setter Property="Caption" Value="{Binding Name}" />
+                                <Setter Property="Caption" Value="{Binding Desc}" />
                             </Style>
                         </dxdo:DocumentGroup.ItemStyle>
                     </dxdo:DocumentGroup>
                 </dxdo:LayoutGroup>
-
+                
             </dxdo:DockLayoutManager>
         </Grid>
         <Grid Grid.Row="2">

@@ -26,6 +26,7 @@ namespace RuleEditTool
         public MainWindow()
         {
             InitializeComponent();
+            DataContext = VMMain.Instance;
         }
         private void BarButtonItem_ItemClick(object sender, DevExpress.Xpf.Bars.ItemClickEventArgs e)
         {
@@ -40,18 +41,9 @@ namespace RuleEditTool
             p_timeAnalysis.AutoHideExpandState = DevExpress.Xpf.Docking.Base.AutoHideExpandState.Visible;
         }
 
-        public class TT
-        {
-            public string Name { get; set; }
-        }
         private void BarButtonItem_ItemClick_CreateNewRule(object sender, DevExpress.Xpf.Bars.ItemClickEventArgs e)
         {
 
-            DocumentGroup_main.ItemsSource = new List<TT>()
-            {
-                new TT(){ Name="aaaa"},
-                new TT(){ Name="bbbb"},
-            };
         }
     }
 }

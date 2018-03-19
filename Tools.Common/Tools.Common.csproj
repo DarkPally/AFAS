@@ -77,6 +77,9 @@
     <Compile Include="Controls\CForensicData.xaml.cs">
       <DependentUpon>CForensicData.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\CRuleManager.xaml.cs">
+      <DependentUpon>CRuleManager.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\CTagAnalysis.xaml.cs">
       <DependentUpon>CTagAnalysis.xaml</DependentUpon>
     </Compile>
@@ -100,6 +103,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="ViewModels\VMForensic.cs" />
+    <Compile Include="ViewModels\VMRuleManager.cs" />
     <Compile Include="ViewModels\VMForensicResult.cs" />
     <Compile Include="ViewModels\VMMain.cs" />
     <Compile Include="ViewModels\VMTagAnalysis.cs" />
@@ -120,6 +124,10 @@
     <Page Include="Controls\CForensicData.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\CRuleManager.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\CTagAnalysis.xaml">
       <Generator>MSBuild:Compile</Generator>

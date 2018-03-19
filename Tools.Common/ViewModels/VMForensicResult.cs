@@ -102,7 +102,7 @@ namespace Tools.Common.ViewModel
                 if (selectedItem != value)
                 {
                     selectedItem = value;
-                    RaisePropertyChanged("State");
+                    RaisePropertyChanged("SelectedItem");
                 }
             }
         }
