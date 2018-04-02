@@ -1,0 +1,17 @@
+﻿<UserControl xmlns:dxre="http://schemas.devexpress.com/winfx/2008/xaml/richedit"  x:Class="Tools.Common.Controls.CRuleEditTab"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Tools.Common.Controls"
+             mc:Ignorable="d" 
+             xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+             d:DesignHeight="800" d:DesignWidth="800">
+    <Grid>
+        <!--
+        <dxre:RichEditControl />
+        -->
+        <TextBox AcceptsReturn="True" Text="{Binding Package.OrgText,Mode=TwoWay}"/>
+        
+    </Grid>
+</UserControl>

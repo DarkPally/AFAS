@@ -63,15 +63,18 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                         <ctrls:CRuleManager/>
                     </dxdo:LayoutPanel>
                     <dxdo:DocumentGroup x:Name="DocumentGroup_main" ItemsSource="{Binding VMRuleManager.CurrentEditPackages,Mode=TwoWay}"
-                                        ClosePageButtonShowMode="InAllTabPagesAndTabControlHeader" CloseCommand="">
+                                        ClosePageButtonShowMode="InAllTabPagesAndTabControlHeader"
+                                        
+                                        SelectedTabIndex="{Binding VMRuleManager.SelectedTabIndex,Mode=TwoWay}">
                         <dxdo:DocumentGroup.ItemContentTemplate>
                             <DataTemplate>
-                                 <TextBox AcceptsReturn="True" Text="{Binding OrgText,Mode=TwoWay}"/>
+                                <ctrls:CRuleEditTab/>
                             </DataTemplate>
                         </dxdo:DocumentGroup.ItemContentTemplate>
                         <dxdo:DocumentGroup.ItemStyle>
                             <Style TargetType="dxdo:DocumentPanel">
                                 <Setter Property="Caption" Value="{Binding Desc}" />
+                                <Setter Property="CloseCommand" Value="{Binding CloseTab}"/>
                             </Style>
                         </dxdo:DocumentGroup.ItemStyle>
                     </dxdo:DocumentGroup>

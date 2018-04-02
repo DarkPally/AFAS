@@ -13,6 +13,21 @@ namespace Tools.Common.ViewModel
         public ForensicRulePackage Package { get; set; }
         public string Desc { get; set; }
         public List<RuleFileNode> Children { get; set; }
+
+        public DelegateCommand CloseTab
+        {
+            get
+            {
+                return closeTab ?? (closeTab = new DelegateCommand(ExecuteCloseTab));
+            }
+        }
+
+        DelegateCommand closeTab;
+
+        public void ExecuteCloseTab()
+        {
+            VMMain.Instance.VMRuleManager.ExecuteCloseTab(this);
+        }
     }
 
     public class VMRuleManager : ViewModelBase
@@ -100,8 +115,7 @@ namespace Tools.Common.ViewModel
             });
         }
 
-
-        public ObservableCollection<ForensicRulePackage> CurrentEditPackages { get; set; } = new ObservableCollection<ForensicRulePackage>();
+        public ObservableCollection<RuleFileNode> CurrentEditPackages { get; set; } = new ObservableCollection<RuleFileNode>();
 
         public DelegateCommand OpenSelectedFile
         {
@@ -117,10 +131,35 @@ namespace Tools.Common.ViewModel
         {
             if (SelectedItem == null || SelectedItem.Package == null) return;
 
-            if(!CurrentEditPackages.Contains(SelectedItem.Package))
+            if(!CurrentEditPackages.Contains(SelectedItem))
             {
-                CurrentEditPackages.Add(SelectedItem.Package);
+                CurrentEditPackages.Add(SelectedItem);
+                SelectedTabIndex = CurrentEditPackages.Count - 1;
             }
+            else
+            {
+                SelectedTabIndex=CurrentEditPackages.FindIndex(c=>c==SelectedItem);
+            }
+        }
+
+        int selectedTabIndex;
+        public int SelectedTabIndex
+        {
+            get { return selectedTabIndex; }
+            set
+            {
+                if (selectedTabIndex != value)
+                {
+                    selectedTabIndex = value;
+                    RaisePropertyChanged("SelectedTabIndex");
+                }
+            }
+        }
+
+        public void ExecuteCloseTab(RuleFileNode node)
+        {
+            CurrentEditPackages.Remove(node);
+
         }
 
     }
