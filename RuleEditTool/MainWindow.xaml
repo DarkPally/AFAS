@@ -18,8 +18,8 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
             <dxb:MainMenuControl>
                 <dxb:BarSubItem Content="文件">
                     <dxb:BarButtonItem Content="新建规则..." ItemClick="BarButtonItem_ItemClick_CreateNewRule"/>
-                    <dxb:BarButtonItem Content="读取规则..."/>
-                    <dxb:BarButtonItem Content="保存当前规则"/>
+                    <dxb:BarButtonItem Content="读取规则..." Command="{Binding VMRuleManager.LoadRuleFromFile}"/>
+                    <dxb:BarButtonItem Content="保存当前规则"  Command="{Binding VMRuleManager.SaveCurrentRule}"/>
                     <dxb:BarButtonItem Content="重新加载本地规则" Command="{Binding VMRuleManager.InitRuleLibrary}"/>
                 </dxb:BarSubItem>
                 <dxb:BarSubItem Content="数据分析">
@@ -27,8 +27,8 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     <dxb:BarButtonItem Content="按时间筛选数据" Command="{Binding VMTimeAnalysis.SelectDataByTime}"/>
                 </dxb:BarSubItem>
                 <dxb:BarSubItem Content="调试">
-                    <dxb:BarButtonItem Content="测试当前规则"/>
-                    <dxb:BarButtonItem Content="运行当前规则"/>
+                    <dxb:BarButtonItem Content="测试当前规则" Command="{Binding VMRuleManager.TestCurrentRule}"/>
+                    <dxb:BarButtonItem Content="运行当前规则" Command="{Binding VMRuleManager.RunCurrentRule}"/>
                     <dxb:BarButtonItem Content="设置调试目录"/>
                 </dxb:BarSubItem>
                 <dxb:BarSubItem Content="设置">

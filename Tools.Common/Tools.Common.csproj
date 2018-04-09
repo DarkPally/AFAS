@@ -116,6 +116,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="ViewModels\VMForensic.cs" />
+    <Compile Include="ViewModels\VMConfig.cs" />
     <Compile Include="ViewModels\VMRuleManager.cs" />
     <Compile Include="ViewModels\VMForensicResult.cs" />
     <Compile Include="ViewModels\VMMain.cs" />

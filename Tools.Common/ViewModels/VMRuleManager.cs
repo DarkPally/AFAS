@@ -162,5 +162,141 @@ namespace Tools.Common.ViewModel
 
         }
 
+        public DelegateCommand SaveCurrentRule
+        {
+            get
+            {
+                return saveCurrentRule ?? (saveCurrentRule = new DelegateCommand(ExecuteSaveCurrentRule));
+            }
+        }
+
+        DelegateCommand saveCurrentRule;
+
+        public void ExecuteSaveCurrentRule()
+        {
+            if (SelectedTabIndex>= CurrentEditPackages.Count) return;
+            RuleManager.SavePackage(CurrentEditPackages[selectedTabIndex].Package);
+            VMMain.Instance.State = CurrentEditPackages[selectedTabIndex].Package.Desc + " 规则保存成功";
+        }
+
+        public DelegateCommand TestCurrentRule
+        {
+            get
+            {
+                return testCurrentRule ?? (testCurrentRule = new DelegateCommand(ExecuteTestCurrentRule));
+            }
+        }
+
+        DelegateCommand testCurrentRule;
+
+        public void ExecuteTestCurrentRule()
+        {
+            if (SelectedTabIndex >= CurrentEditPackages.Count) return;
+            VMMain.Instance.State = CurrentEditPackages[SelectedTabIndex].Desc+" 测试中...";
+            Task.Factory.StartNew(() =>
+            {
+                try
+                {
+                    var curPack = CurrentEditPackages[SelectedTabIndex].Package;
+                    var t = RuleManager.LoadPackageFromText(curPack.OrgText);
+                    t.OrgText = curPack.OrgText;
+                    t.PackageFilePath = curPack.PackageFilePath;
+                    CurrentEditPackages[SelectedTabIndex].Package = t;
+                    VMMain.Instance.State = CurrentEditPackages[SelectedTabIndex].Desc + " 测试成功！";
+                }
+                catch (Exception e)
+                {
+                    VMMain.Instance.State = CurrentEditPackages[SelectedTabIndex].Desc + " 测试出现异常";
+                    VMMain.Instance.Error = e.Message;
+                }
+
+            });
+        }
+
+        public DelegateCommand RunCurrentRule
+        {
+            get
+            {
+                return runCurrentRule ?? (runCurrentRule = new DelegateCommand(ExecuteRunCurrentRule));
+            }
+        }
+
+        DelegateCommand runCurrentRule;
+
+        public void ExecuteRunCurrentRule()
+        {
+            if (SelectedTabIndex >= CurrentEditPackages.Count) return;
+             if (VMMain.Instance.VMConfig.WorkPath == null || VMMain.Instance.VMConfig.WorkPath == "")
+            {
+                VMMain.Instance.State = "请正确设置工作路径";
+                return;
+            }
+            var path = VMMain.Instance.VMConfig.WorkPath;
+            var pack = CurrentEditPackages[SelectedTabIndex].Package;
+            VMMain.Instance.State = pack.Desc+ " 运行中...";
+            Task.Factory.StartNew(() =>
+            {
+                try
+                {
+                    if (path.Last() != '\\') path += '\\';
+                    VMMain.Instance.VMForensicResult.DataSource= AFASManager.Instance.DoForensicByPackage(pack, path, true);
+
+                    VMMain.Instance.State = pack.Desc+ " 工作完成！";
+                }
+                catch(Exception e)
+                {
+                    VMMain.Instance.State = "工作出现异常";
+                    VMMain.Instance.Error = e.Message;
+                }
+
+            });
+        }
+
+        public DelegateCommand LoadRuleFromFile
+        {
+            get
+            {
+                return loadRuleFromFile ?? (loadRuleFromFile = new DelegateCommand(ExecuteLoadRuleFromFile));
+            }
+        }
+
+        DelegateCommand loadRuleFromFile;
+
+        public void ExecuteLoadRuleFromFile()
+        {
+            var ofd = new System.Windows.Forms.OpenFileDialog();
+            ofd.InitialDirectory = VMMain.Instance.VMConfig.RulePath;
+            if (ofd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                string path = ofd.FileName;
+                string name = System.IO.Path.GetFileNameWithoutExtension(path);
+                var t = CurrentEditPackages.FirstOrDefault(c => c.Package.PackageFilePath == path);
+                if (t == null)
+                {
+                    var tNode = new RuleFileNode()
+                    {
+                        Desc= name,
+                        Package=new ForensicRulePackage()
+                        {
+                            Desc= name,
+                            PackageFilePath= path,
+                            OrgText= System.IO.File.ReadAllText(path, System.Text.Encoding.Default)
+                        }
+                    };
+
+                    CurrentEditPackages.Add(tNode);
+                    SelectedTabIndex = CurrentEditPackages.Count - 1;
+                }
+                else
+                {
+                    SelectedTabIndex = CurrentEditPackages.FindIndex(c => c == t);
+                }
+
+            }
+
+
+
+        }
+
     }
 }

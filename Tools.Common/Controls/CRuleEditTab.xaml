@@ -11,7 +11,7 @@
         <!--
         <dxre:RichEditControl />
         -->
-        <TextBox AcceptsReturn="True" Text="{Binding Package.OrgText,Mode=TwoWay}"/>
+        <TextBox AcceptsReturn="True" Text="{Binding Package.OrgText,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
         
     </Grid>
 </UserControl>
