@@ -53,10 +53,19 @@ namespace AFAS.Library
 
         }
 
-        static public void SavePackage(ForensicRulePackage package)
+        static public void SavePackage(ForensicRulePackage package,bool fromOrgText=true)
         {
             var fs=File.Open(package.PackageFilePath, FileMode.Create);
-            byte[] data = System.Text.Encoding.Default.GetBytes(package.OrgText);
+            if (!fromOrgText)
+            {
+                JsonSerializerSettings jsonSerializerSettings = new JsonSerializerSettings();
+                jsonSerializerSettings.TypeNameHandling = TypeNameHandling.Auto;
+                jsonSerializerSettings.Formatting = Formatting.Indented;
+                package.OrgText = JsonConvert.SerializeObject(package, jsonSerializerSettings);
+            }
+
+            string source = package.OrgText;
+            byte[] data = System.Text.Encoding.Default.GetBytes(source);
             fs.Write(data, 0, data.Length);
             fs.Flush();
             fs.Close();

@@ -298,5 +298,49 @@ namespace Tools.Common.ViewModel
 
         }
 
+        public string RuleName { get; set; }
+        public string RuleDesc { get; set; }
+
+        public DelegateCommand CreateNewRule
+        {
+            get
+            {
+                return createNewRule ?? (createNewRule = new DelegateCommand(ExecuteCreateNewRule));
+            }
+        }
+
+        DelegateCommand createNewRule;
+
+        public void ExecuteCreateNewRule()
+        {
+            var t = new ForensicRulePackage()
+            {
+                Name = RuleName,
+                Desc = RuleDesc,
+                PackageFilePath=VMMain.Instance.VMConfig.RulePath+ RuleName+".txt",
+                Items = new List<ForensicRuleItemInfo>()
+            };
+            RuleManager.SavePackage(t,false);
+            var tNode = new RuleFileNode()
+            {
+                Desc = RuleDesc,
+                Package = t,
+            };
+            if (dataSource==null)
+            {
+                DataSource = new List<RuleFileNode>()
+                {
+                    tNode
+                };
+            }
+            else
+            {
+                var tSource= DataSource as List<RuleFileNode>;
+                tSource.Add(tNode);
+            }
+            CurrentEditPackages.Add(tNode);
+
+        }
+
     }
 }

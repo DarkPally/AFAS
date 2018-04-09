@@ -1,0 +1,29 @@
+﻿<dx:ThemedWindow
+    x:Class="Tools.Common.Dialogs.DCreateNewRule"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+    Title="新建规则..." Height="240" Width="380"
+    >
+
+    <Grid Margin="12" VerticalAlignment="Center" HorizontalAlignment="Center">
+        <StackPanel Orientation="Vertical">
+            <StackPanel Orientation="Horizontal" Margin="10,5,10,5" >
+                <TextBlock Text="规则名称" VerticalAlignment="Center"/>
+                <TextBox Text="{Binding RuleName}" VerticalAlignment="Center" Margin="20,0,0,0" Width="240"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="10,5,10,5" >
+                <TextBlock Text="规则描述" VerticalAlignment="Center"/>
+                <TextBox Text="{Binding RuleDesc}" VerticalAlignment="Center" Margin="20,0,0,0" Width="240"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="10,25,10,5" >
+
+                <Button Content="确定" Width="120" Margin="0,0,68,0" 
+                        Command="{Binding CreateNewRule}"
+                        Click="Button_Click_1"/>
+
+                <Button Content="取消"  Width="120" Click="Button_Click_2"/>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</dx:ThemedWindow>

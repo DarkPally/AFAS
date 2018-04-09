@@ -43,7 +43,10 @@ namespace RuleEditTool
 
         private void BarButtonItem_ItemClick_CreateNewRule(object sender, DevExpress.Xpf.Bars.ItemClickEventArgs e)
         {
-
+            var d = new DCreateNewRule();
+            d.Owner = this;
+            d.DataContext = VMMain.Instance.VMRuleManager;
+            d.Show();
         }
     }
 }

@@ -99,6 +99,9 @@
     <Compile Include="Controls\CTimeAnalysis.xaml.cs">
       <DependentUpon>CTimeAnalysis.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\DCreateNewRule.xaml.cs">
+      <DependentUpon>DCreateNewRule.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\DCreateNewProject.xaml.cs">
       <DependentUpon>DCreateNewProject.xaml</DependentUpon>
     </Compile>
@@ -152,6 +155,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\CTimeAnalysis.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Dialogs\DCreateNewRule.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
