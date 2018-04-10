@@ -309,8 +309,9 @@ namespace AFAS.Library.Android
                 if (property.type == AndroidFileType.fne)
                     throw new Exception("Wrong path");
 
-                if (!System.IO.Directory.Exists(pcPath))
-                    System.IO.Directory.CreateDirectory(pcPath);
+                var pcDictionary = System.IO.Path.GetDirectoryName(pcPath);
+                if (!System.IO.Directory.Exists(pcDictionary))
+                    System.IO.Directory.CreateDirectory(pcDictionary);
 
                 if (property.type == AndroidFileType.directory)
                 {

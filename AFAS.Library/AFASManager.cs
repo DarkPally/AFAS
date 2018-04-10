@@ -45,7 +45,7 @@ namespace AFAS.Library
         public ForensicResult DoForensic(string PcPath,bool isFromPC)
         {
             Init();
-            if(lastPcPath!= PcPath)
+            //if(lastPcPath!= PcPath)
             {
                 lastPcPath = PcPath;
                 PCRootFiles.Clear();
@@ -54,7 +54,8 @@ namespace AFAS.Library
 
             var res = new List<ForensicResultItem>();
 
-            Parallel.ForEach(ruleManager.Packages, pack =>
+            //Parallel.ForEach(ruleManager.Packages, pack =>
+            foreach(var pack in ruleManager.Packages)
             {
                 var forensic = new PackageForensic()
                 {
@@ -64,7 +65,8 @@ namespace AFAS.Library
                 };
                 forensic.DoWork();
                 res.Add(forensic.Result);
-            });
+            }
+            //);
 
             return new ForensicResult() {
                 Items=res,

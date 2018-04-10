@@ -14,8 +14,12 @@ namespace AFAS.Library.Android
         /// adb.exe文件的路径，默认相对于当前应用程序目录取。
         /// </summary>
         public static string AdbExePath = "adb.exe";
-        static string ShellTemplate = " -s {0} shell \"su -c '{1}'\"";
 
+        //小米盒子adb
+        //static string ShellTemplate = " -s {0} shell \"su -c '{1}'\"";
+
+        //模拟器adb
+        static string ShellTemplate = " -s {0} shell su -c {1}";
         /// <summary>
         /// 当前ADB状态：
         /// adb get-state                - prints: offline | bootloader | device | unknown
@@ -178,15 +182,23 @@ namespace AFAS.Library.Android
         /// <param name="path">搜索路径</param>
         /// <param name="type">搜索类型</param>
         /// <returns></returns>
+        /// 
+
+        //static string searchFormatAll = "\"find {0} -name \\\"{1}\\\"\"";
+        //static string searchFormat = "\"find {0} -type {1} -name \\\"{2}\\\"\"";
+
+        static string searchFormatAll = "find {0} -name '{1}'";
+        static string searchFormat = "find {0} -type {1} -name '{2}'";
+
         public static string[] SearchFiles(string deviceNo, string path, string pattern, char type)
         {
             path = PathNormalize(path);
 
             string cmd;
             if (type == 'a')
-                cmd = "\"find " + path + " -name \\\"" + pattern + "\\\"\"";
+                cmd = string.Format(searchFormatAll, path, pattern);
             else
-                cmd = "\"find " + path + " -type " + type + " -name \\\"" + pattern + "\\\"\"";
+                cmd = string.Format(searchFormat, path, type, pattern); 
 
 
             string args = System.String.Format(ShellTemplate, deviceNo, cmd);

@@ -119,29 +119,36 @@ namespace AFAS.Library
 
             foreach (var it in RulePackage.Items)
             {
-                if(it is FileCatchInfo)
+                try
                 {
-                    FileCatch(it);
+                    if (it is FileCatchInfo)
+                    {
+                        FileCatch(it);
+                    }
+                    else if (it is FileProcessInfo)
+                    {
+                        FileProcess(it);
+                    }
+                    else if (it is DataCatchInfo)
+                    {
+                        DataCatch(it);
+                    }
+                    else if (it is DataProcessInfo)
+                    {
+                        DataProcess(it);
+                    }
+                    else if (it is DataAssociateInfo)
+                    {
+                        DataAssociate(it);
+                    }
+                    else if (it is DataMarkInfo)
+                    {
+                        DataMark(it);
+                    }
                 }
-                else if (it is FileProcessInfo)
+                catch
                 {
-                    FileProcess(it);
-                }
-                else if (it is DataCatchInfo)
-                {
-                    DataCatch(it);
-                }
-                else if (it is DataProcessInfo)
-                {
-                    DataProcess(it);
-                }
-                else if (it is DataAssociateInfo)
-                {
-                    DataAssociate(it);
-                }
-                else if (it is DataMarkInfo)
-                {
-                    DataMark(it);
+
                 }
             }
         }
