@@ -14,7 +14,7 @@ using System.Windows.Shapes;
 using DevExpress.Xpf.Core;
 using Tools.Common.Dialogs;
 using Tools.Common.ViewModel;
-
+using Tools.Common.Windows;
 
 namespace RuleEditTool
 {
@@ -46,6 +46,14 @@ namespace RuleEditTool
             var d = new DCreateNewRule();
             d.Owner = this;
             d.DataContext = VMMain.Instance.VMRuleManager;
+            d.Show();
+        }
+
+        private void BarButtonItem_ItemClick_AndroidFileObserver(object sender, DevExpress.Xpf.Bars.ItemClickEventArgs e)
+        {
+            var d = new WAndroidFileObserver();
+            d.Owner = this;
+            d.DataContext = VMMain.Instance.VMAndroidFileManager;
             d.Show();
         }
     }

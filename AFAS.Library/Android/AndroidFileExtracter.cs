@@ -33,11 +33,11 @@ namespace AFAS.Library.Android
     /// </summary>
     public class FileProperty
     {
-        public AndroidFileType type;
-        public string path;
-        public string size;
-        public string accessTime;
-        public string modifyTime;
+        public AndroidFileType type { get; set; }
+        public string path { get; set; }
+        public string size { get; set; }
+        public string accessTime { get; set; }
+        public string modifyTime { get; set; }
     }
 
     /// <summary>

@@ -21,8 +21,11 @@ namespace Tools.Common.ViewModel
         public VMTagAnalysis VMTagAnalysis { get; } = new VMTagAnalysis();
         public VMTimeAnalysis VMTimeAnalysis { get; } = new VMTimeAnalysis();
         public VMRuleManager VMRuleManager { get; } = new VMRuleManager();
+
+        public VMAndroidFileManager VMAndroidFileManager { get; } = new VMAndroidFileManager();
+
+
         public VMConfig VMConfig { get; } = new VMConfig();
-        
         string state = "准备就绪";
         public string State
         {

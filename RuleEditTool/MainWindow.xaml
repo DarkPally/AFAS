@@ -31,6 +31,9 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     <dxb:BarButtonItem Content="运行当前规则" Command="{Binding VMRuleManager.RunCurrentRule}"/>
                     <dxb:BarButtonItem Content="设置调试目录"/>
                 </dxb:BarSubItem>
+                <dxb:BarSubItem Content="辅助工具">
+                    <dxb:BarButtonItem Content="安卓文件观察器" ItemClick="BarButtonItem_ItemClick_AndroidFileObserver"/>
+                </dxb:BarSubItem>
                 <dxb:BarSubItem Content="设置">
                     <dxb:BarButtonItem Content="规则管理"/>
                 </dxb:BarSubItem>

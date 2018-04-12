@@ -118,6 +118,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="ViewModels\VMAndroidFileManager.cs" />
     <Compile Include="ViewModels\VMForensic.cs" />
     <Compile Include="ViewModels\VMConfig.cs" />
     <Compile Include="ViewModels\VMRuleManager.cs" />
@@ -125,6 +126,9 @@
     <Compile Include="ViewModels\VMMain.cs" />
     <Compile Include="ViewModels\VMTagAnalysis.cs" />
     <Compile Include="ViewModels\VMTimeAnalysis.cs" />
+    <Compile Include="Windows\WAndroidFileObserver.xaml.cs">
+      <DependentUpon>WAndroidFileObserver.xaml</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -166,6 +170,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Windows\WAndroidFileObserver.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AFAS.Library\AFAS.Library.csproj">
@@ -173,5 +181,6 @@
       <Name>AFAS.Library</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
