@@ -21,7 +21,7 @@ namespace AFAS.Library.Android
 
         public bool IsPropertyEqual(FilePropertyOB other)
         {
-            return size == other.size && modifyTime == other.modifyTime;
+            return Size == other.Size && ModifyTime == other.ModifyTime;
         }
     }
 
@@ -36,14 +36,14 @@ namespace AFAS.Library.Android
 
         public void Init()
         {
-            var res=androidFileExtracter.ListDirecotryVerbose(androidDevice, ObservePath);
-            var t = res.filesProperty.Select(c => new FilePropertyOB()
+            var res=androidFileExtracter.ListDirecotryRecrusiveInDetail(androidDevice, ObservePath);
+            var t = res.FilePropertys.Select(c => new FilePropertyOB()
             {
-                accessTime=c.accessTime,
-                modifyTime=c.modifyTime,
-                path=c.path,
-                size=c.size,
-                type=c.type,
+                AccessTime=c.AccessTime,
+                ModifyTime=c.ModifyTime,
+                Path=c.Path,
+                Size=c.Size,
+                Type=c.Type,
                 OBState=FileOBState.UnChanged,
             }).ToList();
 
@@ -53,19 +53,19 @@ namespace AFAS.Library.Android
 
         public void Update()
         {
-            var res = androidFileExtracter.ListDirecotryVerbose(androidDevice, ObservePath);
-            var t = res.filesProperty.Select(c => new FilePropertyOB()
+            var res = androidFileExtracter.ListDirecotryRecrusiveInDetail(androidDevice, ObservePath);
+            var t = res.FilePropertys.Select(c => new FilePropertyOB()
             {
-                accessTime = c.accessTime,
-                modifyTime = c.modifyTime,
-                path = c.path,
-                size = c.size,
-                type = c.type,
+                AccessTime = c.AccessTime,
+                ModifyTime = c.ModifyTime,
+                Path = c.Path,
+                Size = c.Size,
+                Type = c.Type,
                 OBState = FileOBState.UnChanged,
             }).ToList();
             foreach(var it in t)
             {
-                var temp = OldFileProperties.Find(c => c.path == it.path);
+                var temp = OldFileProperties.Find(c => c.Path == it.Path);
                 if (temp==null)
                 {
                     it.OBState = FileOBState.Create;

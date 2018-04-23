@@ -35,10 +35,10 @@ namespace AFAS.Library
                 InitAndroidFileExtractor();
                 var res = androidFileExtracter.SearchFiles(androidDevice, Info.RootPath, "*", Android.AndroidFileType.file);
 
-                if(res.success)
+                if(res.Success)
                 {
-                    RootPathFileNames.Add(Info.RootPath, res.filesName);
-                    return res.filesName.Count > 0;
+                    RootPathFileNames.Add(Info.RootPath, res.FilePropertys.Select(c=>c.Name).ToList());
+                    return res.FilePropertys.Count > 0;
                 }
                 else
                 {

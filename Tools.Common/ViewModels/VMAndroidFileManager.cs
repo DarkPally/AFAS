@@ -23,13 +23,13 @@ namespace Tools.Common.ViewModel
         {
             return new FilePropertyItem()
             {
-                Size = fp.size,
-                AccessTime = fp.accessTime,
-                FilePath = fp.path,
-                ModifyTime = fp.modifyTime,
+                Size = fp.Size,
+                AccessTime = fp.AccessTime,
+                FilePath = fp.Path,
+                ModifyTime = fp.ModifyTime,
                 OBState = fp.OBState,
                 IsSelected = (fp.OBState == FileOBState.Create || fp.OBState == FileOBState.Changed),
-                FileName = fp.path.Split('/').Last()
+                FileName = fp.Path.Split('/').Last()
             };
         }
     }
@@ -126,7 +126,7 @@ namespace Tools.Common.ViewModel
                     Observer.Init();
                     DataSource = Observer.NewFileProperties.Select(c => FilePropertyItem.Load(c)).ToList();
 
-                    VMMain.Instance.State = "解析完成！";
+                    State = "解析完成！";
                 }
                 catch (Exception e)
                 {
@@ -160,7 +160,7 @@ namespace Tools.Common.ViewModel
                     Observer.Update();
                     DataSource = Observer.NewFileProperties.Select(c => FilePropertyItem.Load(c)).ToList();
 
-                    VMMain.Instance.State = "解析完成！";
+                    State = "解析完成！";
                 }
                 catch (Exception e)
                 {
