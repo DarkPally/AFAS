@@ -22,9 +22,9 @@ namespace Tools.Common.ViewModel
         public VMTimeAnalysis VMTimeAnalysis { get; } = new VMTimeAnalysis();
         public VMRuleManager VMRuleManager { get; } = new VMRuleManager();
 
-        public VMAndroidFileManager VMAndroidFileManager { get; } = new VMAndroidFileManager();
-
-
+        public VMAndroidFileObserver VMAndroidFileObserver { get; } = new VMAndroidFileObserver();
+        public VMAndroidFileSearcher VMAndroidFileSearcher { get; } = new VMAndroidFileSearcher();
+        
         public VMConfig VMConfig { get; } = new VMConfig();
         string state = "准备就绪";
         public string State

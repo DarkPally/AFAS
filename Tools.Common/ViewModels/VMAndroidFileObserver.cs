@@ -34,8 +34,7 @@ namespace Tools.Common.ViewModel
         }
     }
 
-
-    public class VMAndroidFileManager : ViewModelBase
+    public class VMAndroidFileObserver : ViewModelBase
     {
         public AndroidFileObserver Observer { get; set; }
         AndroidFileExtracter androidFileExtracter = null;
@@ -87,9 +86,8 @@ namespace Tools.Common.ViewModel
         }
 
         void InitAndroidFileExtractor()
-        {
-            
-            //if (androidFileExtracter == null)
+        {            
+            if (androidFileExtracter == null)
             {
                 androidFileExtracter = new AndroidFileExtracter();
                 androidFileExtracter.InitConnection();

@@ -118,7 +118,8 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="ViewModels\VMAndroidFileManager.cs" />
+    <Compile Include="ViewModels\VMAndroidFileSearcher.cs" />
+    <Compile Include="ViewModels\VMAndroidFileObserver.cs" />
     <Compile Include="ViewModels\VMForensic.cs" />
     <Compile Include="ViewModels\VMConfig.cs" />
     <Compile Include="ViewModels\VMRuleManager.cs" />
@@ -126,6 +127,9 @@
     <Compile Include="ViewModels\VMMain.cs" />
     <Compile Include="ViewModels\VMTagAnalysis.cs" />
     <Compile Include="ViewModels\VMTimeAnalysis.cs" />
+    <Compile Include="Windows\WAndroidFileSearcher.xaml.cs">
+      <DependentUpon>WAndroidFileSearcher.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\WAndroidFileObserver.xaml.cs">
       <DependentUpon>WAndroidFileObserver.xaml</DependentUpon>
     </Compile>
@@ -167,6 +171,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Dialogs\DCreateNewProject.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\WAndroidFileSearcher.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -53,7 +53,15 @@ namespace RuleEditTool
         {
             var d = new WAndroidFileObserver();
             d.Owner = this;
-            d.DataContext = VMMain.Instance.VMAndroidFileManager;
+            d.DataContext = VMMain.Instance.VMAndroidFileObserver;
+            d.Show();
+        }
+
+        private void BarButtonItem_ItemClick_AndroidFileSearcher(object sender, DevExpress.Xpf.Bars.ItemClickEventArgs e)
+        {
+            var d = new WAndroidFileSearcher();
+            d.Owner = this;
+            d.DataContext = VMMain.Instance.VMAndroidFileSearcher;
             d.Show();
         }
     }

@@ -33,6 +33,7 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                 </dxb:BarSubItem>
                 <dxb:BarSubItem Content="辅助工具">
                     <dxb:BarButtonItem Content="安卓文件观察器" ItemClick="BarButtonItem_ItemClick_AndroidFileObserver"/>
+                    <dxb:BarButtonItem Content="安卓文件搜索器" ItemClick="BarButtonItem_ItemClick_AndroidFileSearcher"/>
                 </dxb:BarSubItem>
                 <dxb:BarSubItem Content="设置">
                     <dxb:BarButtonItem Content="规则管理"/>

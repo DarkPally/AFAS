@@ -107,25 +107,33 @@ namespace AFAS.Library.Android
 
             for (int i = 0; i < rawData.Length - 6; i += 7)
             {
-                if (rawData[i].Contains("No such file or directory")) continue;
-                if (!rawData[i].Contains("File")) continue;
+                try
+                {
 
-                FileProperty property = new FileProperty();
-                property.ModifyTime = rawData[i + 5].Substring(8, rawData[5].Length - 8);
-                property.AccessTime = rawData[i + 4].Substring(8, rawData[4].Length - 8);
+                    if (rawData[i].Contains("No such file or directory")) continue;
+                    if (!rawData[i].Contains("File")) continue;
 
-                if (rawData[i + 1].Contains("directory")) property.Type = AndroidFileType.directory;
-                if (rawData[i + 1].Contains("regular")) property.Type = AndroidFileType.file;
-                if (rawData[i + 1].Contains("symbol")) property.Type = AndroidFileType.link;
+                    FileProperty property = new FileProperty();
+                    property.ModifyTime = rawData[i + 5].Substring(8, rawData[5].Length - 8);
+                    property.AccessTime = rawData[i + 4].Substring(8, rawData[4].Length - 8);
 
-
-                string sizePattern = @"(?<=Size: )\d*\b";
-                property.Size = Regex.Matches(rawData[i + 1], sizePattern)[0].ToString();
-                string pathPattern = @"(?<=File: ).*";
-                property.Path = Regex.Matches(rawData[i], pathPattern)[0].ToString().Replace("'", "");
+                    if (rawData[i + 1].Contains("directory")) property.Type = AndroidFileType.directory;
+                    if (rawData[i + 1].Contains("regular")) property.Type = AndroidFileType.file;
+                    if (rawData[i + 1].Contains("symbol")) property.Type = AndroidFileType.link;
 
 
-                result.Add(property);
+                    string sizePattern = @"(?<=Size: )\d*\b";
+                    property.Size = Regex.Matches(rawData[i + 1], sizePattern)[0].ToString();
+                    string pathPattern = @"(?<=File: ).*";
+                    property.Path = Regex.Matches(rawData[i], pathPattern)[0].ToString().Replace("'", "");
+
+
+                    result.Add(property);
+                }
+                catch
+                {
+                    continue;
+                }
             }
             return result;
         }
@@ -274,6 +282,68 @@ namespace AFAS.Library.Android
                 foreach (string file in AdbHelper.SearchFiles(device, path, pattern, (char)fileType))
                     result.FilePropertys.Add(new FileProperty() { Name = file });
                 checkResult(result.FilePropertys[0].Name);
+                result.Success = true;
+            }
+            catch (Exception ex)
+            {
+                result.Success = false;
+                result.ErrorMessage = ex.ToString();
+            }
+            return result;
+
+        }
+
+        public FileResult SearchFilesInDetail(string device, string path, string pattern, AndroidFileType fileType)
+        {
+            string searchScript;
+            if (fileType == AndroidFileType.alltype)
+            {
+                searchScript = System.String.Format(
+                                                   "find {0} -name \\\"{1}\\\" "
+                                                   , path, pattern);
+            }
+            else
+            {
+                char t = (char)(fileType);
+                searchScript = System.String.Format(
+                                                   "find {0} -name \\\"{1}\\\" -type {2} "
+                                                   , path, pattern,t );
+            }
+            searchScript += "-exec stat {} \\;";
+            FileResult result = new FileResult();
+            try
+            {
+                var properities = AdbHelper.RunShell(device, searchScript);
+                result.FilePropertys = parsePropertyFromStat(properities);
+                result.Success = true;
+            }
+            catch (Exception ex)
+            {
+                result.Success = false;
+                result.ErrorMessage = ex.ToString();
+            }
+            return result;
+
+        }
+
+        public FileResult GrepFiles(string device, string path, string pattern)
+        {
+            string searchScript= System.String.Format(
+                                                   "grep -rnl \\\"{0}\\\" \\\"{1}\\\" "
+                                                   ,  pattern, path); 
+           
+            FileResult result = new FileResult();
+            try
+            {
+                result.FilePropertys = new List<FileProperty>();
+                var properities = AdbHelper.RunShell(device, searchScript);
+                foreach(var it in properities)
+                {
+                    result.FilePropertys.Add(new FileProperty()
+                    {
+                        Path= it,
+                    });
+                }
                 result.Success = true;
             }
             catch (Exception ex)

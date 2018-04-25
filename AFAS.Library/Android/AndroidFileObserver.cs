@@ -37,6 +37,8 @@ namespace AFAS.Library.Android
         public void Init()
         {
             var res=androidFileExtracter.ListDirecotryRecrusiveInDetail(androidDevice, ObservePath);
+            //var res = androidFileExtracter.SearchFilesInDetail(androidDevice, ObservePath,"*", (AndroidFileType)'f');
+            
             var t = res.FilePropertys.Select(c => new FilePropertyOB()
             {
                 AccessTime=c.AccessTime,
@@ -53,7 +55,9 @@ namespace AFAS.Library.Android
 
         public void Update()
         {
-            var res = androidFileExtracter.ListDirecotryRecrusiveInDetail(androidDevice, ObservePath);
+            var res=androidFileExtracter.ListDirecotryRecrusiveInDetail(androidDevice, ObservePath);
+            //var res = androidFileExtracter.SearchFilesInDetail(androidDevice, ObservePath, "*", (AndroidFileType)'f');
+
             var t = res.FilePropertys.Select(c => new FilePropertyOB()
             {
                 AccessTime = c.AccessTime,
