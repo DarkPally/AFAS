@@ -64,6 +64,10 @@
     <Compile Include="Analysis\Common\KAverage.cs" />
     <Compile Include="Analysis\ForensicAnalysis.cs" />
     <Compile Include="Android\AndroidFileObserver.cs" />
+    <Compile Include="AutoRule\AutoRuleManager.cs" />
+    <Compile Include="AutoRule\FileRuleSearchHelper.cs" />
+    <Compile Include="AutoRule\FileRuleSearcher.cs" />
+    <Compile Include="AutoRule\DbRuleSearcher.cs" />
     <Compile Include="Core\DataAssociate\DataAssociateInfo.cs" />
     <Compile Include="Core\DataAssociate\DataAssociate.cs" />
     <Compile Include="Core\DataCatch\DataCatchHelper.cs" />
@@ -98,9 +102,7 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="AutoRule\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\System.Data.SQLite.Core.1.0.106.0\build\net46\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.106.0\build\net46\System.Data.SQLite.Core.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

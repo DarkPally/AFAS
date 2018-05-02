@@ -6,16 +6,18 @@ using System.Threading.Tasks;
 using DevExpress.Mvvm;
 using AFAS.Library;
 using AFAS.Library.Android;
-
+using System.Collections.ObjectModel;
 namespace Tools.Common.ViewModel
 {
+    public class FileSearchItem
+    {
+        public bool IsSelected { get; set; }
+        public string Path { get; set; }
+    }
     public class VMAndroidFileSearcher : ViewModelBase
     {
-        public AndroidFileObserver Observer { get; set; }
         AndroidFileExtracter androidFileExtracter = null;
         string androidDevice;
-
-        public string LocalWorkPath { get; set; }
         public string ObserverPath { get; set; }
         public string SearchWord { get; set; }
         object dataSource;
@@ -90,7 +92,10 @@ namespace Tools.Common.ViewModel
                 {
                     InitAndroidFileExtractor();
                     var t = androidFileExtracter.GrepFiles(androidDevice, ObserverPath, SearchWord);
-                    DataSource = t.FilePropertys;
+                    
+                    DataSource =
+                        new ObservableCollection<FileSearchItem>(
+                        t.FilePropertys.Select(c=>new FileSearchItem() { Path=c.Path}));
                     State = "解析完成！";
                 }
                 catch (Exception e)
@@ -101,6 +106,39 @@ namespace Tools.Common.ViewModel
 
             });
             
+        }
+
+        public DelegateCommand PrepareRuleGenerate
+        {
+            get
+            {
+                return prepareRuleGenerate ?? (prepareRuleGenerate = new DelegateCommand(ExecutePrepareRuleGenerate));
+            }
+        }
+
+        DelegateCommand prepareRuleGenerate;
+
+        public void ExecutePrepareRuleGenerate()
+        {
+            if(DataSource != null)
+            {
+                var t = DataSource as ObservableCollection<FileSearchItem>;
+                var src = t.Where(c => c.IsSelected).Select(c => c.Path).ToList();
+                VMMain.Instance.VMAutoRuleGenerator.FilePaths = src;
+            }
+            
+            VMMain.Instance.VMAutoRuleGenerator.KeyWord = SearchWord;
+            VMMain.Instance.VMAutoRuleGenerator.androidDevice = androidDevice;
+            VMMain.Instance.VMAutoRuleGenerator.androidFileExtracter = androidFileExtracter;
+            if (ObserverPath != null)
+            {
+                if (ObserverPath.Last() != '\\') ObserverPath += '\\';
+                VMMain.Instance.VMAutoRuleGenerator.TargetRootPath = ObserverPath.Replace('\\', '/');
+            }
+            else
+            {
+                VMMain.Instance.VMAutoRuleGenerator.TargetRootPath = "";
+            }
         }
     }
 }

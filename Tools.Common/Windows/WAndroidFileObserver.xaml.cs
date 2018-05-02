@@ -13,6 +13,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using DevExpress.Xpf.Core;
 
+using Tools.Common.ViewModel;
+using Tools.Common.Dialogs;
 namespace Tools.Common.Windows
 {
     /// <summary>
@@ -23,6 +25,14 @@ namespace Tools.Common.Windows
         public WAndroidFileObserver()
         {
             InitializeComponent();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            var d = new DGenerateAutoRule();
+            d.Owner = this;
+            d.DataContext = VMMain.Instance.VMAutoRuleGenerator;
+            d.Show();
         }
     }
 }

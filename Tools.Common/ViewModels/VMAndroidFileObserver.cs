@@ -6,18 +6,18 @@ using System.Threading.Tasks;
 using DevExpress.Mvvm;
 using AFAS.Library;
 using AFAS.Library.Android;
-
+using System.Collections.ObjectModel;
 namespace Tools.Common.ViewModel
 {
     public class FilePropertyItem
     {
+        public bool IsSelected { get; set; }
         public string FileName { get; set; }
         public string FilePath { get; set; }
         public string Size { get; set; }
         public string AccessTime { get; set; }
         public string ModifyTime { get; set; }
         public FileOBState OBState { get; set; }
-        public bool IsSelected { get; set; }
 
         public static FilePropertyItem Load(FilePropertyOB fp)
         {
@@ -39,8 +39,6 @@ namespace Tools.Common.ViewModel
         public AndroidFileObserver Observer { get; set; }
         AndroidFileExtracter androidFileExtracter = null;
         string androidDevice;
-
-        public string LocalWorkPath { get; set; }
         public string ObserverPath { get; set; }
 
         object dataSource;
@@ -122,7 +120,8 @@ namespace Tools.Common.ViewModel
                         ObservePath = ObserverPath
                     };
                     Observer.Init();
-                    DataSource = Observer.NewFileProperties.Select(c => FilePropertyItem.Load(c)).ToList();
+                    DataSource = new ObservableCollection<FilePropertyItem>(
+                        Observer.NewFileProperties.Select(c => FilePropertyItem.Load(c)));
 
                     State = "解析完成！";
                 }
@@ -156,7 +155,8 @@ namespace Tools.Common.ViewModel
                 {
 
                     Observer.Update();
-                    DataSource = Observer.NewFileProperties.Select(c => FilePropertyItem.Load(c)).ToList();
+                    DataSource = new ObservableCollection<FilePropertyItem>(
+                        Observer.NewFileProperties.Select(c => FilePropertyItem.Load(c)));
 
                     State = "解析完成！";
                 }
@@ -184,9 +184,37 @@ namespace Tools.Common.ViewModel
             Observer.ReplaceOldOB();
         }
 
-        public void CopySelectedFileToLocal()
+        public DelegateCommand PrepareRuleGenerate
         {
+            get
+            {
+                return prepareRuleGenerate ?? (prepareRuleGenerate = new DelegateCommand(ExecutePrepareRuleGenerate));
+            }
+        }
 
+        DelegateCommand prepareRuleGenerate;
+
+        public void ExecutePrepareRuleGenerate()
+        {
+            if (DataSource != null)
+            {
+                var t = DataSource as ObservableCollection<FilePropertyItem>;
+                var src = t.Where(c => c.IsSelected).Select(c => c.FilePath).ToList();
+                VMMain.Instance.VMAutoRuleGenerator.FilePaths = src;
+            }            
+            VMMain.Instance.VMAutoRuleGenerator.KeyWord = "";
+            VMMain.Instance.VMAutoRuleGenerator.androidDevice = androidDevice;
+            VMMain.Instance.VMAutoRuleGenerator.androidFileExtracter = androidFileExtracter;
+            if (ObserverPath!=null)
+            {
+                if (ObserverPath.Last() != '\\') ObserverPath += '\\';
+                VMMain.Instance.VMAutoRuleGenerator.TargetRootPath = ObserverPath.Replace('\\', '/');
+            }
+            else
+            {
+                VMMain.Instance.VMAutoRuleGenerator.TargetRootPath = "";
+            }
+            
         }
     }
 }

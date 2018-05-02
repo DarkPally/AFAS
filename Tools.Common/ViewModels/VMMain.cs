@@ -24,7 +24,8 @@ namespace Tools.Common.ViewModel
 
         public VMAndroidFileObserver VMAndroidFileObserver { get; } = new VMAndroidFileObserver();
         public VMAndroidFileSearcher VMAndroidFileSearcher { get; } = new VMAndroidFileSearcher();
-        
+        public VMAutoRuleGenerator VMAutoRuleGenerator { get; } = new VMAutoRuleGenerator();
+
         public VMConfig VMConfig { get; } = new VMConfig();
         string state = "准备就绪";
         public string State

@@ -99,6 +99,9 @@
     <Compile Include="Controls\CTimeAnalysis.xaml.cs">
       <DependentUpon>CTimeAnalysis.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\DGenerateAutoRule.xaml.cs">
+      <DependentUpon>DGenerateAutoRule.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\DCreateNewRule.xaml.cs">
       <DependentUpon>DCreateNewRule.xaml</DependentUpon>
     </Compile>
@@ -118,6 +121,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="ViewModels\VMAutoRuleGenerator.cs" />
     <Compile Include="ViewModels\VMAndroidFileSearcher.cs" />
     <Compile Include="ViewModels\VMAndroidFileObserver.cs" />
     <Compile Include="ViewModels\VMForensic.cs" />
@@ -163,6 +167,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\CTimeAnalysis.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Dialogs\DGenerateAutoRule.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

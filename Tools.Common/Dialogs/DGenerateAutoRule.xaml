@@ -1,0 +1,28 @@
+﻿<dx:ThemedWindow
+    x:Class="Tools.Common.Dialogs.DGenerateAutoRule"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+    Title="规则自动生成" Height="400" Width="380"
+    >
+
+    <Grid Margin="12" VerticalAlignment="Center" HorizontalAlignment="Center">
+        <StackPanel Orientation="Vertical">
+            <StackPanel Orientation="Horizontal" Margin="10,5,10,5" >
+                <TextBlock Text="规则Key" Width="50" VerticalAlignment="Center"/>
+                <TextBox Text="{Binding RuleKey}" VerticalAlignment="Center" Margin="20,0,0,0" Width="240"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="10,5,10,5" >
+                <TextBlock Text="关键词" Width="50" VerticalAlignment="Center"/>
+                <TextBox Text="{Binding KeyWord}" VerticalAlignment="Center" Margin="20,0,0,0" Width="240"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="10,5,10,5" >
+                <Button Content="开始生成" Width="120" Margin="0,0,68,0" 
+                        Command="{Binding DoWork}"/>
+                <Button Content="取消"  Width="120" Click="Button_Click_2"/>
+            </StackPanel>
+            <TextBox Text="{Binding Result}" Margin="0,10,0,5" Width="320" Height="240"/>
+
+        </StackPanel>
+    </Grid>
+</dx:ThemedWindow>
